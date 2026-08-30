@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Gallery | Libertypictures</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0f0c09">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+:root{--bg:#0f0c09;--surface:#1a1714;--surface2:#232019;--cream:#f6f1e7;--cream-soft:rgba(246,241,231,0.7);--cream-faint:rgba(246,241,231,0.4);--accent:#c4a67e;--accent-deep:#a3835c;--border:rgba(246,241,231,0.12);--gold-glow:rgba(196,166,126,0.25)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--cream);-webkit-font-smoothing:antialiased;-webkit-overflow-scrolling:touch}
+img{display:block;max-width:100%}
+.serif{font-family:'Fraunces',serif}
+button{font-family:inherit;cursor:pointer;touch-action:manipulation}
+a{color:inherit}
+
+/* ── LOADING ── */
+.loader-screen{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;align-items:center;justify-content:center;transition:opacity .6s ease}
+.loader-screen.hidden{opacity:0;pointer-events:none}
+.loader-mark{font-family:'Fraunces',serif;font-style:italic;font-size:22px;color:var(--accent);opacity:0;animation:loaderPulse 1.8s ease infinite}
+@keyframes loaderPulse{0%,100%{opacity:0.3}50%{opacity:1}}
+
+/* ── ERROR / EXPIRED ── */
+.state-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 24px}
+.state-screen h1{font-family:'Fraunces',serif;font-weight:400;font-style:italic;font-size:28px;margin-bottom:16px}
+.state-screen p{color:var(--cream-soft);font-size:14px;line-height:1.8;max-width:360px}
+
+/* ── COVER — continuous scroll, not a separate screen ── */
+.cover{position:relative;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;overflow:hidden}
+.cover-bg{position:absolute;inset:0;background:linear-gradient(160deg,#2a2419,#0f0c09);background-size:cover;background-position:center;opacity:1;transition:opacity .3s ease}
+.cover-bg.loaded{opacity:1}
+.cover-bg.no-photo{background:linear-gradient(160deg,#1a1714,#0f0c09);opacity:1}
+.cover-scrim{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(15,12,9,0.15) 0%,transparent 30%,rgba(15,12,9,0.55) 100%)}
+.cover-logo{position:absolute;top:28px;left:50%;transform:translateX(-50%);z-index:3;height:34px;width:auto;filter:invert(1);opacity:0;animation:coverIn 1s ease .2s forwards}
+.cover-content{position:relative;z-index:2;text-align:center;padding:40px 24px 80px;max-width:600px}
+.cover-eyebrow{display:inline-block;font-family:'Outfit',sans-serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:rgba(255,255,255,0.95);font-weight:500;margin-bottom:30px;padding:10px 26px;background:rgba(255,255,255,0.08);backdrop-filter:blur(80px) saturate(150%);-webkit-backdrop-filter:blur(80px) saturate(150%);border-radius:4px;border:1px solid rgba(255,255,255,0.1);box-shadow:0 2px 16px rgba(0,0,0,0.06);opacity:0;animation:coverIn 1s ease .4s forwards}
+.cover-name{font-family:'Outfit',sans-serif;font-weight:600;font-size:clamp(20px,4.8vw,34px);line-height:1.2;letter-spacing:5px;text-transform:uppercase;white-space:nowrap;margin-bottom:22px;opacity:0;animation:coverIn 1.1s ease .6s forwards}
+.cover-date{font-family:'Outfit',sans-serif;font-size:13px;letter-spacing:1.5px;text-transform:none;font-weight:300;color:var(--cream-faint);margin-bottom:40px;opacity:0;animation:coverIn 1s ease .8s forwards}
+.cover-scroll-hint{display:inline-flex;flex-direction:column;align-items:center;gap:0;font-size:0;color:transparent;opacity:0;animation:coverIn 1s ease 1.2s forwards}
+.cover-scroll-hint span{display:block;width:1px;height:36px;background:linear-gradient(to bottom,var(--cream-faint),transparent);animation:scrollPulse 2s ease infinite}
+@keyframes scrollPulse{0%,100%{opacity:0.3}50%{opacity:0.8}}
+.cover-expiry{position:absolute;bottom:20px;left:0;right:0;z-index:2;text-align:center;font-family:'Outfit',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:400;color:var(--cream-faint);opacity:0;animation:coverIn .9s ease 1s forwards}
+@keyframes coverIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── GALLERY HEADER ── */
+.gallery-header{position:sticky;top:0;z-index:40;background:rgba(15,12,9,0.88);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border-bottom:1px solid var(--border);padding:14px 20px}
+.gallery-header-inner{display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto;gap:12px}
+.gallery-header-name{font-family:'Outfit',sans-serif;font-size:15px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase}
+.gallery-header-meta{font-size:10px;color:var(--cream-faint);letter-spacing:0.5px;margin-top:2px}
+
+/* ── GALLERY GRID — respects orientation, centered ── */
+.gallery-grid{max-width:1100px;margin:0 auto;padding:32px 16px 40px;display:grid;grid-template-columns:repeat(6,1fr);gap:8px;grid-auto-flow:dense;justify-items:center}
+.g-tile{position:relative;overflow:hidden;background:var(--surface);cursor:pointer;width:100%}
+.g-tile.landscape{grid-column:span 6;aspect-ratio:3/2}
+.g-tile.portrait{grid-column:span 3;aspect-ratio:2/3}
+.g-tile.square{grid-column:span 2;aspect-ratio:1/1}
+.g-tile img{width:100%;height:100%;object-fit:cover;transition:transform 5s cubic-bezier(0.25,0.46,0.45,0.94)}
+.g-tile:hover img{transform:scale(1.03)}
+.g-tile-star{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;background:rgba(15,12,9,0.5);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .25s ease;border:none;color:var(--cream);cursor:pointer;z-index:2}
+.g-tile:hover .g-tile-star,.g-tile.is-starred .g-tile-star{opacity:1}
+.g-tile.is-starred .g-tile-star{background:rgba(196,166,126,0.4)}
+.g-tile.is-starred .g-tile-star svg{fill:var(--accent);stroke:var(--accent)}
+.g-tile-star svg{width:15px;height:15px;fill:none;stroke:var(--cream);stroke-width:2}
+
+@media(max-width:820px){
+.gallery-grid{grid-template-columns:repeat(4,1fr);gap:4px;padding:16px 6px 40px}
+.g-tile.portrait{grid-column:span 2}
+.g-tile.landscape{grid-column:span 4}
+.g-tile.square{grid-column:span 2}
+.gallery-header-name{font-size:13px}
+}
+
+/* ── LIGHTBOX ── */
+.lightbox{position:fixed;inset:0;background:rgba(6,5,4,0.97);z-index:100;display:none;flex-direction:column}
+.lightbox.active{display:flex}
+.lb-top{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;flex-shrink:0;z-index:5}
+.lb-close{width:38px;height:38px;border-radius:50%;background:rgba(246,241,231,0.08);border:none;color:var(--cream);display:flex;align-items:center;justify-content:center}
+.lb-counter{font-size:12px;color:var(--cream-faint);letter-spacing:1px}
+.lb-star-btn{width:38px;height:38px;border-radius:50%;background:rgba(246,241,231,0.08);border:none;display:flex;align-items:center;justify-content:center;transition:background .2s ease}
+.lb-star-btn svg{width:18px;height:18px;stroke:var(--cream);fill:none;transition:all .2s ease}
+.lb-star-btn.is-active{background:rgba(196,166,126,0.25)}
+.lb-star-btn.is-active svg{fill:var(--accent);stroke:var(--accent)}
+.lb-stage{flex:1;display:flex;align-items:center;justify-content:center;position:relative;padding:0 8px;min-height:0;touch-action:pan-x}
+.lb-img-wrap{max-width:100%;max-height:100%;display:flex;align-items:center;justify-content:center}
+.lb-img-wrap img{max-width:100%;max-height:calc(100vh - 180px);max-height:calc(100dvh - 180px);object-fit:contain}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(246,241,231,0.06);border:none;color:var(--cream);display:flex;align-items:center;justify-content:center;z-index:5;transition:background .2s}
+.lb-nav:hover{background:rgba(246,241,231,0.14)}
+.lb-nav.prev{left:10px}
+.lb-nav.next{right:10px}
+@media(max-width:600px){.lb-nav{width:36px;height:36px;background:rgba(246,241,231,0.04)}.lb-nav.prev{left:4px}.lb-nav.next{right:4px}}
+.lb-bottom{padding:16px 20px;flex-shrink:0;display:flex;justify-content:center;gap:10px}
+.lb-action-btn{display:flex;align-items:center;gap:8px;padding:12px 22px;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:500;color:var(--cream);background:rgba(246,241,231,0.08);border:1px solid var(--border);border-radius:24px;transition:all .25s ease}
+.lb-action-btn:hover{background:rgba(246,241,231,0.14)}
+.lb-action-btn svg{width:15px;height:15px}
+
+/* ── SELECTION BAR ── */
+.dl-all-bar{text-align:center;padding:20px 20px 0;}
+.dl-all-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;color:var(--cream);background:rgba(246,241,231,0.08);border:1px solid var(--border);border-radius:24px;cursor:pointer;transition:all .25s ease}
+.dl-all-btn:hover{background:rgba(246,241,231,0.14)}
+.dl-all-btn svg{width:15px;height:15px}
+.selection-bar{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(15,12,9,0.92);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border-top:1px solid var(--border);padding:14px 20px calc(14px + env(safe-area-inset-bottom,0px));transform:translateY(100%);transition:transform .4s cubic-bezier(0.16,1,0.3,1)}
+.selection-bar.visible{transform:translateY(0)}
+.selection-bar-inner{max-width:600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.selection-bar-count{font-size:13px}.selection-bar-count strong{color:var(--accent)}
+.selection-bar-btn{padding:12px 24px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;color:#0f0c09;background:var(--accent);border:none;border-radius:24px;white-space:nowrap;transition:all .25s ease}
+.selection-bar-btn:hover{background:var(--accent-deep)}
+.selection-bar-btn:disabled{opacity:0.5;cursor:wait}
+
+/* ── DOWNLOAD MODAL ── */
+.dl-overlay{position:fixed;inset:0;background:rgba(6,5,4,0.75);z-index:110;display:none;align-items:center;justify-content:center;padding:20px}
+.dl-overlay.active{display:flex}
+.dl-modal{background:var(--surface);border:1px solid var(--border);padding:36px 30px;max-width:380px;width:100%;text-align:center}
+.dl-modal h3{font-family:'Fraunces',serif;font-weight:500;font-size:19px;margin-bottom:12px}
+.dl-modal p{font-size:13px;color:var(--cream-soft);line-height:1.7;margin-bottom:26px}
+.dl-progress{height:3px;background:rgba(246,241,231,0.1);overflow:hidden;margin-bottom:20px}
+.dl-progress-bar{height:100%;background:var(--accent);width:0%;transition:width .3s ease}
+.dl-close{margin-top:8px;font-size:11.5px;color:var(--cream-faint);background:none;border:none;text-decoration:underline}
+
+/* ── GUIDE OVERLAY ── */
+.welcome-sheet{position:fixed;inset:0;background:rgba(6,5,4,0.92);z-index:200;display:flex;align-items:center;justify-content:center;padding:24px}
+.welcome-content{max-width:340px;width:100%;text-align:center;padding:44px 30px}
+.welcome-content h2{font-family:'Fraunces',serif;font-weight:400;font-style:italic;font-size:22px;margin-bottom:28px;color:var(--cream)}
+.intro-step{display:flex;align-items:flex-start;gap:14px;text-align:left;margin-bottom:22px}
+.intro-step-icon{width:36px;height:36px;border-radius:50%;background:rgba(196,166,126,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.intro-step-icon svg{width:16px;height:16px;stroke:var(--accent)}
+.intro-step p{font-size:13px;color:var(--cream-soft);line-height:1.6}
+.intro-step strong{color:var(--cream);font-weight:500}
+.welcome-dismiss{margin-top:10px;padding:14px 36px;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:#0f0c09;background:var(--accent);border:none;border-radius:30px;transition:all .25s ease}
+.welcome-dismiss:hover{background:var(--accent-deep)}
+
+/* ── REVIEW SECTION ── */
+.review-section{max-width:480px;margin:0 auto;padding:20px 24px 80px;text-align:center}
+.review-section h3{font-family:'Outfit',sans-serif;font-weight:400;font-size:24px;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.review-section p{font-size:13px;color:var(--cream-faint);line-height:1.7;margin-bottom:28px}
+.review-field{width:100%;padding:14px 16px;background:rgba(246,241,231,0.04);border:1px solid var(--border);color:var(--cream);font-family:'Poppins',sans-serif;font-size:14px;outline:none;margin-bottom:12px;transition:border-color .25s ease;-webkit-appearance:none;border-radius:0}
+.review-field:focus{border-color:var(--accent)}
+.review-field::placeholder{color:var(--cream-faint)}
+textarea.review-field{resize:vertical;min-height:100px;line-height:1.6}
+.review-stars{display:flex;gap:6px;justify-content:center;margin-bottom:20px}
+.review-stars button{background:none;border:none;padding:4px}
+.review-stars svg{width:28px;height:28px;stroke:rgba(246,241,231,0.25);fill:none;transition:all .15s ease;stroke-width:1.5}
+.review-stars svg.is-filled{fill:var(--accent);stroke:var(--accent)}
+.review-submit{padding:14px 32px;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:#0f0c09;background:var(--accent);border:none;border-radius:24px;cursor:pointer;transition:all .25s ease}
+.review-submit:hover{background:var(--accent-deep)}
+.review-submit:disabled{opacity:0.5;cursor:wait}
+.review-thanks{display:none;font-family:'Outfit',sans-serif;font-size:20px;letter-spacing:1px;color:var(--accent)}
+</style>
+</head>
+<body>
+
+<div class="loader-screen" id="loader"><div class="loader-mark serif">Preparing your gallery&hellip;</div></div>
+<div class="state-screen" id="state-screen" style="display:none;"><div><h1 class="serif" id="state-title"></h1><p id="state-message"></p></div></div>
+
+<!-- GUIDE OVERLAY — first visit only -->
+<div class="welcome-sheet" id="welcome-sheet" style="display:none;">
+    <div class="welcome-content">
+        <h2 style="font-family:'Outfit',sans-serif;font-weight:600;font-size:16px;letter-spacing:3px;text-transform:uppercase;margin-bottom:28px;color:var(--cream);">Quick Guide</h2>
+        <div class="intro-step">
+            <div class="intro-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <p><strong>Scroll to browse</strong> your photos. Tap any photo to view it full screen, then swipe left or right to go through them.</p>
+        </div>
+        <div class="intro-step">
+            <div class="intro-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
+            <p><strong>Tap the ★ star</strong> on any photo you love. A "My Favourites" button appears at the top so you can review just your picks.</p>
+        </div>
+        <div class="intro-step">
+            <div class="intro-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+            <p><strong>Save all your starred photos at once</strong> using the bar that appears at the bottom. No need to download one by one.</p>
+        </div>
+        <div class="intro-step">
+            <div class="intro-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <p><strong>This gallery expires in 7 days.</strong> Make sure to save your favourites before then.</p>
+        </div>
+        <button class="welcome-dismiss" id="welcome-dismiss-btn">Got it</button>
+    </div>
+</div>
+
+<!-- PAGE: COVER + GALLERY as one continuous scroll -->
+<div id="page-wrap" style="display:none;">
+
+    <!-- COVER -->
+    <section class="cover" id="cover">
+        <img src="" alt="Libertypictures" class="cover-logo" id="cover-logo" style="display:none;">
+        <div class="cover-bg" id="cover-bg"></div>
+        <div class="cover-scrim"></div>
+        <div class="cover-content">
+            <div class="cover-eyebrow" id="cover-eyebrow">&nbsp;</div>
+            <h1 class="cover-name serif" id="cover-name">&nbsp;</h1>
+            <div class="cover-date" id="cover-date"></div>
+            <div class="cover-scroll-hint"><span></span></div>
+        </div>
+        <div class="cover-expiry" id="cover-expiry"></div>
+    </section>
+
+    <!-- GALLERY -->
+    <div class="gallery-header" id="gallery-header">
+        <div class="gallery-header-inner">
+            <div>
+                <div class="gallery-header-name serif" id="header-name"></div>
+                <div class="gallery-header-meta" id="header-expiry"></div>
+            </div>
+            <button id="favs-toggle-btn" style="display:none;padding:8px 16px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;color:var(--accent);background:rgba(196,166,126,0.12);border:1px solid rgba(196,166,126,0.25);border-radius:20px;white-space:nowrap;cursor:pointer;transition:all .25s ease;">★ My Favourites</button>
+        </div>
+    </div>
+    <div class="gallery-grid" id="gallery-grid"></div>
+
+    <!-- Download All — shown when 20+ photos -->
+    <div class="dl-all-bar" id="dl-all-bar" style="display:none;">
+        <button class="dl-all-btn" id="dl-all-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download All Photos
+        </button>
+    </div>
+
+    <!-- Gentle finished prompt — appears after starring at least 1 photo -->
+    <div id="finished-prompt" style="display:none;text-align:center;padding:30px 20px 20px;">
+        <p style="font-size:13px;color:var(--cream-faint);margin-bottom:16px;">All done selecting?</p>
+        <button id="finished-btn" style="padding:12px 30px;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:var(--cream);background:rgba(246,241,231,0.08);border:1px solid var(--border);border-radius:30px;cursor:pointer;transition:all .25s ease;">Let your photographer know</button>
+        <div id="finished-done" style="display:none;">
+            <p style="font-size:13.5px;color:var(--accent);margin-top:12px;">Your photographer has been notified. Thank you!</p>
+        </div>
+    </div>
+
+    <!-- REVIEW -->
+    <div class="review-section" id="review-section">
+        <h3>Leave a Review</h3>
+        <p>We would love to hear about your experience</p>
+        <div id="review-form">
+            <div class="review-stars" id="review-stars">
+                <button data-star="1"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+                <button data-star="2"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+                <button data-star="3"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+                <button data-star="4"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+                <button data-star="5"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+            </div>
+            <textarea class="review-field" id="review-quote" placeholder="Share your experience..."></textarea>
+            <button class="review-submit" id="review-submit-btn">Submit Review</button>
+        </div>
+        <div class="review-thanks" id="review-thanks">Thank you for your kind words</div>
+    </div>
+
+</div>
+
+<!-- SELECTION BAR -->
+<div class="selection-bar" id="selection-bar">
+    <div class="selection-bar-inner">
+        <div class="selection-bar-count" id="selection-count"><strong>0</strong> selected</div>
+        <button class="selection-bar-btn" id="save-selected-btn">Save to Photos</button>
+    </div>
+</div>
+
+<!-- LIGHTBOX — star only, no 5-star rating -->
+<div class="lightbox" id="lightbox">
+    <div class="lb-top">
+        <button class="lb-close" id="lb-close-btn" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        <span class="lb-counter" id="lb-counter"></span>
+        <button class="lb-star-btn" id="lb-star-btn" aria-label="Star this photo"><svg viewBox="0 0 24 24" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+    </div>
+    <div class="lb-stage" id="lb-stage">
+        <button class="lb-nav prev" id="lb-prev" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <div class="lb-img-wrap"><img src="" id="lb-img" alt=""></div>
+        <button class="lb-nav next" id="lb-next" aria-label="Next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+    </div>
+    <div class="lb-bottom">
+        <button class="lb-action-btn" id="lb-save-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Save Photo</button>
+    </div>
+</div>
+
+<!-- DOWNLOAD MODAL -->
+<div class="dl-overlay" id="dl-overlay">
+    <div class="dl-modal">
+        <h3 class="serif" id="dl-title">Preparing your photos</h3>
+        <p id="dl-message">This only takes a moment&hellip;</p>
+        <div class="dl-progress"><div class="dl-progress-bar" id="dl-progress-bar"></div></div>
+        <button class="dl-close" id="dl-close-btn" style="display:none;">Close</button>
+    </div>
+</div>
+
+<script>
+var API = 'https://liberty-booking-api.visualsliberty.workers.dev';
+var params = new URLSearchParams(window.location.search);
+var token = params.get('t');
+var gallery = null;
+var photos = [];
+var currentLbIdx = 0;
+var starred = {}; // photoId -> true/false
+
+function $(id) { return document.getElementById(id); }
+function escHtml(s) { var d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+function safeFilename(name, mimeType) {
+    if (/\.(jpe?g|png|webp)$/i.test(name)) return name;
+    return name + (mimeType && mimeType.includes('png') ? '.png' : '.jpg');
+}
+function starSvg(filled) {
+    return '<svg viewBox="0 0 24 24" fill="' + (filled ? 'var(--accent)' : 'none') + '" stroke="' + (filled ? 'var(--accent)' : 'var(--cream)') + '" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>';
+}
+
+/* ── LOAD ── */
+if (!token) {
+    showState('Invalid Link', 'This gallery link is missing information. Please check the link your photographer sent you.');
+} else {
+    fetch(API + '/api/gallery/' + encodeURIComponent(token))
+        .then(function (r) {
+            if (r.status === 410) return r.json().then(function (d) { throw { expired: true, clientName: d.clientName }; });
+            if (!r.ok) throw new Error('not found');
+            return r.json();
+        })
+        .then(function (data) {
+            gallery = data;
+            photos = data.photos || [];
+            photos.forEach(function (p) { starred[p.id] = p.isStarred || false; });
+            initPage();
+            $('loader').classList.add('hidden');
+            showGuide();
+        })
+        .catch(function (err) {
+            $('loader').classList.add('hidden');
+            if (err && err.expired) {
+                showState('Gallery Expired', (err.clientName ? err.clientName + ', your' : 'Your') + ' gallery was available for 7 days and has since closed. Please reach out to your photographer if you need anything.');
+            } else {
+                showState('Gallery Not Found', 'This link may be incorrect or no longer active. Please check with your photographer.');
+            }
+        });
+}
+
+function showState(title, msg) {
+    $('state-title').textContent = title;
+    $('state-message').textContent = msg;
+    $('state-screen').style.display = 'flex';
+}
+
+/* ── GUIDE — first visit only ── */
+function showGuide() {
+    var sheet = $('welcome-sheet');
+    if (!sheet) return;
+    sheet.style.display = 'flex';
+    $('welcome-dismiss-btn').addEventListener('click', function () {
+        sheet.style.display = 'none';
+    });
+}
+
+/* ── INIT PAGE — cover + gallery as continuous scroll ── */
+function initPage() {
+    $('page-wrap').style.display = 'block';
+    document.title = (gallery.eventTitle || gallery.clientName) + ' | Libertypictures';
+
+    // Cover
+    $('cover-eyebrow').textContent = gallery.clientName;
+    $('cover-name').textContent = gallery.eventTitle || gallery.clientName;
+
+    if (gallery.eventDate) {
+        var d = new Date(gallery.eventDate + 'T00:00:00');
+        $('cover-date').textContent = d.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    if (gallery.coverUrl) {
+        var bg = $('cover-bg');
+        var img = new Image();
+        img.onload = function () {
+            bg.style.backgroundImage = 'url(' + API + gallery.coverUrl + ')';
+            bg.classList.add('loaded');
+        };
+        img.src = API + gallery.coverUrl;
+    }
+
+    var daysLeft = Math.max(0, Math.ceil((new Date(gallery.expiresAt) - new Date()) / 86400000));
+    $('cover-expiry').textContent = daysLeft <= 0 ? 'Expires today' : 'Available for ' + daysLeft + ' more day' + (daysLeft === 1 ? '' : 's');
+
+    // Logo
+    fetch(API + '/api/settings').then(function (r) { return r.json(); }).then(function (d) {
+        var s = d.settings || {};
+        if (s.logo_url) { var logo = $('cover-logo'); logo.src = API + s.logo_url; logo.style.display = 'block'; }
+    }).catch(function () {});
+
+    // Header
+    $('header-name').textContent = gallery.eventTitle || gallery.clientName;
+    $('header-expiry').textContent = daysLeft <= 0 ? 'Expires today' : daysLeft + ' day' + (daysLeft === 1 ? '' : 's') + ' remaining';
+
+    // Grid
+    renderGrid();
+}
+
+/* ── GRID ── */
+function renderGrid() {
+    var grid = $('gallery-grid');
+    if (!photos.length) { grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--cream-faint);padding:60px 20px;font-size:13px;">No photos in this gallery yet.</p>'; return; }
+    grid.innerHTML = photos.map(function (p, i) {
+        var cls = 'g-tile ' + (p.orientation || 'portrait') + (starred[p.id] ? ' is-starred' : '');
+        return '<div class="' + cls + '" data-index="' + i + '" data-id="' + p.id + '">' +
+            '<img src="' + API + (p.thumbUrl || p.url) + '" alt="" loading="lazy">' +
+            '<button class="g-tile-star" data-star-id="' + p.id + '" aria-label="Star">' + starSvg(starred[p.id]) + '</button>' +
+        '</div>';
+    }).join('');
+
+    updateSelectionBar();
+    updateDownloadAllButton();
+}
+
+// Grid click handlers — outside renderGrid so they never stack
+(function () {
+    var grid = $('gallery-grid');
+    grid.addEventListener('click', function (e) {
+        var starBtn = e.target.closest('.g-tile-star');
+        if (starBtn) {
+            e.stopPropagation();
+            toggleStar(parseInt(starBtn.dataset.starId, 10));
+            return;
+        }
+        var tile = e.target.closest('.g-tile');
+        if (tile) openLightbox(parseInt(tile.dataset.index, 10));
+    });
+})();
+
+function refreshTile(photoId) {
+    var tile = document.querySelector('.g-tile[data-id="' + photoId + '"]');
+    if (!tile) return;
+    tile.classList.toggle('is-starred', !!starred[photoId]);
+    tile.querySelector('.g-tile-star').innerHTML = starSvg(!!starred[photoId]);
+}
+
+function toggleStar(photoId) {
+    starred[photoId] = !starred[photoId];
+    fetch(API + '/api/gallery/' + encodeURIComponent(token) + '/photos/' + photoId + '/select', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ isStarred: starred[photoId] })
+    }).catch(function () {});
+    refreshTile(photoId);
+    updateSelectionBar();
+    if (document.getElementById('lightbox').classList.contains('active')) {
+        var p = photos[currentLbIdx];
+        if (p && p.id === photoId) $('lb-star-btn').classList.toggle('is-active', starred[photoId]);
+    }
+}
+
+/* ── SELECTION BAR ── */
+function updateSelectionBar() {
+    var count = Object.keys(starred).filter(function (id) { return starred[id]; }).length;
+    $('selection-count').innerHTML = '<strong>' + count + '</strong> selected';
+    $('selection-bar').classList.toggle('visible', count > 0);
+    updateFavsButton();
+    updateFinishedPrompt();
+}
+
+
+/* ── FAVOURITES FILTER ── */
+var showingFavs = false;
+var favsBtn = $('favs-toggle-btn');
+
+function updateFavsButton() {
+    var count = Object.keys(starred).filter(function (id) { return starred[id]; }).length;
+    if (favsBtn) favsBtn.style.display = count > 0 ? 'block' : 'none';
+}
+
+if (favsBtn) {
+    favsBtn.addEventListener('click', function () {
+        showingFavs = !showingFavs;
+        favsBtn.textContent = showingFavs ? 'Show All' : '\u2605 My Favourites';
+        favsBtn.style.background = showingFavs ? 'rgba(196,166,126,0.3)' : 'rgba(196,166,126,0.12)';
+        document.querySelectorAll('.g-tile').forEach(function (tile) {
+            var id = parseInt(tile.dataset.id, 10);
+            tile.style.display = (showingFavs && !starred[id]) ? 'none' : '';
+        });
+        if (showingFavs) window.scrollTo({ top: $('gallery-header').offsetTop, behavior: 'smooth' });
+    });
+}
+
+/* ── LIGHTBOX ── */
+var savedScrollY = 0;
+function openLightbox(idx) {
+    if ($('lightbox').classList.contains('active')) return;
+    currentLbIdx = idx;
+    renderLb();
+    savedScrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = '-' + savedScrollY + 'px';
+    document.body.style.width = '100%';
+    $('lightbox').classList.add('active');
+}
+function closeLightbox() {
+    $('lightbox').classList.remove('active');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    window.scrollTo(0, savedScrollY);
+}
+function renderLb() {
+    var p = photos[currentLbIdx];
+    $('lb-img').src = API + p.url;
+    $('lb-img').alt = p.filename || 'Photo';
+    $('lb-counter').textContent = (currentLbIdx + 1) + ' / ' + photos.length;
+    $('lb-star-btn').classList.toggle('is-active', !!starred[p.id]);
+    $('lb-prev').style.visibility = currentLbIdx === 0 ? 'hidden' : 'visible';
+    $('lb-next').style.visibility = currentLbIdx === photos.length - 1 ? 'hidden' : 'visible';
+}
+$('lb-close-btn').addEventListener('click', closeLightbox);
+$('lb-prev').addEventListener('click', function () { if (currentLbIdx > 0) { currentLbIdx--; renderLb(); } });
+$('lb-next').addEventListener('click', function () { if (currentLbIdx < photos.length - 1) { currentLbIdx++; renderLb(); } });
+document.addEventListener('keydown', function (e) {
+    if (!$('lightbox').classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') $('lb-prev').click();
+    if (e.key === 'ArrowRight') $('lb-next').click();
+});
+// Swipe
+(function () {
+    var stage = $('lb-stage'), sx = 0, sy = 0;
+    stage.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+    stage.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) { if (dx > 0) $('lb-prev').click(); else $('lb-next').click(); }
+    }, { passive: true });
+})();
+
+$('lb-star-btn').addEventListener('click', function () {
+    var p = photos[currentLbIdx];
+    toggleStar(p.id);
+});
+
+/* ── DOWNLOAD: single photo ── */
+$('lb-save-btn').addEventListener('click', function () { downloadSingle(photos[currentLbIdx]); });
+async function downloadSingle(p) {
+    try {
+        var res = await fetch(API + p.url);
+        var blob = await res.blob();
+        var fname = safeFilename(p.filename || 'photo', blob.type);
+        if (navigator.canShare && navigator.canShare({ files: [new File([blob], fname, { type: blob.type })] })) {
+            await navigator.share({ files: [new File([blob], fname, { type: blob.type })] });
+            return;
+        }
+        dlBlob(blob, fname);
+    } catch (e) { console.error('Save failed:', e); }
+}
+
+function dlBlob(blob, name) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+}
+
+/* ── DOWNLOAD: selected photos ── */
+$('save-selected-btn').addEventListener('click', async function () {
+    var sel = photos.filter(function (p) { return starred[p.id]; });
+    if (!sel.length) return;
+    var btn = this; btn.disabled = true; var orig = btn.textContent;
+
+    if (sel.length <= 10 && navigator.canShare) {
+        try {
+            btn.textContent = 'Preparing\u2026';
+            var files = [];
+            for (var i = 0; i < sel.length; i++) {
+                var r = await fetch(API + sel[i].url);
+                var b = await r.blob();
+                files.push(new File([b], safeFilename(sel[i].filename || ('photo-' + (i + 1)), b.type), { type: b.type }));
+            }
+            if (navigator.canShare({ files: files })) { await navigator.share({ files: files }); btn.disabled = false; btn.textContent = orig; return; }
+            await zipDl(sel);
+        } catch (e) { if (e.name !== 'AbortError') await zipDl(sel); }
+    } else { await zipDl(sel); }
+    btn.disabled = false; btn.textContent = orig;
+});
+
+async function zipDl(list) {
+    if (typeof JSZip === 'undefined') { alert('Could not load the download tool. Please refresh and try again.'); return; }
+    $('dl-overlay').classList.add('active');
+    $('dl-title').textContent = 'Preparing your photos';
+    $('dl-message').textContent = 'Zipping ' + list.length + ' photo' + (list.length === 1 ? '' : 's') + '\u2026';
+    $('dl-progress-bar').style.width = '0%';
+    $('dl-close-btn').style.display = 'none';
+    try {
+        var zip = new JSZip();
+        for (var i = 0; i < list.length; i++) {
+            var r = await fetch(API + list[i].url);
+            var b = await r.blob();
+            zip.file(safeFilename(list[i].filename || ('photo-' + (i + 1)), b.type), b);
+            $('dl-progress-bar').style.width = Math.round(((i + 1) / list.length) * 90) + '%';
+        }
+        $('dl-message').textContent = 'Finishing up\u2026';
+        var content = await zip.generateAsync({ type: 'blob' });
+        $('dl-progress-bar').style.width = '100%';
+        var zn = (gallery.eventTitle || gallery.clientName || 'gallery').replace(/[^a-z0-9]+/gi, '-').toLowerCase() + '-photos.zip';
+        dlBlob(content, zn);
+        $('dl-title').textContent = 'Download ready';
+        $('dl-message').textContent = 'Your photos have been saved.';
+        $('dl-close-btn').style.display = 'inline-block';
+    } catch (e) {
+        $('dl-title').textContent = 'Something went wrong';
+        $('dl-message').textContent = 'Please try again in a moment.';
+        $('dl-close-btn').style.display = 'inline-block';
+    }
+}
+
+/* ── DOWNLOAD ALL — for galleries with 20+ photos ── */
+function updateDownloadAllButton() {
+    var bar = $('dl-all-bar');
+    if (!bar) return;
+    bar.style.display = photos.length >= 20 ? 'block' : 'none';
+}
+
+$('dl-all-btn').addEventListener('click', async function () {
+    if (!photos.length) return;
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = 'Preparing...';
+    await zipDl(photos);
+    btn.disabled = false;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download All Photos';
+});
+
+$('dl-close-btn').addEventListener('click', function () { $('dl-overlay').classList.remove('active'); });
+
+/* ── FINISHED PROMPT — gentle, appears after starring ── */
+function updateFinishedPrompt() {
+    var count = Object.keys(starred).filter(function (id) { return starred[id]; }).length;
+    var prompt = $('finished-prompt');
+    if (prompt) prompt.style.display = count > 0 ? 'block' : 'none';
+}
+document.addEventListener('click', function (e) {
+    if (e.target.id === 'finished-btn' || e.target.closest('#finished-btn')) {
+        var btn = $('finished-btn');
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+        fetch(API + '/api/gallery/' + encodeURIComponent(token) + '/done', { method: 'POST' })
+            .then(function () {
+                btn.style.display = 'none';
+                $('finished-done').style.display = 'block';
+            })
+            .catch(function () { btn.disabled = false; btn.textContent = 'Let your photographer know'; });
+    }
+});
+
+/* ── REVIEW ── */
+(function () {
+    var reviewRating = 0;
+    var starsEl = $('review-stars');
+    if (!starsEl) return;
+
+    starsEl.addEventListener('click', function (e) {
+        var btn = e.target.closest('button[data-star]');
+        if (!btn) return;
+        reviewRating = parseInt(btn.dataset.star, 10);
+        starsEl.querySelectorAll('svg').forEach(function (svg, i) {
+            svg.classList.toggle('is-filled', i < reviewRating);
+        });
+    });
+
+    $('review-submit-btn').addEventListener('click', async function () {
+        var name = gallery.clientName || 'Client';
+        var quote = $('review-quote').value.trim();
+        if (!quote) { alert('Please write your review.'); return; }
+        if (!reviewRating) { alert('Please select a star rating.'); return; }
+
+        var btn = this;
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+        try {
+            var res = await fetch(API + '/api/testimonials/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ clientName: name, quote: quote, rating: reviewRating })
+            });
+            if (!res.ok) throw new Error();
+            $('review-form').style.display = 'none';
+            $('review-thanks').style.display = 'block';
+        } catch (e) {
+            btn.disabled = false;
+            btn.textContent = 'Submit Review';
+            alert('Could not submit your review. Please try again.');
+        }
+    });
+})();
+
+</script>
+</body></html>
