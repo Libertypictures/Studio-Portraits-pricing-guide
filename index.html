@@ -148,6 +148,8 @@
         .lp-hero-content { position: relative; padding: 0 6vw; color: #fff; max-width: 700px; text-align: center; }
         .lp-hero-title { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-size: clamp(30px, 5.5vw, 58px); line-height: 1.2; margin-bottom: 20px; color: #fff; text-shadow: 0 4px 24px rgba(0,0,0,0.4); }
         .lp-hero-sub { font-size: 14px; color: rgba(255,255,255,0.82); max-width: 380px; margin: 0 auto; line-height: 1.7; }
+        .lp-hero-cta { display: inline-block; margin-top: 32px; padding: 18px 44px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px; color: #fff; background: rgba(255,255,255,0.12); backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); border: 1px solid rgba(255,255,255,0.2); text-decoration: none; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); box-shadow: 0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.15); }
+        .lp-hero-cta:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); box-shadow: 0 14px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2); }
 
         /* SCROLL INDICATOR — a full-width frosted glass strip embedded
            into the hero's own bottom edge, as if that edge of the page
@@ -181,6 +183,24 @@
 
         /* FEATURED WORK */
         .work-empty { text-align: center; color: var(--text-secondary); font-size: 13.5px; padding: 40px 0; }
+
+        /* SOCIAL PROOF COUNTER */
+        .social-proof { padding: 60px 0; text-align: center; border-bottom: 1px solid var(--border-color); opacity: 0; transform: translateY(16px); transition: opacity 1.3s cubic-bezier(0.16,1,0.3,1), transform 1.3s cubic-bezier(0.16,1,0.3,1); }
+        .social-proof.is-in { opacity: 1; transform: translateY(0); }
+        .social-proof-items { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; }
+        .social-proof-item { text-align: center; }
+        .social-proof-number { font-family: 'Fraunces', serif; font-size: clamp(28px, 4vw, 42px); font-weight: 500; color: var(--text-primary); line-height: 1.1; }
+        .social-proof-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-secondary); margin-top: 8px; font-weight: 500; }
+        /* Digital camera font for photo counter */
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        @media (max-width: 600px) { .social-proof-items { gap: 32px; } .social-proof { padding: 40px 0; } }
+
+        /* FEATURED IN */
+        .featured-in { padding: 60px 0; text-align: center; }
+        .featured-in-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 28px; }
+        .featured-in-logos { display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; opacity: 0.5; }
+        .featured-in-logos img { height: 28px; width: auto; filter: grayscale(1); transition: filter 0.3s ease, opacity 0.3s ease; }
+        .featured-in-logos img:hover { filter: grayscale(0); opacity: 1; }
         .work-section { padding-top: 100px; padding-bottom: 0; }
 
 
@@ -274,7 +294,7 @@
 
         /* THE EXPERIENCE — a quiet, editorial sequence of reassuring
            statements (not a process/steps grid): the emotional bridge
-           between Portfolio and Book. No cards, no numbers, no icons —
+           between Featured Work and Book. No cards, no numbers, no icons —
            generous whitespace between each line lets it read almost
            like a short poem. Each statement fades in independently as
            it's scrolled to, via the same lpRevealOnScroll used
@@ -287,6 +307,8 @@
         .experience-statement.lp-reveal.is-in { opacity: 1; transform: translateY(0); }
 
         .book-cta-section { }
+        .cta-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px var(--shadow-hover); border-color: var(--accent); }
+        .cta-card:hover span:last-child { color: var(--accent); }
 
         .brand-footer { padding: 60px 0; text-align: center; border-top: 1px solid var(--border-color); }
         .footer-mark { font-size: 15px; font-weight: 500; letter-spacing: 0.3px; }
@@ -303,7 +325,8 @@
         .work-mobile-feature {
             display: flex; gap: 3px; aspect-ratio: 2.5/3.3; overflow: hidden; position: relative;
             margin-bottom: 28px; background: #141210;
-            box-shadow: 0 24px 60px var(--shadow-hover);
+            box-shadow: 0 24px 60px var(--shadow-hover), 0 8px 32px rgba(0,0,0,0.15);
+            border-radius: 4px;
         }
 
         .work-mobile-feature.is-empty { aspect-ratio: auto; display: block; overflow: visible; background: none; }
@@ -311,7 +334,7 @@
         .work-main-photo { flex: 1; position: relative; overflow: hidden; min-width: 0; }
         .work-photo-counter {
             text-align: center; padding: 6px 0 2px; z-index: 3; position: relative;
-            color: rgba(255,255,255,0.5); font-size: 9px; font-weight: 500; letter-spacing: 1.2px;
+            color: #C1722E; font-family: 'Share Tech Mono', monospace; font-size: 11px; font-weight: 400; letter-spacing: 2px;
         }
         .work-main-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s ease; }
         .work-main-photo img.is-active { opacity: 1; animation: lp-ken-burns 16s ease-out forwards; }
@@ -320,9 +343,11 @@
             .work-main-photo img.is-active { animation: none; }
         }
         .work-strip-wrap {
-            width: 26%; position: relative; overflow-y: auto; overflow-x: hidden;
+            width: 18%; position: relative; overflow-y: auto; overflow-x: hidden;
             scroll-behavior: smooth; scrollbar-width: none; min-height: 0;
             overscroll-behavior-y: contain;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
         }
         .work-strip-wrap::-webkit-scrollbar { display: none; }
 
@@ -332,7 +357,7 @@
            always dark regardless of the page's light/dark mode. */
         .work-strip-track::before,
         .work-strip-track::after {
-            content: ""; position: absolute; top: 0; bottom: 0; width: 12px; z-index: 2;
+            content: ""; position: absolute; top: 0; bottom: 0; width: 6px; z-index: 2;
             background: rgba(255,255,255,0.35);
             -webkit-mask-image: radial-gradient(circle at center, transparent 0, transparent 2.6px, rgba(0,0,0,0.5) 3px, #000 3.8px);
             mask-image: radial-gradient(circle at center, transparent 0, transparent 2.6px, rgba(0,0,0,0.5) 3px, #000 3.8px);
@@ -362,7 +387,7 @@
            thumbnails are visible at once without excess scrolling. */
         @media (min-width: 900px) {
             .work-mobile-feature { aspect-ratio: 16/9; }
-            .work-strip-wrap { width: 14%; }
+            .work-strip-wrap { width: 12%; }
         }
 
 
@@ -372,6 +397,8 @@
             .about-bio { max-width: 280px; }
             .experience-sequence { gap: 56px; }
         }
+        /* Digital camera font for photo counter */
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
         @media (max-width: 600px) {
             .container { padding: 0 22px; }
             .section-block { padding: 70px 0; }
@@ -399,6 +426,7 @@
         <div class="lp-hero-content">
             <h1 class="lp-hero-title">Intimate visual stories</h1>
             <p class="lp-hero-sub">Portraits that feel personal and beautifully authentic.</p>
+
         </div>
         <div class="lp-scroll-indicator" aria-hidden="true">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -410,6 +438,21 @@
         <div class="container">
             <h2 class="section-heading serif">Featured Works</h2>
             <div class="work-mobile-feature" id="work-mobile-feature"></div>
+        </div>
+    </section>
+
+    <!-- SOCIAL PROOF -->
+    <section class="social-proof lp-reveal" id="social-proof-section" style="display:none;">
+        <div class="container">
+            <div class="social-proof-items" id="social-proof-items"></div>
+        </div>
+    </section>
+
+    <!-- FEATURED IN -->
+    <section class="featured-in lp-reveal" id="featured-in-section" style="display:none;">
+        <div class="container">
+            <div class="featured-in-label">As Featured In</div>
+            <div class="featured-in-logos" id="featured-in-logos"></div>
         </div>
     </section>
 
@@ -434,7 +477,7 @@
     </section>
 
     <!-- THE EXPERIENCE — a quiet, editorial sequence of reassuring
-         statements, the emotional bridge between Portfolio and Book.
+         statements, the emotional bridge between Featured Work and Book.
          Deliberately no session names, descriptions, or prices —
          those live on Book. No overarching visible heading either
          (the sequence itself carries the section); an sr-only heading
@@ -448,16 +491,11 @@
         </div>
     </section>
 
-    <!-- TWO PATHS -->
-    <section class="section-block" style="padding:0;">
-        <div style="padding:90px 20px;text-align:center;">
-            <span style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);font-weight:600;display:block;margin-bottom:14px;">Book with us</span>
-            <h2 class="section-heading serif" style="margin-bottom:40px;">Ready when you are</h2>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:20px;">
-                <a href="book.html" class="btn-dark" style="min-width:260px;text-align:center;">Portraits + Studio</a>
-                <a href="wedding.html" class="btn-dark" style="min-width:260px;text-align:center;">Weddings</a>
-            </div>
-            <div style="margin-top:24px;"><a href="portfolio.html" class="btn-link-secondary">View Full Portfolio</a></div>
+    <!-- BOOK — editable from admin Settings -->
+    <section class="section-block book-cta-section lp-reveal" style="padding:0;">
+        <div class="container" style="text-align:center;padding:100px 20px;">
+            <div id="cta-content"></div>
+            <p style="margin-top:32px;font-size:13px;color:var(--text-secondary);">Questions? <a href="https://wa.me/2349075170240" target="_blank" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:1px;">Chat on WhatsApp</a></p>
         </div>
     </section>
 
@@ -549,6 +587,76 @@
         }, { threshold: 0.15, rootMargin: '0px 0px -25% 0px' });
         els.forEach(function (el) { observer.observe(el); });
     }
+
+    // CTA SECTION — editable from admin Settings
+    (function () {
+        settingsPromise.then(function (data) {
+            var s = data.settings || {};
+            var el = document.getElementById('cta-content');
+            if (!el) return;
+
+            var eyebrow = s.cta_eyebrow || "Let's work together";
+            // heading and description removed — cards speak for themselves
+            var portraitTitle = s.cta_portrait_title || "Portraits + Studio";
+            var portraitDesc = s.cta_portrait_desc || "Personal branding, family, maternity, couple, editorial";
+            var portraitBtn = s.cta_portrait_btn || "View packages";
+            var weddingTitle = s.cta_wedding_title || "Weddings — Beloved Imprint";
+            var weddingDesc = s.cta_wedding_desc || "Engagements, ceremonies, receptions — cinematic coverage from pre-wedding to first dance";
+            var weddingBtn = s.cta_wedding_btn || "Explore wedding packages";
+
+            el.innerHTML =
+                '<span style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);font-weight:600;display:block;margin-bottom:24px;">' + escapeHtml(eyebrow) + '</span>' +
+                '<div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">' +
+                    '<a href="book.html" class="cta-card" style="display:block;padding:28px 32px;background:var(--bg-card);border:1px solid var(--border-color);text-decoration:none;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);min-width:220px;text-align:left;">' +
+                        '<span class="serif" style="display:block;font-size:17px;color:var(--text-primary);margin-bottom:4px;">' + escapeHtml(portraitTitle) + '</span>' +
+                        '<span style="font-size:11.5px;color:var(--text-secondary);line-height:1.5;display:block;margin-bottom:10px;">' + escapeHtml(portraitDesc) + '</span>' +
+                        '<span style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);font-weight:600;">' + escapeHtml(portraitBtn) + ' &rarr;</span>' +
+                    '</a>' +
+                    '<a href="wedding.html" class="cta-card" style="display:block;padding:28px 32px;background:var(--bg-card);border:1px solid var(--border-color);text-decoration:none;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);min-width:220px;text-align:left;">' +
+                        '<span class="serif" style="display:block;font-size:17px;color:var(--text-primary);margin-bottom:4px;">' + escapeHtml(weddingTitle) + '</span>' +
+                        '<span style="font-size:11.5px;color:var(--text-secondary);line-height:1.5;display:block;margin-bottom:10px;">' + escapeHtml(weddingDesc) + '</span>' +
+                        '<span style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);font-weight:600;">' + escapeHtml(weddingBtn) + ' &rarr;</span>' +
+                    '</a>' +
+                '</div>';
+        });
+    })();
+
+    // SOCIAL PROOF — editable from admin Settings
+    (function () {
+        settingsPromise.then(function (data) {
+            var s = data.settings || {};
+
+            // Social proof counter
+            var proofItems = [];
+            if (s.proof_sessions) proofItems.push({ number: s.proof_sessions, label: 'Sessions Captured' });
+            if (s.proof_years) proofItems.push({ number: s.proof_years, label: 'Years Experience' });
+            if (s.proof_rating) proofItems.push({ number: s.proof_rating, label: 'Client Rating' });
+            if (s.proof_clients) proofItems.push({ number: s.proof_clients, label: 'Happy Clients' });
+
+            if (proofItems.length) {
+                var el = document.getElementById('social-proof-items');
+                el.innerHTML = proofItems.map(function (item) {
+                    return '<div class="social-proof-item"><div class="social-proof-number">' + escapeHtml(item.number) + '</div><div class="social-proof-label">' + escapeHtml(item.label) + '</div></div>';
+                }).join('');
+                var section = document.getElementById('social-proof-section');
+                section.style.display = '';
+                lpRevealOnScroll([section], 0);
+            }
+
+            // Featured in logos
+            if (s.featured_in_enabled === 'true' && s.featured_in_logos) {
+                var logos;
+                try { logos = JSON.parse(s.featured_in_logos); } catch (e) { return; }
+                if (Array.isArray(logos) && logos.length) {
+                    var logosEl = document.getElementById('featured-in-logos');
+                    logosEl.innerHTML = logos.map(function (logo) {
+                        return '<img src="' + API_BASE + logo.url + '" alt="' + escapeHtml(logo.name || 'Featured') + '">';
+                    }).join('');
+                    document.getElementById('featured-in-section').style.display = '';
+                }
+            }
+        });
+    })();
 
     // HERO — identical logic to the booking page: two separate render
     // paths based on hero_mode, never mixing video and slideshow.
@@ -899,6 +1007,12 @@
                 lpRevealOnScroll(sequenceEl.querySelectorAll('.experience-statement'), 180);
             })
             .catch(function (err) { console.error('Could not load Experience content:', err); });
+    })();
+
+    // BOOK CTA — reveal on scroll
+    (function () {
+        var el = document.querySelector('.book-cta-section');
+        if (el) lpRevealOnScroll([el], 0);
     })();
 
     // SECTION REVEAL — as each section scrolls into view, its title
