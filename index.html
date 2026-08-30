@@ -193,7 +193,7 @@
         .about-bio { font-size: 13.5px; color: var(--text-secondary); line-height: 1.85; margin-bottom: 20px; max-width: 320px; margin-left: auto; margin-right: auto; text-wrap: balance; white-space: pre-line; }
 
 
-        /* TESTIMONIALS — a full-page editorial installation. The stage
+        /* REVIEWS — a full-page editorial installation. The stage
            fills the entire section so background words spread across
            the full viewport, not crammed into a tiny box. The featured
            quote sits dead center at a prominent size. */
@@ -413,12 +413,12 @@
         </div>
     </section>
 
-    <!-- TESTIMONIALS — now its own section with proper space,
+    <!-- REVIEWS — now its own section with proper space,
          so longer quotes don't feel crammed into a corner of the
          Featured Works area. -->
     <section class="section-block voices-section async-reveal" id="testimonials-section">
         <div class="container">
-            <h2 class="testimonials-label" style="text-align:center;">Testimonials</h2>
+            <h2 class="testimonials-label" style="text-align:center;">Reviews</h2>
             <div class="voices-stage" id="voices-stage"></div>
         </div>
     </section>
@@ -702,9 +702,9 @@
         }
     })();
 
-    // VOICES — an editorial installation, not a testimonial carousel.
+    // VOICES — an editorial installation, not a review carousel.
     // A scattered field of atmosphere words sits in the background;
-    // real testimonials surface into focus one at a time — reveal,
+    // real reviews surface into focus one at a time — reveal,
     // hold, dissolve — and the field softens while one is showing.
     // Pauses entirely when off-screen or under prefers-reduced-motion.
     (function () {
@@ -718,7 +718,7 @@
 
         // Purely decorative atmosphere — generic words evoking the
         // feeling of a session, not quotes attributed to any specific
-        // client (real testimonials only ever come from the API below).
+        // client (real reviews only ever come from the API below).
         var ATMOSPHERE_WORDS = ['beautiful', 'effortless', 'authentic', 'unforgettable', 'comfortable', 'timeless', 'gorgeous', 'natural', 'confident', 'seen', 'gentle', 'genuine', 'warm', 'alive', 'graceful'];
 
         // Hand-placed, deliberately not gridded — a curated scatter
@@ -763,7 +763,7 @@
         function pickNext() {
             if (!items.length) return 0;
             if (!shuffledQueue.length) {
-                // Reshuffle all testimonials into a new queue
+                // Reshuffle all reviews into a new queue
                 shuffledQueue = items.map(function (_, i) { return i; });
                 // Fisher-Yates shuffle
                 for (var i = shuffledQueue.length - 1; i > 0; i--) {
@@ -774,7 +774,7 @@
                 }
                 // If the first item in the new shuffle is the same as
                 // the last one shown, swap it further in so we never
-                // see the same testimonial twice in a row at the seam
+                // see the same review twice in a row at the seam
                 if (shuffledQueue.length > 1 && shuffledQueue[0] === lastIndex) {
                     var swapWith = 1 + Math.floor(Math.random() * (shuffledQueue.length - 1));
                     shuffledQueue[0] = shuffledQueue[swapWith];
