@@ -82,7 +82,7 @@
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
         .container { max-width: 1140px; margin: 0 auto; padding: 0 40px; }
-        .section-block { padding: 0; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
+        .section-block { padding: 0; }
 
         /* SECTION REVEAL — titles write themselves in from left to
            right (clip-path reveal). Content is always visible, never
@@ -106,6 +106,10 @@
         }
         @keyframes lp-fade-in-simple { from { opacity: 0; } to { opacity: 1; } }
         .section-meta { font-size: 14.5px; color: var(--text-secondary); text-align: center; max-width: 460px; margin: 0 auto 32px; line-height: 1.75; }
+        .voices-stage { position: relative; width: 100%; height: 360px; min-height: 0; }
+        .voices-section { min-height: 0; display: flex; flex-direction: column; justify-content: center; padding: 80px 0; }
+        .experience-section { padding: 80px 0; }
+        .book-cta-section { padding: 60px 0 80px; }
 
         /* GLASS BUTTONS, light-background variant — same frosted
            language as the hero buttons, tuned for legibility over a
@@ -148,6 +152,8 @@
         .lp-hero-content { position: relative; padding: 0 6vw; color: #fff; max-width: 700px; text-align: center; }
         .lp-hero-title { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-size: clamp(30px, 5.5vw, 58px); line-height: 1.2; margin-bottom: 20px; color: #fff; text-shadow: 0 4px 24px rgba(0,0,0,0.4); }
         .lp-hero-sub { font-size: 14px; color: rgba(255,255,255,0.82); max-width: 380px; margin: 0 auto; line-height: 1.7; }
+        .lp-hero-cta { display: inline-block; margin-top: 32px; padding: 18px 44px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px; color: #fff; background: rgba(255,255,255,0.12); backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); border: 1px solid rgba(255,255,255,0.2); text-decoration: none; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); box-shadow: 0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.15); }
+        .lp-hero-cta:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); box-shadow: 0 14px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2); }
 
         /* SCROLL INDICATOR — a full-width frosted glass strip embedded
            into the hero's own bottom edge, as if that edge of the page
@@ -181,7 +187,24 @@
 
         /* FEATURED WORK */
         .work-empty { text-align: center; color: var(--text-secondary); font-size: 13.5px; padding: 40px 0; }
-        .work-section { padding-top: 100px; padding-bottom: 0; }
+
+        /* SOCIAL PROOF COUNTER */
+        .social-proof { padding: 50px 0; text-align: center; border-bottom: 1px solid var(--border-color); }
+        .social-proof-items { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; }
+        .social-proof-item { text-align: center; }
+        .social-proof-number { font-family: 'Fraunces', serif; font-size: clamp(28px, 4vw, 42px); font-weight: 500; color: var(--text-primary); line-height: 1.1; }
+        .social-proof-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-secondary); margin-top: 8px; font-weight: 500; }
+        /* Digital camera font for photo counter */
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        @media (max-width: 600px) { .social-proof-items { gap: 32px; } .social-proof { padding: 40px 0; } }
+
+        /* FEATURED IN */
+        .featured-in { padding: 60px 0; text-align: center; }
+        .featured-in-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 28px; }
+        .featured-in-logos { display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; opacity: 0.5; }
+        .featured-in-logos img { height: 28px; width: auto; filter: grayscale(1); transition: filter 0.3s ease, opacity 0.3s ease; }
+        .featured-in-logos img:hover { filter: grayscale(0); opacity: 1; }
+        .work-section { padding-top: 100px; padding-bottom: 60px; }
 
 
         /* ABOUT — centered vertical composition: photo, bio, signature.
@@ -193,12 +216,13 @@
         .about-bio { font-size: 13.5px; color: var(--text-secondary); line-height: 1.85; margin-bottom: 20px; max-width: 320px; margin-left: auto; margin-right: auto; text-wrap: balance; white-space: pre-line; }
 
 
-        /* TESTIMONIALS — a full-page editorial installation. The stage
+        /* REVIEWS — a full-page editorial installation. The stage
            fills the entire section so background words spread across
            the full viewport, not crammed into a tiny box. The featured
            quote sits dead center at a prominent size. */
-        .voices-stage { position: relative; width: 100%; flex: 1; min-height: 0; }
-        .voices-section { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding: 60px 0; }
+        .voices-stage { position: relative; width: 100%; height: 400px; min-height: 0; }
+        .voices-stage { position: relative; width: 100%; height: 360px; min-height: 0; }
+        .voices-section { min-height: 0; display: flex; flex-direction: column; justify-content: center; padding: 80px 0; }
         .voices-section .testimonials-label { font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; letter-spacing: -0.2px; text-align: center; margin-bottom: 0; }
         .voices-section .testimonials-label.is-revealed { clip-path: inset(0 0% 0 0); }
 
@@ -274,12 +298,12 @@
 
         /* THE EXPERIENCE — a quiet, editorial sequence of reassuring
            statements (not a process/steps grid): the emotional bridge
-           between Portfolio and Book. No cards, no numbers, no icons —
+           between Featured Work and Book. No cards, no numbers, no icons —
            generous whitespace between each line lets it read almost
            like a short poem. Each statement fades in independently as
            it's scrolled to, via the same lpRevealOnScroll used
            elsewhere on the page. All text is dashboard-editable. */
-        .experience-sequence { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; gap: 80px; }
+        .experience-sequence { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; gap: 80px; padding: 0 0 40px; }
         .experience-statement { text-align: center; padding: 0 12px; }
         .experience-statement .statement-text { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-size: clamp(21px, 3vw, 29px); line-height: 1.55; color: var(--text-primary); }
         .experience-statement .statement-support { margin-top: 14px; font-size: 13.5px; color: var(--text-secondary); line-height: 1.8; }
@@ -287,6 +311,8 @@
         .experience-statement.lp-reveal.is-in { opacity: 1; transform: translateY(0); }
 
         .book-cta-section { }
+        .cta-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px var(--shadow-hover); border-color: var(--accent); }
+        .cta-card:hover span:last-child { color: var(--accent); }
 
         .brand-footer { padding: 60px 0; text-align: center; border-top: 1px solid var(--border-color); }
         .footer-mark { font-size: 15px; font-weight: 500; letter-spacing: 0.3px; }
@@ -303,15 +329,18 @@
         .work-mobile-feature {
             display: flex; gap: 3px; aspect-ratio: 2.5/3.3; overflow: hidden; position: relative;
             margin-bottom: 28px; background: #141210;
-            box-shadow: 0 24px 60px var(--shadow-hover);
+            box-shadow: 0 24px 60px var(--shadow-hover), 0 8px 32px rgba(0,0,0,0.15);
+            border-radius: 4px;
         }
 
         .work-mobile-feature.is-empty { aspect-ratio: auto; display: block; overflow: visible; background: none; }
 
         .work-main-photo { flex: 1; position: relative; overflow: hidden; min-width: 0; }
         .work-photo-counter {
-            text-align: center; padding: 6px 0 2px; z-index: 3; position: relative;
-            color: #c4a67e; font-size: 9px; font-weight: 600; letter-spacing: 1.2px;
+            text-align: center; padding: 10px 0 0; z-index: 5; position: absolute; top: 0; left: 0; right: 0;
+            color: #c4a67e; font-family: 'Share Tech Mono', monospace; font-size: 11px; font-weight: 400; letter-spacing: 2px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 100%);
+            pointer-events: none;
         }
         .work-main-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s ease; }
         .work-main-photo img.is-active { opacity: 1; animation: lp-ken-burns 16s ease-out forwards; }
@@ -320,89 +349,86 @@
             .work-main-photo img.is-active { animation: none; }
         }
         .work-strip-wrap {
-            width: 26%; position: relative; overflow-y: auto; overflow-x: hidden;
+            width: 22%; position: relative; overflow-y: auto; overflow-x: hidden;
             scroll-behavior: smooth; scrollbar-width: none; min-height: 0;
             overscroll-behavior-y: contain;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
         }
         .work-strip-wrap::-webkit-scrollbar { display: none; }
 
-        /* Film strip — inspired by real 35mm film: dark base,
-           rectangular sprocket holes along both edges, frame numbers,
-           and film-stock branding. The strip background is permanently
-           dark regardless of light/dark mode because film is always
-           dark. */
+        /* Film strip — 35mm film aesthetic with rectangular sprocket
+           holes, frame numbers, and film-stock branding. The strip
+           adapts to light/dark mode: perforations shift from dark-on-
+           cream (light mode) to light-on-dark (dark mode). */
         .work-strip-track {
-            display: flex; flex-direction: column; padding: 0 18px;
+            display: flex; flex-direction: column; padding: 0 16px;
             position: relative; gap: 2px;
         }
         /* Rectangular sprocket holes — real 35mm film has rounded
-           rectangular perforations, not circles. The mask creates
-           the punch-hole shape with a slight bevel. */
+           rectangular perforations, not circles. Adapts to theme. */
         .work-strip-track::before,
         .work-strip-track::after {
-            content: ""; position: absolute; top: 0; bottom: 0; width: 10px; z-index: 2;
-            background: rgba(255,255,255,0.25);
+            content: ""; position: absolute; top: 0; bottom: 0; width: 8px; z-index: 2;
             -webkit-mask-image: repeating-linear-gradient(
                 to bottom,
-                transparent 0px, transparent 4px,
-                #000 4px, #000 14px,
-                transparent 14px, transparent 18px
+                transparent 0px, transparent 3px,
+                #000 3px, #000 13px,
+                transparent 13px, transparent 18px
             );
             mask-image: repeating-linear-gradient(
                 to bottom,
-                transparent 0px, transparent 4px,
-                #000 4px, #000 14px,
-                transparent 14px, transparent 18px
+                transparent 0px, transparent 3px,
+                #000 3px, #000 13px,
+                transparent 13px, transparent 18px
             );
+            border-radius: 1px;
         }
-        .work-strip-track::before { left: 0; border-radius: 0 2px 2px 0; }
-        .work-strip-track::after { right: 0; border-radius: 2px 0 0 2px; }
+        /* The strip background is always dark (film is always dark
+           regardless of page theme). Perforations are light-on-dark
+           in both modes, but slightly brighter in dark mode. */
+        .work-strip-track::before { left: 0; background: rgba(255,255,255,0.3); }
+        .work-strip-track::after { right: 0; background: rgba(255,255,255,0.3); }
+        @media (prefers-color-scheme: dark) {
+            .work-strip-track::before,
+            .work-strip-track::after { background: rgba(255,255,255,0.4); }
+        }
 
-        /* Each thumbnail frame — bordered like a real film frame,
-           with a frame number label like real film edge markings. */
-        .work-strip-thumb {
-            position: relative; width: 100%; aspect-ratio: 1/1;
-            border: none; padding: 4px; background: none;
-            cursor: pointer; display: block;
-        }
-        /* Frame number — small label on the edge, like real film
-           edge markings (17A, 18, etc.) */
+        /* Frame number — small label like real film edge markings.
+           Always light text with a dark halo for legibility on the
+           dark strip background, regardless of page theme. */
         .work-strip-thumb .frame-num {
-            position: absolute; right: 1px; bottom: 2px;
-            font-size: 7px; font-weight: 600; letter-spacing: 0.5px;
-            color: rgba(255,255,255,0.35); z-index: 3;
-            font-family: 'Courier New', monospace; pointer-events: none;
+            position: absolute; right: 2px; bottom: 3px;
+            font-size: 8px; font-weight: 700; letter-spacing: 0.3px;
+            z-index: 3; font-family: 'Courier New', monospace;
+            pointer-events: none; line-height: 1;
+            color: rgba(255,255,255,0.6);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
         }
-        /* All thumbnails are negatives — like un-developed film.
-           The main display is the "enlarged" positive. */
-        .work-strip-thumb img {
-            width: 100%; height: 100%; object-fit: cover; display: block;
-            filter: invert(1) hue-rotate(180deg) saturate(0.6) brightness(0.8) contrast(1.1);
-            opacity: 0.82;
-            transition: filter 0.6s ease, opacity 0.4s ease, transform 0.4s ease;
-        }
-        /* Hover — slightly brighter, like holding the strip up to light */
-        .work-strip-thumb:hover img {
-            opacity: 1;
-            filter: invert(1) hue-rotate(180deg) saturate(0.8) brightness(1) contrast(1.05);
-        }
-        /* Active thumbnail — subtle warm glow border, like the frame
-           being projected. The image stays negative on the strip.
-           The main photo is the positive. */
-        .work-strip-thumb.is-active {
-            box-shadow: inset 0 0 0 1.5px var(--accent);
-        }
-        /* Film stock branding — runs along the edge of the strip
-           like "KODAK PORTRA 160" or "AGFA" on real film */
+        /* Film stock branding — vertical text along the strip edge */
         .film-stock-label {
             position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%) rotate(-90deg);
             font-family: 'Courier New', monospace; font-size: 7px;
-            font-weight: 700; letter-spacing: 2px;
-            color: rgba(255,255,255,0.15);
+            font-weight: 700; letter-spacing: 3px;
             white-space: nowrap; pointer-events: none;
             z-index: 1; text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
         }
+        .work-strip-thumb { position: relative; width: 100%; aspect-ratio: 1/1; border: none; padding: 4px; background: none; cursor: pointer; display: block; }
+        /* All thumbnails show as negatives — like un-developed film.
+           The main display is the "enlarged" positive. */
+        .work-strip-thumb img {
+            width: 100%; height: 100%; object-fit: cover; display: block;
+            filter: invert(1) hue-rotate(180deg) saturate(0.6) brightness(0.85) contrast(1.1);
+            opacity: 0.8;
+            transition: filter 0.5s ease, opacity 0.4s ease;
+        }
+        /* Hover — slightly brighter, like holding the strip to light */
+        .work-strip-thumb:hover img { opacity: 1; filter: invert(1) hue-rotate(180deg) saturate(0.8) brightness(1) contrast(1.05); }
+        /* Active frame — subtle warm border on the strip; the main
+           photo is the positive. */
+        .work-strip-thumb.is-active { box-shadow: inset 0 0 0 1.5px var(--accent); }
 
         /* Wider screens get a shorter, more landscape main photo (the
            mobile portrait ratio would otherwise stretch absurdly tall
@@ -420,6 +446,8 @@
             .about-bio { max-width: 280px; }
             .experience-sequence { gap: 56px; }
         }
+        /* Digital camera font for photo counter */
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
         @media (max-width: 600px) {
             .container { padding: 0 22px; }
             .section-block { padding: 70px 0; }
@@ -447,9 +475,21 @@
         <div class="lp-hero-content">
             <h1 class="lp-hero-title">Intimate visual stories</h1>
             <p class="lp-hero-sub">Portraits that feel personal and beautifully authentic.</p>
+
         </div>
         <div class="lp-scroll-indicator" aria-hidden="true">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+    </section>
+
+    <!-- SOCIAL PROOF — stats between hero and portfolio, editable from admin Settings -->
+    <section class="section-block social-proof" id="social-proof-section">
+        <div class="container">
+            <div class="social-proof-items" id="social-proof-items">
+                <div class="social-proof-item"><div class="social-proof-number">500+</div><div class="social-proof-label">Sessions Captured</div></div>
+                <div class="social-proof-item"><div class="social-proof-number">4</div><div class="social-proof-label">Years Experience</div></div>
+                <div class="social-proof-item"><div class="social-proof-number">90%</div><div class="social-proof-label">5-Star Reviews</div></div>
+            </div>
         </div>
     </section>
 
@@ -461,12 +501,20 @@
         </div>
     </section>
 
-    <!-- TESTIMONIALS — now its own section with proper space,
+    <!-- FEATURED IN -->
+    <section class="featured-in lp-reveal" id="featured-in-section" style="display:none;">
+        <div class="container">
+            <div class="featured-in-label">As Featured In</div>
+            <div class="featured-in-logos" id="featured-in-logos"></div>
+        </div>
+    </section>
+
+    <!-- REVIEWS — now its own section with proper space,
          so longer quotes don't feel crammed into a corner of the
          Featured Works area. -->
     <section class="section-block voices-section async-reveal" id="testimonials-section">
         <div class="container">
-            <h2 class="testimonials-label" style="text-align:center;">Testimonials</h2>
+            <h2 class="testimonials-label" style="text-align:center;">Reviews</h2>
             <div class="voices-stage" id="voices-stage"></div>
         </div>
     </section>
@@ -482,7 +530,7 @@
     </section>
 
     <!-- THE EXPERIENCE — a quiet, editorial sequence of reassuring
-         statements, the emotional bridge between Portfolio and Book.
+         statements, the emotional bridge between Featured Work and Book.
          Deliberately no session names, descriptions, or prices —
          those live on Book. No overarching visible heading either
          (the sequence itself carries the section); an sr-only heading
@@ -496,16 +544,11 @@
         </div>
     </section>
 
-    <!-- TWO PATHS -->
-    <section class="section-block" style="padding:0;">
-        <div style="padding:90px 20px;text-align:center;">
-            <span style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);font-weight:600;display:block;margin-bottom:14px;">Book with us</span>
-            <h2 class="section-heading serif" style="margin-bottom:40px;">Ready when you are</h2>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:20px;">
-                <a href="book.html" class="btn-dark" style="min-width:260px;text-align:center;">Portraits + Studio</a>
-                <a href="wedding.html" class="btn-dark" style="min-width:260px;text-align:center;">Weddings</a>
-            </div>
-            <div style="margin-top:24px;"><a href="portfolio.html" class="btn-link-secondary">View Full Portfolio</a></div>
+    <!-- BOOK — editable from admin Settings -->
+    <section class="section-block book-cta-section lp-reveal">
+        <div class="container" style="text-align:center; padding: 0 20px;">
+            <div id="cta-content"></div>
+            <p style="margin-top:32px;font-size:13px;color:var(--text-secondary);">Questions? <a href="https://wa.me/2349075170240" target="_blank" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:1px;">Chat on WhatsApp</a></p>
         </div>
     </section>
 
@@ -597,6 +640,74 @@
         }, { threshold: 0.15, rootMargin: '0px 0px -25% 0px' });
         els.forEach(function (el) { observer.observe(el); });
     }
+
+    // CTA SECTION — editable from admin Settings
+    (function () {
+        settingsPromise.then(function (data) {
+            var s = data.settings || {};
+            var el = document.getElementById('cta-content');
+            if (!el) return;
+
+            var eyebrow = s.cta_eyebrow || "Let's work together";
+            // heading and description removed — cards speak for themselves
+            var portraitTitle = s.cta_portrait_title || "Portraits + Studio";
+            var portraitDesc = s.cta_portrait_desc || "Personal branding, family, maternity, couple, editorial";
+            var portraitBtn = s.cta_portrait_btn || "View packages";
+            var weddingTitle = s.cta_wedding_title || "Weddings — Beloved Imprint";
+            var weddingDesc = s.cta_wedding_desc || "Engagements, ceremonies, receptions — cinematic coverage from pre-wedding to first dance";
+            var weddingBtn = s.cta_wedding_btn || "Explore wedding packages";
+
+            el.innerHTML =
+                '<span style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);font-weight:600;display:block;margin-bottom:24px;">' + escapeHtml(eyebrow) + '</span>' +
+                '<div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">' +
+                    '<a href="book.html" class="cta-card" style="display:block;padding:28px 32px;background:var(--bg-card);border:1px solid var(--border-color);text-decoration:none;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);flex:1;min-width:220px;max-width:340px;text-align:left;">' +
+                        '<span class="serif" style="display:block;font-size:17px;color:var(--text-primary);margin-bottom:4px;">' + escapeHtml(portraitTitle) + '</span>' +
+                        '<span style="font-size:11.5px;color:var(--text-secondary);line-height:1.5;display:block;margin-bottom:10px;">' + escapeHtml(portraitDesc) + '</span>' +
+                        '<span style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);font-weight:600;">' + escapeHtml(portraitBtn) + ' &rarr;</span>' +
+                    '</a>' +
+                    '<a href="wedding.html" class="cta-card" style="display:block;padding:28px 32px;background:var(--bg-card);border:1px solid var(--border-color);text-decoration:none;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);flex:1;min-width:220px;max-width:340px;text-align:left;">' +
+                        '<span class="serif" style="display:block;font-size:17px;color:var(--text-primary);margin-bottom:4px;">' + escapeHtml(weddingTitle) + '</span>' +
+                        '<span style="font-size:11.5px;color:var(--text-secondary);line-height:1.5;display:block;margin-bottom:10px;">' + escapeHtml(weddingDesc) + '</span>' +
+                        '<span style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);font-weight:600;">' + escapeHtml(weddingBtn) + ' &rarr;</span>' +
+                    '</a>' +
+                '</div>';
+        });
+    })();
+
+    // SOCIAL PROOF — defaults are hardcoded in the HTML (500+, 4, 90%).
+    // Admin Settings can override each stat via proof_sessions, proof_years, etc.
+    (function () {
+        settingsPromise.then(function (data) {
+            var s = data.settings || {};
+
+            var proofItems = [];
+            if (s.proof_sessions) proofItems.push({ number: s.proof_sessions, label: 'Sessions Captured' });
+            if (s.proof_years) proofItems.push({ number: s.proof_years, label: 'Years Experience' });
+            if (s.proof_rating) proofItems.push({ number: s.proof_rating, label: '5-Star Reviews' });
+            if (s.proof_clients) proofItems.push({ number: s.proof_clients, label: 'Happy Clients' });
+
+            // If admin has set any values, replace the hardcoded defaults
+            if (proofItems.length) {
+                var el = document.getElementById('social-proof-items');
+                el.innerHTML = proofItems.map(function (item) {
+                    return '<div class="social-proof-item"><div class="social-proof-number">' + escapeHtml(item.number) + '</div><div class="social-proof-label">' + escapeHtml(item.label) + '</div></div>';
+                }).join('');
+            }
+
+            // Featured in logos
+            if (s.featured_in_enabled === 'true' && s.featured_in_logos) {
+                var logos;
+                try { logos = JSON.parse(s.featured_in_logos); } catch (e) { return; }
+                if (Array.isArray(logos) && logos.length) {
+                    var logosEl = document.getElementById('featured-in-logos');
+                    logosEl.innerHTML = logos.map(function (logo) {
+                        return '<img src="' + API_BASE + logo.url + '" alt="' + escapeHtml(logo.name || 'Featured') + '">';
+                    }).join('');
+                    document.getElementById('featured-in-section').style.display = '';
+                }
+            }
+        });
+    })();
 
     // HERO — identical logic to the booking page: two separate render
     // paths based on hero_mode, never mixing video and slideshow.
@@ -732,9 +843,8 @@
                     photoCounter.textContent = String(parseInt(idx, 10) + 1).padStart(2, '0') + ' / ' + String(sample.length).padStart(2, '0');
                     thumbs.forEach(function (t) { t.classList.toggle('is-active', t.dataset.index === idx); });
 
-                    // Smooth scroll to center the clicked thumbnail
-                    // in the strip's scroll area — like advancing the
-                    // film strip to the next frame.
+                    // Smooth scroll to center the clicked thumbnail —
+                    // like advancing the film strip to the next frame.
                     var thumbHeight = btn.offsetHeight;
                     var scrollTarget = btn.offsetTop - (stripWrap.clientHeight / 2) + (thumbHeight / 2);
                     stripWrap.scrollTo({ top: scrollTarget, behavior: 'smooth' });
@@ -743,9 +853,9 @@
         }
     })();
 
-    // VOICES — an editorial installation, not a testimonial carousel.
+    // VOICES — an editorial installation, not a review carousel.
     // A scattered field of atmosphere words sits in the background;
-    // real testimonials surface into focus one at a time — reveal,
+    // real reviews surface into focus one at a time — reveal,
     // hold, dissolve — and the field softens while one is showing.
     // Pauses entirely when off-screen or under prefers-reduced-motion.
     (function () {
@@ -759,7 +869,7 @@
 
         // Purely decorative atmosphere — generic words evoking the
         // feeling of a session, not quotes attributed to any specific
-        // client (real testimonials only ever come from the API below).
+        // client (real reviews only ever come from the API below).
         var ATMOSPHERE_WORDS = ['beautiful', 'effortless', 'authentic', 'unforgettable', 'comfortable', 'timeless', 'gorgeous', 'natural', 'confident', 'seen', 'gentle', 'genuine', 'warm', 'alive', 'graceful'];
 
         // Hand-placed, deliberately not gridded — a curated scatter
@@ -804,7 +914,7 @@
         function pickNext() {
             if (!items.length) return 0;
             if (!shuffledQueue.length) {
-                // Reshuffle all testimonials into a new queue
+                // Reshuffle all reviews into a new queue
                 shuffledQueue = items.map(function (_, i) { return i; });
                 // Fisher-Yates shuffle
                 for (var i = shuffledQueue.length - 1; i > 0; i--) {
@@ -815,7 +925,7 @@
                 }
                 // If the first item in the new shuffle is the same as
                 // the last one shown, swap it further in so we never
-                // see the same testimonial twice in a row at the seam
+                // see the same review twice in a row at the seam
                 if (shuffledQueue.length > 1 && shuffledQueue[0] === lastIndex) {
                     var swapWith = 1 + Math.floor(Math.random() * (shuffledQueue.length - 1));
                     shuffledQueue[0] = shuffledQueue[swapWith];
@@ -940,6 +1050,12 @@
                 lpRevealOnScroll(sequenceEl.querySelectorAll('.experience-statement'), 180);
             })
             .catch(function (err) { console.error('Could not load Experience content:', err); });
+    })();
+
+    // BOOK CTA — reveal on scroll
+    (function () {
+        var el = document.querySelector('.book-cta-section');
+        if (el) lpRevealOnScroll([el], 0);
     })();
 
     // SECTION REVEAL — as each section scrolls into view, its title
