@@ -148,8 +148,6 @@
         .lp-hero-content { position: relative; padding: 0 6vw; color: #fff; max-width: 700px; text-align: center; }
         .lp-hero-title { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-size: clamp(30px, 5.5vw, 58px); line-height: 1.2; margin-bottom: 20px; color: #fff; text-shadow: 0 4px 24px rgba(0,0,0,0.4); }
         .lp-hero-sub { font-size: 14px; color: rgba(255,255,255,0.82); max-width: 380px; margin: 0 auto; line-height: 1.7; }
-        .lp-hero-cta { display: inline-block; margin-top: 32px; padding: 18px 44px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px; color: #fff; background: rgba(255,255,255,0.12); backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); border: 1px solid rgba(255,255,255,0.2); text-decoration: none; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); box-shadow: 0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.15); }
-        .lp-hero-cta:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); box-shadow: 0 14px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2); }
 
         /* SCROLL INDICATOR — a full-width frosted glass strip embedded
            into the hero's own bottom edge, as if that edge of the page
@@ -183,24 +181,6 @@
 
         /* FEATURED WORK */
         .work-empty { text-align: center; color: var(--text-secondary); font-size: 13.5px; padding: 40px 0; }
-
-        /* SOCIAL PROOF COUNTER */
-        .social-proof { padding: 60px 0; text-align: center; border-bottom: 1px solid var(--border-color); opacity: 0; transform: translateY(16px); transition: opacity 1.3s cubic-bezier(0.16,1,0.3,1), transform 1.3s cubic-bezier(0.16,1,0.3,1); }
-        .social-proof.is-in { opacity: 1; transform: translateY(0); }
-        .social-proof-items { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; }
-        .social-proof-item { text-align: center; }
-        .social-proof-number { font-family: 'Fraunces', serif; font-size: clamp(28px, 4vw, 42px); font-weight: 500; color: var(--text-primary); line-height: 1.1; }
-        .social-proof-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-secondary); margin-top: 8px; font-weight: 500; }
-        /* Digital camera font for photo counter */
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-        @media (max-width: 600px) { .social-proof-items { gap: 32px; } .social-proof { padding: 40px 0; } }
-
-        /* FEATURED IN */
-        .featured-in { padding: 60px 0; text-align: center; }
-        .featured-in-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 28px; }
-        .featured-in-logos { display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; opacity: 0.5; }
-        .featured-in-logos img { height: 28px; width: auto; filter: grayscale(1); transition: filter 0.3s ease, opacity 0.3s ease; }
-        .featured-in-logos img:hover { filter: grayscale(0); opacity: 1; }
         .work-section { padding-top: 100px; padding-bottom: 0; }
 
 
@@ -213,7 +193,7 @@
         .about-bio { font-size: 13.5px; color: var(--text-secondary); line-height: 1.85; margin-bottom: 20px; max-width: 320px; margin-left: auto; margin-right: auto; text-wrap: balance; white-space: pre-line; }
 
 
-        /* REVIEWS — a full-page editorial installation. The stage
+        /* TESTIMONIALS — a full-page editorial installation. The stage
            fills the entire section so background words spread across
            the full viewport, not crammed into a tiny box. The featured
            quote sits dead center at a prominent size. */
@@ -294,7 +274,7 @@
 
         /* THE EXPERIENCE — a quiet, editorial sequence of reassuring
            statements (not a process/steps grid): the emotional bridge
-           between Featured Work and Book. No cards, no numbers, no icons —
+           between Portfolio and Book. No cards, no numbers, no icons —
            generous whitespace between each line lets it read almost
            like a short poem. Each statement fades in independently as
            it's scrolled to, via the same lpRevealOnScroll used
@@ -307,8 +287,6 @@
         .experience-statement.lp-reveal.is-in { opacity: 1; transform: translateY(0); }
 
         .book-cta-section { }
-        .cta-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px var(--shadow-hover); border-color: var(--accent); }
-        .cta-card:hover span:last-child { color: var(--accent); }
 
         .brand-footer { padding: 60px 0; text-align: center; border-top: 1px solid var(--border-color); }
         .footer-mark { font-size: 15px; font-weight: 500; letter-spacing: 0.3px; }
@@ -325,17 +303,15 @@
         .work-mobile-feature {
             display: flex; gap: 3px; aspect-ratio: 2.5/3.3; overflow: hidden; position: relative;
             margin-bottom: 28px; background: #141210;
-            box-shadow: 0 24px 60px var(--shadow-hover), 0 8px 32px rgba(0,0,0,0.15);
-            border-radius: 4px;
+            box-shadow: 0 24px 60px var(--shadow-hover);
         }
 
         .work-mobile-feature.is-empty { aspect-ratio: auto; display: block; overflow: visible; background: none; }
 
         .work-main-photo { flex: 1; position: relative; overflow: hidden; min-width: 0; }
         .work-photo-counter {
-            text-align: center; padding: 6px 0 2px; z-index: 5; position: sticky; top: 0;
-            color: #C1722E; font-family: 'Share Tech Mono', monospace; font-size: 11px; font-weight: 400; letter-spacing: 2px;
-            background: #141210; backdrop-filter: blur(4px);
+            text-align: center; padding: 6px 0 2px; z-index: 3; position: relative;
+            color: #c4a67e; font-size: 9px; font-weight: 600; letter-spacing: 1.2px;
         }
         .work-main-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s ease; }
         .work-main-photo img.is-active { opacity: 1; animation: lp-ken-burns 16s ease-out forwards; }
@@ -344,43 +320,89 @@
             .work-main-photo img.is-active { animation: none; }
         }
         .work-strip-wrap {
-            width: 22%; position: relative; overflow-y: auto; overflow-x: hidden;
+            width: 26%; position: relative; overflow-y: auto; overflow-x: hidden;
             scroll-behavior: smooth; scrollbar-width: none; min-height: 0;
             overscroll-behavior-y: contain;
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
-            mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
         }
         .work-strip-wrap::-webkit-scrollbar { display: none; }
 
-        /* Film perforations — the strip background is permanently dark
-           (#141210), so perforations are always the light-on-dark
-           variant. No theme switching needed here because film is
-           always dark regardless of the page's light/dark mode. */
+        /* Film strip — inspired by real 35mm film: dark base,
+           rectangular sprocket holes along both edges, frame numbers,
+           and film-stock branding. The strip background is permanently
+           dark regardless of light/dark mode because film is always
+           dark. */
+        .work-strip-track {
+            display: flex; flex-direction: column; padding: 0 18px;
+            position: relative; gap: 2px;
+        }
+        /* Rectangular sprocket holes — real 35mm film has rounded
+           rectangular perforations, not circles. The mask creates
+           the punch-hole shape with a slight bevel. */
         .work-strip-track::before,
         .work-strip-track::after {
-            content: ""; position: absolute; top: 0; bottom: 0; width: 5px; z-index: 2;
+            content: ""; position: absolute; top: 0; bottom: 0; width: 10px; z-index: 2;
             background: rgba(255,255,255,0.25);
-            -webkit-mask-image: radial-gradient(ellipse 2px 3px at center, transparent 0, transparent 1.2px, rgba(0,0,0,0.4) 1.4px, #000 1.6px);
-            mask-image: radial-gradient(ellipse 2px 3px at center, transparent 0, transparent 1.2px, rgba(0,0,0,0.4) 1.4px, #000 1.6px);
-            -webkit-mask-size: 100% 24px; mask-size: 100% 24px;
-            -webkit-mask-repeat: repeat-y; mask-repeat: repeat-y;
-            -webkit-mask-position: center top; mask-position: center top;
+            -webkit-mask-image: repeating-linear-gradient(
+                to bottom,
+                transparent 0px, transparent 4px,
+                #000 4px, #000 14px,
+                transparent 14px, transparent 18px
+            );
+            mask-image: repeating-linear-gradient(
+                to bottom,
+                transparent 0px, transparent 4px,
+                #000 4px, #000 14px,
+                transparent 14px, transparent 18px
+            );
         }
-        .work-strip-track::before { left: 0; }
-        .work-strip-track::after { right: 0; }
-        .work-strip-track { display: flex; flex-direction: column; padding: 0 13px; position: relative; }
-        .work-strip-thumb { position: relative; width: 100%; aspect-ratio: 1/1; border: none; padding: 4px; background: none; cursor: pointer; display: block; }
-        /* Active state — a slightly frosted photographic viewer
-           rather than a border: everything not currently selected
-           sits back with a soft blur and a touch less brightness;
-           the active frame alone is fully clear and sharp. No
-           bright outlines, nothing loud. */
+        .work-strip-track::before { left: 0; border-radius: 0 2px 2px 0; }
+        .work-strip-track::after { right: 0; border-radius: 2px 0 0 2px; }
+
+        /* Each thumbnail frame — bordered like a real film frame,
+           with a frame number label like real film edge markings. */
+        .work-strip-thumb {
+            position: relative; width: 100%; aspect-ratio: 1/1;
+            border: none; padding: 4px; background: none;
+            cursor: pointer; display: block;
+        }
+        /* Frame number — small label on the edge, like real film
+           edge markings (17A, 18, etc.) */
+        .work-strip-thumb .frame-num {
+            position: absolute; right: 1px; bottom: 2px;
+            font-size: 7px; font-weight: 600; letter-spacing: 0.5px;
+            color: rgba(255,255,255,0.35); z-index: 3;
+            font-family: 'Courier New', monospace; pointer-events: none;
+        }
+        /* All thumbnails are negatives — like un-developed film.
+           The main display is the "enlarged" positive. */
         .work-strip-thumb img {
             width: 100%; height: 100%; object-fit: cover; display: block;
-            filter: blur(1.3px) brightness(0.7); opacity: 0.6;
-            transition: filter 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
+            filter: invert(1) hue-rotate(180deg) saturate(0.6) brightness(0.8) contrast(1.1);
+            opacity: 0.82;
+            transition: filter 0.6s ease, opacity 0.4s ease, transform 0.4s ease;
         }
-        .work-strip-thumb.is-active img { filter: blur(0) brightness(1); opacity: 1; }
+        /* Hover — slightly brighter, like holding the strip up to light */
+        .work-strip-thumb:hover img {
+            opacity: 1;
+            filter: invert(1) hue-rotate(180deg) saturate(0.8) brightness(1) contrast(1.05);
+        }
+        /* Active thumbnail — subtle warm glow border, like the frame
+           being projected. The image stays negative on the strip.
+           The main photo is the positive. */
+        .work-strip-thumb.is-active {
+            box-shadow: inset 0 0 0 1.5px var(--accent);
+        }
+        /* Film stock branding — runs along the edge of the strip
+           like "KODAK PORTRA 160" or "AGFA" on real film */
+        .film-stock-label {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-90deg);
+            font-family: 'Courier New', monospace; font-size: 7px;
+            font-weight: 700; letter-spacing: 2px;
+            color: rgba(255,255,255,0.15);
+            white-space: nowrap; pointer-events: none;
+            z-index: 1; text-transform: uppercase;
+        }
 
         /* Wider screens get a shorter, more landscape main photo (the
            mobile portrait ratio would otherwise stretch absurdly tall
@@ -398,8 +420,6 @@
             .about-bio { max-width: 280px; }
             .experience-sequence { gap: 56px; }
         }
-        /* Digital camera font for photo counter */
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
         @media (max-width: 600px) {
             .container { padding: 0 22px; }
             .section-block { padding: 70px 0; }
@@ -427,7 +447,6 @@
         <div class="lp-hero-content">
             <h1 class="lp-hero-title">Intimate visual stories</h1>
             <p class="lp-hero-sub">Portraits that feel personal and beautifully authentic.</p>
-
         </div>
         <div class="lp-scroll-indicator" aria-hidden="true">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -442,27 +461,12 @@
         </div>
     </section>
 
-    <!-- SOCIAL PROOF -->
-    <section class="social-proof lp-reveal" id="social-proof-section" style="display:none;">
-        <div class="container">
-            <div class="social-proof-items" id="social-proof-items"></div>
-        </div>
-    </section>
-
-    <!-- FEATURED IN -->
-    <section class="featured-in lp-reveal" id="featured-in-section" style="display:none;">
-        <div class="container">
-            <div class="featured-in-label">As Featured In</div>
-            <div class="featured-in-logos" id="featured-in-logos"></div>
-        </div>
-    </section>
-
-    <!-- REVIEWS — now its own section with proper space,
+    <!-- TESTIMONIALS — now its own section with proper space,
          so longer quotes don't feel crammed into a corner of the
          Featured Works area. -->
     <section class="section-block voices-section async-reveal" id="testimonials-section">
         <div class="container">
-            <h2 class="testimonials-label" style="text-align:center;">Reviews</h2>
+            <h2 class="testimonials-label" style="text-align:center;">Testimonials</h2>
             <div class="voices-stage" id="voices-stage"></div>
         </div>
     </section>
@@ -478,7 +482,7 @@
     </section>
 
     <!-- THE EXPERIENCE — a quiet, editorial sequence of reassuring
-         statements, the emotional bridge between Featured Work and Book.
+         statements, the emotional bridge between Portfolio and Book.
          Deliberately no session names, descriptions, or prices —
          those live on Book. No overarching visible heading either
          (the sequence itself carries the section); an sr-only heading
@@ -492,11 +496,16 @@
         </div>
     </section>
 
-    <!-- BOOK — editable from admin Settings -->
-    <section class="section-block book-cta-section lp-reveal" style="padding:0;">
-        <div class="container" style="text-align:center;padding:100px 20px;">
-            <div id="cta-content"></div>
-            <p style="margin-top:32px;font-size:13px;color:var(--text-secondary);">Questions? <a href="https://wa.me/2349075170240" target="_blank" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:1px;">Chat on WhatsApp</a></p>
+    <!-- TWO PATHS -->
+    <section class="section-block" style="padding:0;">
+        <div style="padding:90px 20px;text-align:center;">
+            <span style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);font-weight:600;display:block;margin-bottom:14px;">Book with us</span>
+            <h2 class="section-heading serif" style="margin-bottom:40px;">Ready when you are</h2>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:20px;">
+                <a href="book.html" class="btn-dark" style="min-width:260px;text-align:center;">Portraits + Studio</a>
+                <a href="wedding.html" class="btn-dark" style="min-width:260px;text-align:center;">Weddings</a>
+            </div>
+            <div style="margin-top:24px;"><a href="portfolio.html" class="btn-link-secondary">View Full Portfolio</a></div>
         </div>
     </section>
 
@@ -588,76 +597,6 @@
         }, { threshold: 0.15, rootMargin: '0px 0px -25% 0px' });
         els.forEach(function (el) { observer.observe(el); });
     }
-
-    // CTA SECTION — editable from admin Settings
-    (function () {
-        settingsPromise.then(function (data) {
-            var s = data.settings || {};
-            var el = document.getElementById('cta-content');
-            if (!el) return;
-
-            var eyebrow = s.cta_eyebrow || "Let's work together";
-            // heading and description removed — cards speak for themselves
-            var portraitTitle = s.cta_portrait_title || "Portraits + Studio";
-            var portraitDesc = s.cta_portrait_desc || "Personal branding, family, maternity, couple, editorial";
-            var portraitBtn = s.cta_portrait_btn || "View packages";
-            var weddingTitle = s.cta_wedding_title || "Weddings — Beloved Imprint";
-            var weddingDesc = s.cta_wedding_desc || "Engagements, ceremonies, receptions — cinematic coverage from pre-wedding to first dance";
-            var weddingBtn = s.cta_wedding_btn || "Explore wedding packages";
-
-            el.innerHTML =
-                '<span style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);font-weight:600;display:block;margin-bottom:24px;">' + escapeHtml(eyebrow) + '</span>' +
-                '<div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">' +
-                    '<a href="book.html" class="cta-card" style="display:block;padding:28px 32px;background:var(--bg-card);border:1px solid var(--border-color);text-decoration:none;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);flex:1;min-width:220px;max-width:340px;text-align:left;">' +
-                        '<span class="serif" style="display:block;font-size:17px;color:var(--text-primary);margin-bottom:4px;">' + escapeHtml(portraitTitle) + '</span>' +
-                        '<span style="font-size:11.5px;color:var(--text-secondary);line-height:1.5;display:block;margin-bottom:10px;">' + escapeHtml(portraitDesc) + '</span>' +
-                        '<span style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);font-weight:600;">' + escapeHtml(portraitBtn) + ' &rarr;</span>' +
-                    '</a>' +
-                    '<a href="wedding.html" class="cta-card" style="display:block;padding:28px 32px;background:var(--bg-card);border:1px solid var(--border-color);text-decoration:none;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);flex:1;min-width:220px;max-width:340px;text-align:left;">' +
-                        '<span class="serif" style="display:block;font-size:17px;color:var(--text-primary);margin-bottom:4px;">' + escapeHtml(weddingTitle) + '</span>' +
-                        '<span style="font-size:11.5px;color:var(--text-secondary);line-height:1.5;display:block;margin-bottom:10px;">' + escapeHtml(weddingDesc) + '</span>' +
-                        '<span style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);font-weight:600;">' + escapeHtml(weddingBtn) + ' &rarr;</span>' +
-                    '</a>' +
-                '</div>';
-        });
-    })();
-
-    // SOCIAL PROOF — editable from admin Settings
-    (function () {
-        settingsPromise.then(function (data) {
-            var s = data.settings || {};
-
-            // Social proof counter
-            var proofItems = [];
-            if (s.proof_sessions) proofItems.push({ number: s.proof_sessions, label: 'Sessions Captured' });
-            if (s.proof_years) proofItems.push({ number: s.proof_years, label: 'Years Experience' });
-            if (s.proof_rating) proofItems.push({ number: s.proof_rating, label: 'Client Rating' });
-            if (s.proof_clients) proofItems.push({ number: s.proof_clients, label: 'Happy Clients' });
-
-            if (proofItems.length) {
-                var el = document.getElementById('social-proof-items');
-                el.innerHTML = proofItems.map(function (item) {
-                    return '<div class="social-proof-item"><div class="social-proof-number">' + escapeHtml(item.number) + '</div><div class="social-proof-label">' + escapeHtml(item.label) + '</div></div>';
-                }).join('');
-                var section = document.getElementById('social-proof-section');
-                section.style.display = '';
-                lpRevealOnScroll([section], 0);
-            }
-
-            // Featured in logos
-            if (s.featured_in_enabled === 'true' && s.featured_in_logos) {
-                var logos;
-                try { logos = JSON.parse(s.featured_in_logos); } catch (e) { return; }
-                if (Array.isArray(logos) && logos.length) {
-                    var logosEl = document.getElementById('featured-in-logos');
-                    logosEl.innerHTML = logos.map(function (logo) {
-                        return '<img src="' + API_BASE + logo.url + '" alt="' + escapeHtml(logo.name || 'Featured') + '">';
-                    }).join('');
-                    document.getElementById('featured-in-section').style.display = '';
-                }
-            }
-        });
-    })();
 
     // HERO — identical logic to the booking page: two separate render
     // paths based on hero_mode, never mixing video and slideshow.
@@ -766,17 +705,18 @@
             }
 
             var thumbsHtml = sample.map(function (item, i) {
-                return '<button type="button" class="work-strip-thumb' + (i === 0 ? ' is-active' : '') + '" data-index="' + i + '" aria-label="View photo ' + (i + 1) + ' of ' + sample.length + '"><img src="' + API_BASE + item.imageUrl + '" alt="" loading="lazy" decoding="async"></button>';
+                return '<button type="button" class="work-strip-thumb' + (i === 0 ? ' is-active' : '') + '" data-index="' + i + '" aria-label="View photo ' + (i + 1) + ' of ' + sample.length + '"><img src="' + API_BASE + item.imageUrl + '" alt="" loading="lazy" decoding="async"><span class="frame-num">' + (i + 1) + '</span></button>';
             }).join('');
 
             mobileFeature.innerHTML =
                 '<div class="work-main-photo">' +
+                    '<div class="work-photo-counter" id="work-photo-counter">01 / ' + String(sample.length).padStart(2, '0') + '</div>' +
                     sample.map(function (item, i) {
                         return '<img src="' + API_BASE + item.imageUrl + '" alt="Featured work" class="' + (i === 0 ? 'is-active' : '') + '" data-index="' + i + '" decoding="async">';
                     }).join('') +
                 '</div>' +
                 '<div class="work-strip-wrap" id="work-strip-wrap">' +
-                    '<div class="work-photo-counter" id="work-photo-counter">1 / ' + sample.length + '</div>' +
+                    '<span class="film-stock-label">Liberty</span>' +
                     '<div class="work-strip-track">' + thumbsHtml + '</div>' +
                 '</div>';
 
@@ -789,31 +729,23 @@
                 btn.addEventListener('click', function () {
                     var idx = btn.dataset.index;
                     mainImgs.forEach(function (img) { img.classList.toggle('is-active', img.dataset.index === idx); });
-                    photoCounter.textContent = (parseInt(idx, 10) + 1) + ' / ' + sample.length;
+                    photoCounter.textContent = String(parseInt(idx, 10) + 1).padStart(2, '0') + ' / ' + String(sample.length).padStart(2, '0');
                     thumbs.forEach(function (t) { t.classList.toggle('is-active', t.dataset.index === idx); });
 
-                    // Keep the clicked thumbnail comfortably in view
-                    // within the strip's own scroll area, based on its
-                    // real position — not a guess at "near the end of
-                    // the whole list" (which breaks down for long lists,
-                    // since by the time you can click something near the
-                    // literal end you're usually already scrolled all
-                    // the way down with nothing left to reveal). This
-                    // works correctly no matter how many photos there
-                    // are or where in the list this one sits.
-                    var btnBottom = btn.offsetTop + btn.offsetHeight;
-                    var visibleBottom = stripWrap.scrollTop + stripWrap.clientHeight;
-                    if (btnBottom > visibleBottom - btn.offsetHeight) {
-                        stripWrap.scrollTo({ top: btnBottom - stripWrap.clientHeight + btn.offsetHeight, behavior: 'smooth' });
-                    }
+                    // Smooth scroll to center the clicked thumbnail
+                    // in the strip's scroll area — like advancing the
+                    // film strip to the next frame.
+                    var thumbHeight = btn.offsetHeight;
+                    var scrollTarget = btn.offsetTop - (stripWrap.clientHeight / 2) + (thumbHeight / 2);
+                    stripWrap.scrollTo({ top: scrollTarget, behavior: 'smooth' });
                 });
             });
         }
     })();
 
-    // VOICES — an editorial installation, not a review carousel.
+    // VOICES — an editorial installation, not a testimonial carousel.
     // A scattered field of atmosphere words sits in the background;
-    // real reviews surface into focus one at a time — reveal,
+    // real testimonials surface into focus one at a time — reveal,
     // hold, dissolve — and the field softens while one is showing.
     // Pauses entirely when off-screen or under prefers-reduced-motion.
     (function () {
@@ -827,7 +759,7 @@
 
         // Purely decorative atmosphere — generic words evoking the
         // feeling of a session, not quotes attributed to any specific
-        // client (real reviews only ever come from the API below).
+        // client (real testimonials only ever come from the API below).
         var ATMOSPHERE_WORDS = ['beautiful', 'effortless', 'authentic', 'unforgettable', 'comfortable', 'timeless', 'gorgeous', 'natural', 'confident', 'seen', 'gentle', 'genuine', 'warm', 'alive', 'graceful'];
 
         // Hand-placed, deliberately not gridded — a curated scatter
@@ -872,7 +804,7 @@
         function pickNext() {
             if (!items.length) return 0;
             if (!shuffledQueue.length) {
-                // Reshuffle all reviews into a new queue
+                // Reshuffle all testimonials into a new queue
                 shuffledQueue = items.map(function (_, i) { return i; });
                 // Fisher-Yates shuffle
                 for (var i = shuffledQueue.length - 1; i > 0; i--) {
@@ -883,7 +815,7 @@
                 }
                 // If the first item in the new shuffle is the same as
                 // the last one shown, swap it further in so we never
-                // see the same review twice in a row at the seam
+                // see the same testimonial twice in a row at the seam
                 if (shuffledQueue.length > 1 && shuffledQueue[0] === lastIndex) {
                     var swapWith = 1 + Math.floor(Math.random() * (shuffledQueue.length - 1));
                     shuffledQueue[0] = shuffledQueue[swapWith];
@@ -1008,12 +940,6 @@
                 lpRevealOnScroll(sequenceEl.querySelectorAll('.experience-statement'), 180);
             })
             .catch(function (err) { console.error('Could not load Experience content:', err); });
-    })();
-
-    // BOOK CTA — reveal on scroll
-    (function () {
-        var el = document.querySelector('.book-cta-section');
-        if (el) lpRevealOnScroll([el], 0);
     })();
 
     // SECTION REVEAL — as each section scrolls into view, its title
