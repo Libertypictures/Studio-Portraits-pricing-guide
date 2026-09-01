@@ -11,6 +11,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com/">
 <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
 <link rel="preconnect" href="https://liberty-booking-api.visualsliberty.workers.dev" crossorigin>
+<!-- Kick the settings request off during HTML parsing, before the
+     script tag near the bottom runs — knocks the biggest chunk off
+     the logo's time-to-first-pixel on cold visits. -->
+<link rel="preload" href="https://liberty-booking-api.visualsliberty.workers.dev/api/settings" as="fetch" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
 <style>
     :root {
@@ -37,16 +41,22 @@
 
     .page { width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 22px; }
 
-    /* ==== Identity — logo alone, sized to match homepage principle ==== */
-    .brand { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
-    .brand-logo { height: 44px; width: auto; display: block; object-fit: contain; }
-    /* Same treatment as the site header logo: silhouette to white + soft
-       drop shadow. Only applied in dark mode so the natural dark logo
-       shows correctly against the cream light-mode background. */
-    @media (prefers-color-scheme: dark) {
-        .brand-logo { filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.25)); }
+    /* ==== Identity — welcome line only, no logo ==== */
+    .brand { text-align: center; padding: 8px 0 4px; }
+    .brand-welcome {
+        font-size: 13px; color: var(--text-soft); font-weight: 400; letter-spacing: 0.2px;
+        /* Subtle grow-in on first load — starts a touch smaller and
+           settles at full size, timed after the page fade so it reads
+           as a graceful arrival, never a "look at me" animation. */
+        opacity: 0; transform: scale(0.86);
+        animation: welcome-in 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
     }
-    .brand-welcome { font-size: 12px; color: var(--text-soft); font-weight: 400; letter-spacing: 0.2px; margin-top: 2px; }
+    @keyframes welcome-in {
+        to { opacity: 1; transform: scale(1); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .brand-welcome { animation: none; opacity: 1; transform: none; }
+    }
 
     /* ==== Link cards — one uniform style, no colored "primary" ==== */
     .link-list { display: flex; flex-direction: column; gap: 10px; }
@@ -88,9 +98,8 @@
 <body>
 
 <main class="page">
-    <!-- Identity: logo alone, warm one-line welcome underneath -->
+    <!-- Identity: just a warm welcome line — logo intentionally omitted -->
     <header class="brand">
-        <img id="brand-logo" class="brand-logo" alt="Libertypictures">
         <p class="brand-welcome">Glad you're here.</p>
     </header>
 
@@ -144,21 +153,21 @@
 <script>
     var API_BASE = 'https://liberty-booking-api.visualsliberty.workers.dev';
 
-    fetch(API_BASE + '/api/settings').then(function (r) { return r.json(); }).then(function (data) {
-        var s = (data && data.settings) || {};
-
-        if (s.logo_url) {
-            document.getElementById('brand-logo').src = API_BASE + s.logo_url;
-        }
-
-        if (s.instagram_handle) {
-            var handle = s.instagram_handle.replace(/^@/, '');
-            var ig = document.getElementById('footer-ig');
-            ig.href = 'https://instagram.com/' + handle;
-            ig.classList.add('is-visible');
-            document.getElementById('footer-ig-handle').textContent = '@' + handle;
-        }
-    }).catch(function () { /* page renders fine without settings */ });
+    // Settings fetch is now only for the Instagram handle in the
+    // footer. High priority so the footer isn't blank for long.
+    fetch(API_BASE + '/api/settings', { priority: 'high' })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+            var s = (data && data.settings) || {};
+            if (s.instagram_handle) {
+                var handle = s.instagram_handle.replace(/^@/, '');
+                var ig = document.getElementById('footer-ig');
+                ig.href = 'https://instagram.com/' + handle;
+                ig.classList.add('is-visible');
+                document.getElementById('footer-ig-handle').textContent = '@' + handle;
+            }
+        })
+        .catch(function () { /* page renders fine without settings */ });
 </script>
 </body>
 </html>
