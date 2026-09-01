@@ -22,7 +22,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://liberty-booking-api.visualsliberty.workers.dev" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -193,26 +194,25 @@
         .social-proof-items {
             display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
             /* Progress 0 → 1 set by JS on scroll. 1 = section settled in the
-               viewport center (numbers small + brand bronze — the read state).
-               0 = section scrolled far away (numbers big + white). */
+               viewport center (numbers at full/max size). 0 = section
+               scrolled far away (numbers scaled down). Color is fixed brand
+               bronze — no interpolation. */
             --proof-progress: 0;
         }
         .social-proof-item { text-align: center; }
         .social-proof-number {
-            font-family: 'Fraunces', serif; font-size: clamp(28px, 4vw, 42px); font-weight: 500; line-height: 1.1;
-            color: var(--text-primary); /* fallback if color-mix isn't supported */
-            transform: scale(calc(1 - 0.26 * var(--proof-progress)));
+            font-family: 'Fraunces', serif; font-size: clamp(22px, 3vw, 32px); font-weight: 500; line-height: 1.1;
+            color: var(--text-primary);
+            transform: scale(calc(0.74 + 0.26 * var(--proof-progress)));
             transform-origin: 50% 100%;
-            color: color-mix(in oklab, #c4a67e calc(var(--proof-progress) * 100%), var(--text-primary));
-            transition: transform 0.22s cubic-bezier(0.33, 1, 0.68, 1), color 0.32s cubic-bezier(0.33, 1, 0.68, 1);
+            transition: transform 0.22s cubic-bezier(0.33, 1, 0.68, 1);
             will-change: transform;
         }
         .social-proof-label { font-size: 9.5px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--text-secondary); margin-top: 8px; font-weight: 500; }
         @media (prefers-reduced-motion: reduce) {
-            .social-proof-number { transform: none; color: var(--text-primary); transition: none; }
+            .social-proof-number { transform: none; transition: none; }
         }
         /* Digital camera font for photo counter */
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
         @media (max-width: 600px) { .social-proof-items { gap: 32px; } .social-proof { padding: 40px 0; } }
 
         /* FEATURED IN */
@@ -344,8 +344,12 @@
            to it. Previously desktop showed a separate editorial grid;
            that's retired in favor of one consistent presentation. */
         .work-mobile-feature {
-            display: flex; gap: 3px; aspect-ratio: 2.5/3.3; overflow: hidden; position: relative;
-            margin-bottom: 28px; background: #141210;
+            display: flex; gap: 4px; aspect-ratio: 2.5/3.3; overflow: hidden; position: relative;
+            margin-bottom: 28px;
+            /* Container is transparent so the strip's perforations show the
+               actual page background (cream in light mode, dark in dark
+               mode) — like a real film strip lying on the page. */
+            background: transparent;
             box-shadow: 0 24px 60px var(--shadow-hover), 0 8px 32px rgba(0,0,0,0.15);
             border-radius: 4px;
         }
@@ -369,68 +373,73 @@
             width: 22%; position: relative; overflow-y: auto; overflow-x: hidden;
             scroll-behavior: smooth; scrollbar-width: none; min-height: 0;
             overscroll-behavior-y: contain;
+            background: transparent;
+            /* Two-layer drop shadow: a tight one for the immediate lift
+               (film sitting on the page) and a softer, wider one for the
+               overall depth. Feels like a real object with weight. */
+            filter:
+                drop-shadow(0 1px 1px rgba(0,0,0,0.5))
+                drop-shadow(0 6px 12px rgba(0,0,0,0.28));
             -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
             mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
         }
         .work-strip-wrap::-webkit-scrollbar { display: none; }
 
-        /* Film strip — 35mm film aesthetic with rectangular sprocket
-           holes, frame numbers, and film-stock branding. The strip
-           adapts to light/dark mode: perforations shift from dark-on-
-           cream (light mode) to light-on-dark (dark mode). */
+        /* Film strip — 35mm Kodak-inspired aesthetic. The strip is a
+           dark rectangle painted with SVG background tiles that have
+           actual holes (transparent pixels) at the sprocket positions.
+           Because the container is transparent all the way up to the
+           page body, the holes read as cream on light mode and dark
+           on dark mode — like a real film strip on a surface. */
         .work-strip-track {
-            display: flex; flex-direction: column; padding: 0 16px;
-            position: relative; gap: 2px;
-        }
-        /* Rectangular sprocket holes — real 35mm film has rounded
-           rectangular perforations, not circles. Adapts to theme. */
-        .work-strip-track::before,
-        .work-strip-track::after {
-            content: ""; position: absolute; top: 0; bottom: 0; width: 8px; z-index: 2;
-            -webkit-mask-image: repeating-linear-gradient(
-                to bottom,
-                transparent 0px, transparent 3px,
-                #000 3px, #000 13px,
-                transparent 13px, transparent 18px
-            );
-            mask-image: repeating-linear-gradient(
-                to bottom,
-                transparent 0px, transparent 3px,
-                #000 3px, #000 13px,
-                transparent 13px, transparent 18px
-            );
-            border-radius: 1px;
-        }
-        /* The strip background is always dark (film is always dark
-           regardless of page theme). Perforations are light-on-dark
-           in both modes, but slightly brighter in dark mode. */
-        .work-strip-track::before { left: 0; background: rgba(255,255,255,0.3); }
-        .work-strip-track::after { right: 0; background: rgba(255,255,255,0.3); }
-        @media (prefers-color-scheme: dark) {
-            .work-strip-track::before,
-            .work-strip-track::after { background: rgba(255,255,255,0.4); }
+            display: flex; flex-direction: column; padding: 0 14px;
+            position: relative; gap: 3px;
+            background-color: transparent;
+            /* Layered like a real 35mm frame:
+               1-2. Perf tiles — dark warm film with a shadowed hole cut
+                    out of each; the shadow at the top of the hole reads
+                    as the film's thickness (light stops at the cut edge).
+               3.  Very fine grain overlay via SVG turbulence — dialed
+                    way down; there should never be visible dots on the
+                    photo area, only a hint of texture on the film base.
+               4.  Emulsion sheen — a soft diagonal band of lighter
+                    warmth suggesting a highlight rolling across the film.
+               5.  Base film color — warm dark with a subtle horizontal
+                    gradient (brighter in the middle where light would
+                    catch, darker toward the sprocket columns). */
+            background-image:
+                url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='15'%3E%3Cdefs%3E%3ClinearGradient id='sh' x1='0.5' y1='0' x2='0.5' y2='1'%3E%3Cstop offset='0' stop-color='%23000' stop-opacity='0.55'/%3E%3Cstop offset='0.55' stop-color='%23000' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='%23120e0b' fill-rule='evenodd' d='M0 0h14v15H0zM3 3h8v8H3z'/%3E%3Crect x='3' y='3' width='8' height='4.5' fill='url(%23sh)' rx='0.4'/%3E%3C/svg%3E"),
+                url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='15'%3E%3Cdefs%3E%3ClinearGradient id='sh' x1='0.5' y1='0' x2='0.5' y2='1'%3E%3Cstop offset='0' stop-color='%23000' stop-opacity='0.55'/%3E%3Cstop offset='0.55' stop-color='%23000' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='%23120e0b' fill-rule='evenodd' d='M0 0h14v15H0zM3 3h8v8H3z'/%3E%3Crect x='3' y='3' width='8' height='4.5' fill='url(%23sh)' rx='0.4'/%3E%3C/svg%3E"),
+                url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.06 0 0 0 0 0.05 0 0 0 0 0.04 0 0 0 0.35 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E"),
+                linear-gradient(115deg,
+                    transparent 20%,
+                    rgba(255, 236, 210, 0.035) 42%,
+                    rgba(255, 236, 210, 0.055) 50%,
+                    rgba(255, 236, 210, 0.035) 58%,
+                    transparent 80%),
+                linear-gradient(to right,
+                    #0a0705 0,
+                    #100c09 25%,
+                    #16110d 50%,
+                    #100c09 75%,
+                    #0a0705 100%);
+            background-position: left top, right top, 14px 0, 14px 0, 14px 0;
+            background-size: 14px 15px, 14px 15px, 120px 120px, calc(100% - 28px) 100%, calc(100% - 28px) 100%;
+            background-repeat: repeat-y, repeat-y, repeat, no-repeat, no-repeat;
         }
 
-        /* Frame number — small label like real film edge markings.
-           Always light text with a dark halo for legibility on the
-           dark strip background, regardless of page theme. */
+        /* Frame number — small warm-gold edge marking like real film
+           frame indicators. Uppercase mono with an arrow prefix. */
         .work-strip-thumb .frame-num {
-            position: absolute; right: 2px; bottom: 3px;
-            font-size: 8px; font-weight: 700; letter-spacing: 0.3px;
-            z-index: 3; font-family: 'Courier New', monospace;
+            position: absolute; right: 3px; bottom: 3px;
+            font-size: 7.5px; font-weight: 700; letter-spacing: 0.5px;
+            z-index: 3; font-family: 'Share Tech Mono', 'Courier New', monospace;
             pointer-events: none; line-height: 1;
-            color: rgba(255,255,255,0.6);
-            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+            color: #d4a442;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.9);
         }
-        /* Film stock branding — vertical text along the strip edge */
-        .film-stock-label {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%) rotate(-90deg);
-            font-family: 'Courier New', monospace; font-size: 7px;
-            font-weight: 700; letter-spacing: 3px;
-            white-space: nowrap; pointer-events: none;
-            z-index: 1; text-transform: uppercase;
-            color: rgba(255,255,255,0.2);
+        .work-strip-thumb .frame-num::before {
+            content: '▸ '; opacity: 0.85; margin-right: 1px;
         }
         .work-strip-thumb { position: relative; width: 100%; aspect-ratio: 1/1; border: none; padding: 4px; background: none; cursor: pointer; display: block; }
         /* All thumbnails show as negatives — like un-developed film.
@@ -464,7 +473,6 @@
             .experience-sequence { gap: 56px; }
         }
         /* Digital camera font for photo counter */
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
         @media (max-width: 600px) {
             .container { padding: 0 22px; }
             .section-block { padding: 70px 0; }
@@ -886,8 +894,18 @@
             var counterWidth = totalStr.length;
             function frameLabel(i) { return String(i + 1).padStart(counterWidth, '0') + ' / ' + totalStr; }
 
+            // Thumbnails: only the first few load eagerly; the rest are
+            // deferred until they scroll into the strip's viewport (via
+            // IntersectionObserver, wired up after render). This keeps
+            // total-of-N-photos independent of what actually downloads on
+            // page load — matters most on mobile data + long strips.
+            var EAGER_THUMBS = 4;
             var thumbsHtml = sample.map(function (item, i) {
-                return '<button type="button" class="work-strip-thumb' + (i === 0 ? ' is-active' : '') + '" data-index="' + i + '" aria-label="View photo ' + (i + 1) + ' of ' + sample.length + '"><img src="' + API_BASE + item.imageUrl + '" alt="" loading="lazy" decoding="async"><span class="frame-num">' + (i + 1) + '</span></button>';
+                var url = API_BASE + item.imageUrl;
+                var srcAttr = i < EAGER_THUMBS
+                    ? 'src="' + url + '" loading="lazy"'
+                    : 'data-src="' + url + '"';
+                return '<button type="button" class="work-strip-thumb' + (i === 0 ? ' is-active' : '') + '" data-index="' + i + '" aria-label="View photo ' + (i + 1) + ' of ' + sample.length + '"><img ' + srcAttr + ' alt="" fetchpriority="low" decoding="async"><span class="frame-num">' + (i + 1) + '</span></button>';
             }).join('');
 
             // Main viewer: eager-load only the first (visible) photo. All
@@ -908,7 +926,6 @@
                     mainHtml +
                 '</div>' +
                 '<div class="work-strip-wrap" id="work-strip-wrap">' +
-                    '<span class="film-stock-label">Liberty</span>' +
                     '<div class="work-strip-track">' + thumbsHtml + '</div>' +
                 '</div>';
 
@@ -920,6 +937,24 @@
             function ensureLoaded(idx) {
                 var img = mainImgs[idx];
                 if (img && !img.src && img.dataset.src) img.src = img.dataset.src;
+            }
+
+            // Deferred thumbnails: load as they scroll into the strip.
+            // rootMargin gives ~200px of preload so the swap happens
+            // before the user visually reaches the thumb.
+            var pendingThumbs = mobileFeature.querySelectorAll('.work-strip-thumb img[data-src]');
+            if (pendingThumbs.length && 'IntersectionObserver' in window) {
+                var thumbObserver = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (e) {
+                        if (!e.isIntersecting) return;
+                        var img = e.target;
+                        if (img.dataset.src) { img.src = img.dataset.src; delete img.dataset.src; }
+                        thumbObserver.unobserve(img);
+                    });
+                }, { root: stripWrap, rootMargin: '200px 0px 200px 0px' });
+                pendingThumbs.forEach(function (img) { thumbObserver.observe(img); });
+            } else if (pendingThumbs.length) {
+                pendingThumbs.forEach(function (img) { img.src = img.dataset.src; delete img.dataset.src; });
             }
             // Warm the two neighbors of the first frame so the first click
             // in either direction is instant.
@@ -933,6 +968,11 @@
                     ensureLoaded(idxNum);
                     ensureLoaded((idxNum + 1) % sample.length);
                     ensureLoaded((idxNum - 1 + sample.length) % sample.length);
+                    // If the clicked thumbnail hasn't loaded yet, load it
+                    // now — otherwise it stays blank while the main photo
+                    // updates.
+                    var btnImg = btn.querySelector('img');
+                    if (btnImg && btnImg.dataset.src) { btnImg.src = btnImg.dataset.src; delete btnImg.dataset.src; }
                     mainImgs.forEach(function (img) { img.classList.toggle('is-active', img.dataset.index === idx); });
                     photoCounter.textContent = frameLabel(idxNum);
                     thumbs.forEach(function (t) { t.classList.toggle('is-active', t.dataset.index === idx); });
