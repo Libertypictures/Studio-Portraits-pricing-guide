@@ -1,210 +1,458 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Libertypictures — Links</title>
-<meta name="description" content="Libertypictures — book a portrait or wedding session, chat, or send an email.">
-<meta name="theme-color" content="#8a7355" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#161513" media="(prefers-color-scheme: dark)">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23000000'/%3E%3Ctext x='50' y='68' font-size='52' font-family='Georgia, serif' fill='%23c4a67e' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com/">
-<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-<link rel="preconnect" href="https://liberty-booking-api.visualsliberty.workers.dev" crossorigin>
-<!-- Kick the settings request off during HTML parsing, before the
-     script tag near the bottom runs — knocks the biggest chunk off
-     the logo's time-to-first-pixel on cold visits. -->
-<link rel="preload" href="https://liberty-booking-api.visualsliberty.workers.dev/api/settings" as="fetch" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
-<style>
-    :root {
-        --bg: #faf8f4; --text: #1a1815; --text-soft: #6b6459; --accent: #8a7355; --accent-deep: #6e5c44;
-        --border: #e8e3d9; --card-bg: rgba(26,24,21,0.03); --card-hover: rgba(138,115,85,0.10);
-        --shadow: rgba(26,24,21,0.06); --shadow-lift: rgba(26,24,21,0.14);
-    }
-    @media (prefers-color-scheme: dark) {
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice | Libertypictures</title>
+    <meta name="description" content="View and pay your Libertypictures invoice online.">
+    <meta name="theme-color" content="#8a7355">
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23000000'/%3E%3Ctext x='50' y='68' font-size='52' font-family='Georgia, serif' fill='%23c4a67e' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
+
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
         :root {
-            --bg: #161513; --text: #f3f0ea; --text-soft: #a8a196; --accent: #c4a67e; --accent-deep: #d9bf98;
-            --border: #35332d; --card-bg: rgba(255,255,255,0.04); --card-hover: rgba(196,166,126,0.14);
-            --shadow: rgba(0,0,0,0.3); --shadow-lift: rgba(0,0,0,0.5);
+            --bg-body: #faf8f4; --bg-container: #ffffff; --bg-card: #fefdfb; --bg-booking: #f7f4ee;
+            --text-primary: #1a1815; --text-secondary: #6b6459; --accent: #8a7355; --accent-deep: #6e5c44;
+            --border-color: #e8e3d9; --border-dashed: #d8d1c2;
+            --shadow-subtle: rgba(26,24,21,0.04); --shadow-hover: rgba(26,24,21,0.10);
+            --radius-lg: 18px; --radius-md: 12px; --radius-sm: 6px; --logo-filter: invert(0);
         }
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-        font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text);
-        min-height: 100vh; min-height: 100svh;
-        display: flex; flex-direction: column; align-items: center;
-        padding: 48px 20px 40px; -webkit-font-smoothing: antialiased;
-        opacity: 0; animation: fade-in 0.6s ease 0.05s forwards;
-    }
-    @keyframes fade-in { to { opacity: 1; } }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-body: #161513; --bg-container: #1f1e1b; --bg-card: #262521; --bg-booking: #1c1b18;
+                --text-primary: #f3f0ea; --text-secondary: #a8a196; --accent: #c4a67e; --accent-deep: #d9bf98;
+                --border-color: #35332d; --border-dashed: #423f37;
+                --shadow-subtle: rgba(0,0,0,0.24); --shadow-hover: rgba(0,0,0,0.42);
+                --logo-filter: invert(1);
+            }
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+        body {
+            font-family: 'Poppins', sans-serif; background: var(--bg-body); color: var(--text-primary);
+            line-height: 1.65; -webkit-font-smoothing: antialiased; padding: 110px 20px 60px;
+            opacity: 0; animation: lp-page-in 0.6s ease 0.05s forwards;
+        }
+        @keyframes lp-page-in { to { opacity: 1; } }
+        .serif { font-family: 'Fraunces', serif; }
 
-    .page { width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 22px; }
+        .site-header { position: absolute; top: 0; left: 0; right: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 26px 0; }
+        .site-logo-link { display: block; }
+        .site-logo { height: 36px; width: auto; filter: var(--logo-filter, none); }
 
-    /* ==== Identity — logo alone, sized to match homepage principle ==== */
-    .brand { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
-    .brand-logo {
-        height: 44px; width: auto; display: block; object-fit: contain;
-        /* Reserve the layout box even before the image bytes land, so
-           there's no shift when the logo finally shows up. */
-        min-width: 44px;
-        /* When the src attribute is empty, hide the broken-image icon
-           (some browsers show a faint outline) — the space stays but
-           reads as blank until the swap. */
-        opacity: 0; transition: opacity 0.45s ease;
-    }
-    .brand-logo[src] { opacity: 1; }
-    /* Same treatment as the site header logo: silhouette to white + soft
-       drop shadow. Only applied in dark mode so the natural dark logo
-       shows correctly against the cream light-mode background. */
-    @media (prefers-color-scheme: dark) {
-        .brand-logo { filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.25)); }
-    }
-    .brand-welcome {
-        font-size: 12px; color: var(--text-soft); font-weight: 400; letter-spacing: 0.2px; margin-top: 2px;
-        /* Subtle grow-in on first load — starts a touch smaller and
-           settles at full size, timed after the page fade so it reads
-           as a graceful arrival, never a "look at me" animation. */
-        opacity: 0; transform: scale(0.86);
-        animation: welcome-in 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
-    }
-    @keyframes welcome-in {
-        to { opacity: 1; transform: scale(1); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-        .brand-welcome { animation: none; opacity: 1; transform: none; }
-        .brand-logo { transition: none; }
-    }
+        .container { max-width: 640px; margin: 0 auto; }
 
-    /* ==== Link cards — one uniform style, no colored "primary" ==== */
-    .link-list { display: flex; flex-direction: column; gap: 10px; }
-    .link-card {
-        display: flex; align-items: center; gap: 14px;
-        background: var(--card-bg); border: 1px solid var(--border);
-        padding: 16px 18px; text-decoration: none; color: var(--text);
-        transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        box-shadow: 0 2px 8px var(--shadow);
-    }
-    .link-card:hover { background: var(--card-hover); transform: translateY(-2px); box-shadow: 0 10px 26px var(--shadow-lift); border-color: var(--accent); }
-    .link-card:active { transform: translateY(0); }
-    .link-icon { flex-shrink: 0; width: 22px; height: 22px; color: var(--accent); display: flex; align-items: center; justify-content: center; }
-    .link-icon svg { width: 100%; height: 100%; stroke-width: 1.6; }
-    .link-text { flex: 1; min-width: 0; }
-    .link-title { font-weight: 600; font-size: 13.5px; letter-spacing: 0.2px; }
-    .link-desc { font-size: 11.5px; color: var(--text-soft); margin-top: 3px; }
-    .link-arrow { color: var(--text-soft); font-size: 16px; opacity: 0.45; flex-shrink: 0; }
+        .state-message { text-align: center; padding: 80px 20px; color: var(--text-secondary); font-size: 14px; }
 
-    /* ==== Footer ==== */
-    .links-footer {
-        margin-top: 20px; text-align: center;
-        display: flex; flex-direction: column; gap: 10px; align-items: center;
-    }
-    .footer-ig { display: none; align-items: center; gap: 6px; color: var(--text-soft); text-decoration: none; font-size: 11.5px; letter-spacing: 0.4px; transition: color 0.2s ease; }
-    .footer-ig.is-visible { display: inline-flex; }
-    .footer-ig:hover { color: var(--accent); }
-    .footer-ig svg { width: 14px; height: 14px; stroke-width: 1.8; }
-    .footer-review-link { color: var(--text-soft); text-decoration: none; opacity: 0.7; font-size: 10.5px; letter-spacing: 0.3px; }
-    .footer-review-link:hover { color: var(--accent); opacity: 1; text-decoration: underline; }
-    .footer-copy { opacity: 0.55; font-size: 10.5px; letter-spacing: 0.3px; margin-top: 2px; }
+        .invoice-card {
+            background: var(--bg-container); border: 1px solid var(--border-color); border-radius: var(--radius-lg);
+            box-shadow: 0 16px 40px var(--shadow-subtle); padding: 48px 40px; display: none;
+        }
+        .invoice-card.is-visible { display: block; }
 
-    @media (prefers-reduced-motion: reduce) {
-        body { animation: none; opacity: 1; }
-        .link-card { transition: none; }
-    }
-</style>
+        .invoice-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 24px; margin-bottom: 28px; flex-wrap: wrap; }
+        .invoice-brand { font-size: 19px; font-weight: 500; }
+        .invoice-number { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+        .status-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; padding: 7px 16px; border-radius: 30px; }
+        .status-pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+        .status-pill.is-paid { background: rgba(90,140,90,0.14); color: #4a7a4a; }
+        .status-pill.is-unpaid { background: rgba(138,115,85,0.14); color: var(--accent-deep); }
+        .status-pill.is-overdue { background: rgba(180,80,70,0.14); color: #a8453a; }
+        @media (prefers-color-scheme: dark) {
+            .status-pill.is-paid { color: #7fb37f; }
+            .status-pill.is-overdue { color: #d47a6e; }
+        }
+
+        .invoice-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px; margin-bottom: 30px; }
+        .invoice-meta div span { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 5px; }
+        .invoice-meta div strong { font-size: 14px; font-weight: 500; word-break: break-word; }
+
+        .invoice-items { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+        .invoice-items th { text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); padding-bottom: 10px; border-bottom: 1px solid var(--border-color); font-weight: 600; }
+        .invoice-items td { padding: 13px 0; border-bottom: 1px dashed var(--border-dashed); font-size: 14px; }
+        .invoice-items td:last-child, .invoice-items th:last-child { text-align: right; }
+        .invoice-items .item-qty { color: var(--text-secondary); font-size: 12.5px; }
+        .invoice-items .item-details { margin-top: 6px; font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
+
+        .invoice-totals { max-width: 280px; margin-left: auto; margin-bottom: 8px; }
+        .invoice-totals .total-row { display: flex; justify-content: space-between; font-size: 13.5px; padding: 6px 0; color: var(--text-secondary); }
+        .invoice-totals .total-row.grand { border-top: 1px solid var(--border-color); margin-top: 6px; padding-top: 12px; font-weight: 600; font-size: 16px; color: var(--text-primary); }
+
+        .invoice-notes { margin-top: 24px; padding: 16px 18px; background: var(--bg-booking); border-radius: var(--radius-sm); font-size: 13px; color: var(--text-secondary); line-height: 1.75; }
+
+        .invoice-actions { margin-top: 34px; display: flex; flex-direction: column; gap: 12px; }
+        .btn-pay {
+            display: block; width: 100%; text-align: center; background-color: rgba(26,24,21,0.88);
+            backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.1); color: #fff; padding: 18px 40px; font-size: 13px;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 1.6px; border: none; border-radius: 30px;
+            cursor: pointer; transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+        }
+        .btn-pay:hover { background-color: rgba(138,115,85,0.92); transform: translateY(-2px); box-shadow: 0 16px 32px rgba(138,115,85,0.28); }
+        .btn-pay:disabled { background-color: var(--border-color); color: var(--text-secondary); cursor: not-allowed; transform: none; box-shadow: none; }
+        .btn-secondary {
+            display: block; width: 100%; text-align: center; background: rgba(26,24,21,0.05); border: 1px solid var(--border-color);
+            color: var(--text-primary); padding: 14px 30px; font-size: 11.5px; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 1.2px; border-radius: 30px; cursor: pointer; transition: all 0.3s ease;
+        }
+        .btn-secondary:hover { background: rgba(138,115,85,0.12); border-color: var(--accent); color: var(--accent-deep); }
+        @media (prefers-color-scheme: dark) { .btn-secondary { background: rgba(255,255,255,0.05); } }
+
+        .paid-banner { display: flex; align-items: center; gap: 14px; background: rgba(90,140,90,0.10); border: 1px solid rgba(90,140,90,0.3); border-radius: var(--radius-sm); padding: 18px 20px; margin-top: 34px; }
+        .paid-banner .check-circle { width: 32px; height: 32px; border-radius: 50%; background: #4a7a4a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .paid-banner p { font-size: 13px; color: var(--text-secondary); margin: 0; }
+        .paid-banner strong { display: block; font-size: 14.5px; color: var(--text-primary); margin-bottom: 3px; }
+
+        .partial-banner { background: rgba(138,115,85,0.10); border: 1px solid rgba(138,115,85,0.3); border-radius: var(--radius-sm); padding: 16px 18px; font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 4px; }
+        .partial-banner strong { color: var(--text-primary); }
+
+        .brand-footer { max-width: 640px; margin: 60px auto 0; padding-top: 30px; border-top: 1px solid var(--border-color); text-align: center; }
+        .footer-contact { margin-top: 12px; font-size: 12px; color: var(--text-secondary); }
+        .footer-contact a { color: var(--text-secondary); text-decoration: none; }
+        .footer-contact a:hover { color: var(--accent); }
+        .footer-contact-divider { margin: 0 10px; opacity: 0.5; }
+
+        /* JPEG capture target — a plain, high-contrast rendering,
+           separate from the live theme-following card above it, same
+           reasoning as the Book page receipt: a saved document
+           shouldn't silently change appearance based on the viewer's
+           color scheme. */
+        .invoice-capture { display: none; }
+        .invoice-capture.is-active {
+            display: block; position: absolute; left: 0; right: 0; top: 0; z-index: 200;
+            background: #ffffff; color: #1a1815; padding: 48px 40px; font-family: 'Poppins', sans-serif;
+            min-height: 100vh; width: 100%;
+        }
+        .invoice-capture .cap-header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #1a1815; padding-bottom: 18px; margin-bottom: 28px; }
+        .invoice-capture .cap-brand { font-size: 20px; font-weight: 500; }
+        .invoice-capture .cap-number { font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: #6b6459; }
+        .invoice-capture .cap-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px; margin-bottom: 28px; }
+        .invoice-capture .cap-meta span { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 1px; color: #6b6459; margin-bottom: 4px; }
+        .invoice-capture .cap-meta strong { font-size: 13.5px; font-weight: 500; word-break: break-word; }
+        .invoice-capture table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+        .invoice-capture th { text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: 1px; color: #6b6459; padding-bottom: 10px; border-bottom: 1px solid #e8e3d9; }
+        .invoice-capture td { padding: 12px 0; border-bottom: 1px dashed #e8e3d9; font-size: 13.5px; }
+        .invoice-capture td:last-child, .invoice-capture th:last-child { text-align: right; }
+        .invoice-capture .cap-item-details { margin-top: 6px; font-size: 11.5px; color: #6b6459; line-height: 1.7; }
+        .invoice-capture .cap-totals { max-width: 320px; margin-left: auto; }
+        .invoice-capture .cap-totals > div { display: flex; justify-content: space-between; font-size: 13px; padding: 7px 0; color: #6b6459; }
+        .invoice-capture .cap-totals .grand { border-top: 1px solid #1a1815; margin-top: 6px; padding-top: 12px !important; font-weight: 600; color: #1a1815 !important; font-size: 14.5px !important; }
+        .invoice-capture .cap-footer { margin-top: 40px; text-align: center; font-size: 12px; color: #6b6459; font-style: italic; }
+
+        @media (max-width: 600px) {
+            body { padding: 96px 16px 50px; }
+            .invoice-card { padding: 32px 22px; }
+            .invoice-meta { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
-<main class="page">
-    <!-- Identity: logo alone, warm one-line welcome underneath -->
-    <header class="brand">
-        <img id="brand-logo" class="brand-logo" alt="Libertypictures">
-        <p class="brand-welcome">Glad you're here.</p>
+    <header class="site-header" id="site-header">
+        <a href="./" class="site-logo-link"><img src="" alt="Libertypictures" class="site-logo" id="site-logo-img" style="display:none;"></a>
     </header>
 
-    <!-- Flat link list — same style for all, ordered by intent -->
-    <nav class="link-list" aria-label="Links">
-        <a href="https://libertypictures.github.io/pg/?utm_source=igbio&amp;utm_medium=links&amp;utm_campaign=portraits" class="link-card">
-            <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
-            <div class="link-text">
-                <div class="link-title">Portrait Sessions</div>
-                <div class="link-desc">Portraits, family, branding — see what's included and book</div>
-            </div>
-            <span class="link-arrow">›</span>
-        </a>
-        <a href="https://libertypictures.github.io/pg/wedding.html?utm_source=igbio&amp;utm_medium=links&amp;utm_campaign=weddings" class="link-card">
-            <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div>
-            <div class="link-text">
-                <div class="link-title">Wedding Packages</div>
-                <div class="link-desc">Beloved Imprint — from pre-wedding to the first dance</div>
-            </div>
-            <span class="link-arrow">›</span>
-        </a>
-        <a href="https://wa.me/2349075170240?text=Hi%20Liberty%2C%20I%27d%20like%20to%20chat%20about%20a%20session." target="_blank" rel="noopener" class="link-card">
-            <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></div>
-            <div class="link-text">
-                <div class="link-title">Chat on WhatsApp</div>
-                <div class="link-desc">Fastest way to reach me</div>
-            </div>
-            <span class="link-arrow">›</span>
-        </a>
-        <a href="mailto:visualsliberty@gmail.com" class="link-card">
-            <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
-            <div class="link-text">
-                <div class="link-title">Email</div>
-                <div class="link-desc">For the details, or when it's not urgent</div>
-            </div>
-            <span class="link-arrow">›</span>
-        </a>
-    </nav>
+    <div class="container">
+        <div class="state-message" id="state-message">Loading your invoice&hellip;</div>
 
-    <!-- Footer -->
-    <footer class="links-footer">
-        <a id="footer-ig" class="footer-ig" href="#" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
-            <span id="footer-ig-handle">@libertypictures</span>
-        </a>
-        <a class="footer-review-link" href="https://libertypictures.github.io/pg/review.html?utm_source=igbio&amp;utm_medium=links">Past client? Leave a review →</a>
-        <div class="footer-copy">Libertypictures © 2026</div>
+        <div class="invoice-card" id="invoice-card">
+            <div class="invoice-top">
+                <div>
+                    <div class="invoice-brand serif">Libertypictures</div>
+                    <div class="invoice-number" id="inv-number"></div>
+                </div>
+                <span class="status-pill" id="inv-status-pill"></span>
+            </div>
+
+            <div class="invoice-meta">
+                <div><span>Billed To</span><strong id="inv-client-name"></strong></div>
+                <div><span>Email</span><strong id="inv-client-email"></strong></div>
+                <div><span>Issued</span><strong id="inv-issued-date"></strong></div>
+                <div><span>Due</span><strong id="inv-due-date"></strong></div>
+            </div>
+
+            <table class="invoice-items">
+                <thead><tr><th>Description</th><th>Amount</th></tr></thead>
+                <tbody id="inv-items-body"></tbody>
+            </table>
+
+            <div class="invoice-totals" id="inv-totals"></div>
+
+            <div class="invoice-notes" id="inv-notes" style="display:none;"></div>
+
+            <div class="invoice-actions" id="invoice-actions">
+                <!-- populated by renderPaymentActions() based on status:
+                     unpaid/overdue -> Pay Retainer + Pay in Full
+                     partial         -> Pay Remaining Balance
+                     paid            -> paid banner
+                     Save as JPEG is always present. -->
+            </div>
+        </div>
+    </div>
+
+    <footer class="brand-footer">
+        <span class="serif" style="font-size:15px; font-weight:500;">Libertypictures &copy; 2026</span>
+        <div class="footer-contact">
+            <a href="https://wa.me/2349075170240" target="_blank" rel="noopener">WhatsApp</a>
+            <span class="footer-contact-divider">&middot;</span>
+            <a href="mailto:visualsliberty@gmail.com">Email</a>
+        </div>
     </footer>
-</main>
+
+    <!-- JPEG capture target — populated and shown only for the instant
+         html2canvas needs it, exactly like the Book page receipt. -->
+    <div class="invoice-capture" id="invoice-capture">
+        <div class="cap-header">
+            <div class="cap-brand serif">Libertypictures</div>
+            <div class="cap-number" id="cap-number"></div>
+        </div>
+        <div class="cap-meta">
+            <div><span>Billed To</span><strong id="cap-client-name"></strong></div>
+            <div><span>Email</span><strong id="cap-client-email"></strong></div>
+            <div><span>Issued</span><strong id="cap-issued-date"></strong></div>
+            <div><span>Due</span><strong id="cap-due-date"></strong></div>
+        </div>
+        <table>
+            <thead><tr><th>Description</th><th>Amount</th></tr></thead>
+            <tbody id="cap-items-body"></tbody>
+        </table>
+        <div class="cap-totals" id="cap-totals"></div>
+        <div class="cap-footer">Libertypictures &mdash; thank you for your business.</div>
+    </div>
 
 <script>
     var API_BASE = 'https://liberty-booking-api.visualsliberty.workers.dev';
-    var logoEl = document.getElementById('brand-logo');
+    var PAYSTACK_PUBLIC_KEY = 'pk_live_05373c45337d6a937f51d9c3045c7839369d503d';
+    var token = new URLSearchParams(window.location.search).get('t');
+    var currentInvoice = null;
 
-    // 1. If a logo URL is cached from a previous visit, show it INSTANTLY.
-    //    The browser almost certainly already has the image in its own
-    //    cache too, so it renders without any network hop at all.
-    var cachedLogo = null;
-    try { cachedLogo = localStorage.getItem('lp_logo_url'); } catch (e) {}
-    if (cachedLogo) { logoEl.src = cachedLogo; }
+    function escapeHtml(str) {
+        var div = document.createElement('div');
+        div.textContent = String(str == null ? '' : str);
+        return div.innerHTML;
+    }
+    function formatNaira(n) { return '\u20a6' + Math.round(n || 0).toLocaleString(); }
+    function formatDate(iso) {
+        if (!iso) return '\u2014';
+        try { return new Date(iso).toLocaleDateString('en-NG', { year: 'numeric', month: 'long', day: 'numeric' }); }
+        catch (e) { return iso; }
+    }
 
-    // 2. Fetch fresh settings anyway so Instagram, welcome text, and
-    //    logo updates propagate. High priority — this is critical for
-    //    first-time visitors where the cache is empty.
-    var settingsReq = fetch(API_BASE + '/api/settings', { priority: 'high' })
-        .then(function (r) { return r.json(); });
+    // LOGO — same Settings source as every other page.
+    (function () {
+        fetch(API_BASE + '/api/settings')
+            .then(function (res) { return res.json(); })
+            .then(function (data) {
+                var s = data.settings || {};
+                if (s.logo_url) {
+                    var logo = document.getElementById('site-logo-img');
+                    logo.src = API_BASE + s.logo_url;
+                    logo.style.display = 'block';
+                }
+            })
+            .catch(function () {});
+    })();
 
-    settingsReq.then(function (data) {
-        var s = (data && data.settings) || {};
+    function applyStatusPill(status) {
+        var pill = document.getElementById('inv-status-pill');
+        var variant = status === 'paid' ? 'is-paid' : (status === 'partial' ? 'is-unpaid' : (status === 'overdue' ? 'is-overdue' : 'is-unpaid'));
+        var label = status === 'paid' ? 'Paid' : (status === 'partial' ? 'Retainer Paid' : (status === 'overdue' ? 'Overdue' : 'Payment Due'));
+        pill.className = 'status-pill ' + variant;
+        pill.textContent = label;
+    }
 
-        if (s.logo_url) {
-            var freshUrl = API_BASE + s.logo_url;
-            if (freshUrl !== cachedLogo) {
-                logoEl.src = freshUrl;
-                try { localStorage.setItem('lp_logo_url', freshUrl); } catch (e) {}
+    function renderInvoice(inv) {
+        document.getElementById('inv-number').textContent = inv.invoiceNumber;
+        applyStatusPill(inv.status);
+        document.getElementById('inv-client-name').textContent = inv.clientName;
+        document.getElementById('inv-client-email').textContent = inv.clientEmail;
+        document.getElementById('inv-issued-date').textContent = formatDate(inv.createdAt);
+        document.getElementById('inv-due-date').textContent = inv.dueDate ? formatDate(inv.dueDate) : 'On receipt';
+
+        var rows = inv.lineItems.map(function (item) {
+            var qtyText = item.quantity > 1 ? ' <span class="item-qty">&times; ' + item.quantity + '</span>' : '';
+            var detailsHtml = item.details ? '<div class="item-details">' + escapeHtml(item.details).replace(/\n/g, '<br>') + '</div>' : '';
+            return '<tr><td>' + escapeHtml(item.description) + qtyText + detailsHtml + '</td><td>' + formatNaira(item.unitPrice * item.quantity) + '</td></tr>';
+        }).join('');
+        document.getElementById('inv-items-body').innerHTML = rows;
+
+        var totalsHtml = '<div class="total-row"><span>Subtotal</span><span>' + formatNaira(inv.subtotal) + '</span></div>';
+        if (inv.discountAmount) totalsHtml += '<div class="total-row"><span>Discount</span><span>-' + formatNaira(inv.discountAmount) + '</span></div>';
+        totalsHtml += '<div class="total-row grand"><span>Total Due</span><span>' + formatNaira(inv.totalAmount) + '</span></div>';
+        document.getElementById('inv-totals').innerHTML = totalsHtml;
+
+        if (inv.notes) {
+            document.getElementById('inv-notes').textContent = inv.notes;
+            document.getElementById('inv-notes').style.display = 'block';
+        }
+
+        renderPaymentActions(inv);
+
+        document.getElementById('invoice-card').classList.add('is-visible');
+        document.getElementById('state-message').style.display = 'none';
+    }
+
+    // Builds the payment actions for whatever state the invoice is
+    // actually in — a retainer/full choice, a single "pay remaining
+    // balance" button, or a paid confirmation. Save as JPEG is always
+    // available regardless of payment state.
+    function renderPaymentActions(inv) {
+        var actionsEl = document.getElementById('invoice-actions');
+        var html = '';
+
+        if (inv.status === 'paid') {
+            html += '<div class="paid-banner">' +
+                '<div class="check-circle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>' +
+                '<p><strong>Paid in full</strong><span>' + (inv.paidAt ? 'Received ' + formatDate(inv.paidAt) : 'Received') + '</span></p>' +
+            '</div>';
+        } else if (inv.status === 'partial') {
+            html += '<div class="partial-banner">Retainer received \u2014 <strong>' + formatNaira(inv.amountPaid) + '</strong> paid, <strong>' + formatNaira(inv.balanceRemaining) + '</strong> remaining.</div>';
+            html += '<button type="button" class="btn-pay" data-pay-amount="' + inv.balanceRemaining + '" data-pay-label="Pay Remaining Balance">Pay Remaining Balance \u2014 ' + formatNaira(inv.balanceRemaining) + '</button>';
+        } else {
+            html += '<button type="button" class="btn-pay" data-pay-amount="' + inv.retainerAmount + '" data-pay-label="Pay Retainer">Pay Retainer (70%) \u2014 ' + formatNaira(inv.retainerAmount) + '</button>';
+            html += '<button type="button" class="btn-secondary" data-pay-amount="' + inv.totalAmount + '" data-pay-label="Pay in Full">Pay in Full \u2014 ' + formatNaira(inv.totalAmount) + '</button>';
+        }
+
+        html += '<button type="button" class="btn-secondary" id="save-invoice-btn">Save as JPEG</button>';
+        actionsEl.innerHTML = html;
+
+        actionsEl.querySelectorAll('[data-pay-amount]').forEach(function (btn) {
+            btn.addEventListener('click', function () { payInvoice(parseFloat(btn.dataset.payAmount), btn); });
+        });
+        document.getElementById('save-invoice-btn').addEventListener('click', saveInvoiceAsJpeg);
+    }
+
+    function loadInvoice() {
+        if (!token) {
+            document.getElementById('state-message').textContent = 'This invoice link looks incomplete \u2014 please check the link your photographer sent you.';
+            return;
+        }
+        fetch(API_BASE + '/api/invoices/public/' + encodeURIComponent(token))
+            .then(function (res) {
+                if (!res.ok) throw new Error('not found');
+                return res.json();
+            })
+            .then(function (inv) {
+                currentInvoice = inv;
+                renderInvoice(inv);
+            })
+            .catch(function () {
+                document.getElementById('state-message').textContent = "We couldn't find that invoice \u2014 please check the link, or reach out to Libertypictures directly.";
+            });
+    }
+    loadInvoice();
+
+    // PAYMENT — mirrors the Book page's Paystack flow, but the amount
+    // charged depends on which button was clicked (retainer, full, or
+    // remaining balance) rather than always being the invoice total.
+    function payInvoice(amount, btn) {
+        if (!currentInvoice || !amount) return;
+        if (typeof PaystackPop === 'undefined') {
+            alert('The payment module failed to load. Please check your connection or disable any ad blockers, then refresh the page.');
+            return;
+        }
+
+        var originalLabel = btn.textContent;
+        var handler = PaystackPop.setup({
+            key: PAYSTACK_PUBLIC_KEY,
+            email: currentInvoice.clientEmail,
+            amount: Math.round(amount * 100),
+            currency: 'NGN',
+            callback: function (response) {
+                confirmInvoicePayment(response.reference, amount);
+            },
+            onClose: function () {
+                // No alert here — closing the checkout isn't an error,
+                // just the client changing their mind mid-flow.
+            }
+        });
+        handler.openIframe();
+
+        async function confirmInvoicePayment(reference, paidAmount) {
+            btn.disabled = true;
+            btn.textContent = 'Confirming payment\u2026';
+            try {
+                var res = await fetch(API_BASE + '/api/invoices/public/' + encodeURIComponent(token) + '/confirm-payment', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ reference: reference, amount: paidAmount }),
+                });
+                var updated = await res.json();
+                if (!res.ok) throw new Error(updated.message || 'Could not confirm the payment.');
+                currentInvoice = updated;
+                renderInvoice(updated);
+            } catch (err) {
+                // Payment went through on Paystack's side even if this
+                // save failed — never claim otherwise. Same principle
+                // as the booking flow's own payment confirmation.
+                btn.disabled = false;
+                btn.textContent = 'Retry Confirming Payment';
+                alert('Your payment went through (Reference: ' + reference + '), but we hit an issue updating this invoice. Please save this reference and message Libertypictures on WhatsApp so it can be confirmed manually \u2014 nothing has been lost.');
             }
         }
+    }
 
-        if (s.instagram_handle) {
-            var handle = s.instagram_handle.replace(/^@/, '');
-            var ig = document.getElementById('footer-ig');
-            ig.href = 'https://instagram.com/' + handle;
-            ig.classList.add('is-visible');
-            document.getElementById('footer-ig-handle').textContent = '@' + handle;
+    // SAVE AS JPEG — same technique as the Book page receipt: populate
+    // a plain, theme-independent capture target, rasterize it, download.
+    // A named function (not an inline listener) since the button it's
+    // attached to is recreated by renderPaymentActions() on every render.
+    function saveInvoiceAsJpeg() {
+        if (!currentInvoice) return;
+        if (typeof html2canvas === 'undefined') {
+            alert('Could not load the image export tool \u2014 please check your connection and try again.');
+            return;
         }
-    }).catch(function () { /* page renders fine without settings */ });
+        var inv = currentInvoice;
+        document.getElementById('cap-number').textContent = inv.invoiceNumber;
+        document.getElementById('cap-client-name').textContent = inv.clientName;
+        document.getElementById('cap-client-email').textContent = inv.clientEmail;
+        document.getElementById('cap-issued-date').textContent = formatDate(inv.createdAt);
+        document.getElementById('cap-due-date').textContent = inv.dueDate ? formatDate(inv.dueDate) : 'On receipt';
+
+        var rows = inv.lineItems.map(function (item) {
+            var qtyText = item.quantity > 1 ? ' \u00d7 ' + item.quantity : '';
+            var detailsHtml = item.details ? '<div class="cap-item-details">' + escapeHtml(item.details).replace(/\n/g, '<br>') + '</div>' : '';
+            return '<tr><td>' + escapeHtml(item.description) + qtyText + detailsHtml + '</td><td>' + formatNaira(item.unitPrice * item.quantity) + '</td></tr>';
+        }).join('');
+        document.getElementById('cap-items-body').innerHTML = rows;
+
+        var totalsHtml = '<div><span>Subtotal</span><span>' + formatNaira(inv.subtotal) + '</span></div>';
+        if (inv.discountAmount) totalsHtml += '<div><span>Discount</span><span>-' + formatNaira(inv.discountAmount) + '</span></div>';
+        if (inv.status === 'partial') {
+            totalsHtml += '<div><span>Paid So Far</span><span>' + formatNaira(inv.amountPaid) + '</span></div>';
+            totalsHtml += '<div class="grand"><span>Balance Remaining</span><span>' + formatNaira(inv.balanceRemaining) + '</span></div>';
+        } else {
+            totalsHtml += '<div class="grand"><span>Total ' + (inv.status === 'paid' ? 'Paid' : 'Due') + '</span><span>' + formatNaira(inv.totalAmount) + '</span></div>';
+        }
+        document.getElementById('cap-totals').innerHTML = totalsHtml;
+
+        var captureEl = document.getElementById('invoice-capture');
+        captureEl.classList.add('is-active');
+        var btn = document.getElementById('save-invoice-btn');
+        var originalText = btn.textContent;
+        btn.textContent = 'Preparing\u2026';
+        btn.disabled = true;
+
+        html2canvas(captureEl, { backgroundColor: '#ffffff', scale: 2, useCORS: true, scrollY: -window.scrollY }).then(function (canvas) {
+            var link = document.createElement('a');
+            link.download = 'libertypictures-' + inv.invoiceNumber + '.jpg';
+            link.href = canvas.toDataURL('image/jpeg', 0.95);
+            link.click();
+        }).catch(function (err) {
+            console.error('Invoice image export failed:', err);
+            alert('Could not generate the image \u2014 please try again in a moment.');
+        }).finally(function () {
+            captureEl.classList.remove('is-active');
+            btn.textContent = originalText;
+            btn.disabled = false;
+        });
+    }
 </script>
-</body>
-</html>
+
+</body></html>
