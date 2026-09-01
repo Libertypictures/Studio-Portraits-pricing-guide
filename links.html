@@ -1,1221 +1,164 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Libertypictures — Intimate Visual Stories</title>
-    <meta name="description" content="Libertypictures — portrait, maternity, couple, family, and corporate photography. Intimate visual stories, beautifully told.">
-    <meta name="theme-color" content="#8a7355">
-    <meta property="og:title" content="Libertypictures — Intimate Visual Stories">
-    <meta property="og:description" content="Portrait, maternity, couple, family, and corporate photography.">
-    <meta property="og:type" content="website">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23000000'/%3E%3Ctext x='50' y='68' font-size='52' font-family='Georgia, serif' fill='%23c4a67e' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Libertypictures",
-      "description": "Photography studio offering portrait, maternity, corporate headshot, couple, and family photo sessions.",
-      "priceRange": "₦₦",
-      "areaServed": "NG"
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Libertypictures — Links</title>
+<meta name="description" content="Libertypictures — book a portrait or wedding session, chat, or send an email.">
+<meta name="theme-color" content="#8a7355" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161513" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23000000'/%3E%3Ctext x='50' y='68' font-size='52' font-family='Georgia, serif' fill='%23c4a67e' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<link rel="preconnect" href="https://liberty-booking-api.visualsliberty.workers.dev" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --bg: #faf8f4; --text: #1a1815; --text-soft: #6b6459; --accent: #8a7355; --accent-deep: #6e5c44;
+        --border: #e8e3d9; --card-bg: rgba(26,24,21,0.03); --card-hover: rgba(138,115,85,0.10);
+        --shadow: rgba(26,24,21,0.06); --shadow-lift: rgba(26,24,21,0.14);
     }
-    </script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com/">
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-    <link rel="preconnect" href="https://liberty-booking-api.visualsliberty.workers.dev" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-
-    <style>
+    @media (prefers-color-scheme: dark) {
         :root {
-            --bg-body: #faf8f4;
-            --bg-container: #ffffff;
-            --bg-card: #fefdfb;
-            --text-primary: #1a1815;
-            --text-secondary: #6b6459;
-            --accent: #8a7355;
-            --accent-deep: #6e5c44;
-            --border-color: #e8e3d9;
-            --border-dashed: #d8d1c2;
-            --btn-primary-bg: #1a1815;
-            --btn-primary-text: #ffffff;
-            --highlight-bg: #f8f4ec;
-            --shadow-subtle: rgba(26,24,21,0.04);
-            --shadow-hover: rgba(26,24,21,0.10);
-            --shadow-lift: rgba(26,24,21,0.16);
-            --logo-filter: invert(0);
-            --hero-scrim-rgb: 20,18,16;
-            --radius-lg: 18px;
-            --radius-md: 12px;
-            --radius-sm: 6px;
+            --bg: #161513; --text: #f3f0ea; --text-soft: #a8a196; --accent: #c4a67e; --accent-deep: #d9bf98;
+            --border: #35332d; --card-bg: rgba(255,255,255,0.04); --card-hover: rgba(196,166,126,0.14);
+            --shadow: rgba(0,0,0,0.3); --shadow-lift: rgba(0,0,0,0.5);
         }
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-body: #161513;
-                --bg-container: #1f1e1b;
-                --bg-card: #262521;
-                --text-primary: #f3f0ea;
-                --text-secondary: #a8a196;
-                --accent: #c4a67e;
-                --accent-deep: #d9bf98;
-                --border-color: #35332d;
-                --border-dashed: #423f37;
-                --btn-primary-bg: #c4a67e;
-                --btn-primary-text: #161513;
-                --highlight-bg: #24221d;
-                --shadow-subtle: rgba(0,0,0,0.24);
-                --shadow-hover: rgba(0,0,0,0.42);
-                --shadow-lift: rgba(0,0,0,0.55);
-                --logo-filter: invert(1);
-                --hero-scrim-rgb: 6,6,7;
-            }
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-primary);
-            line-height: 1.65;
-            -webkit-font-smoothing: antialiased;
-        }
-        .serif { font-family: 'Fraunces', serif; }
-        img { max-width: 100%; display: block; }
-        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text);
+        min-height: 100vh; min-height: 100svh;
+        display: flex; flex-direction: column; align-items: center;
+        padding: 48px 20px 40px; -webkit-font-smoothing: antialiased;
+        opacity: 0; animation: fade-in 0.6s ease 0.05s forwards;
+    }
+    @keyframes fade-in { to { opacity: 1; } }
 
-        .container { max-width: 1140px; margin: 0 auto; padding: 0 40px; }
-        .section-block { padding: 0; }
+    .page { width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 22px; }
 
-        /* SECTION REVEAL — titles write themselves in from left to
-           right (clip-path reveal). Content is always visible, never
-           fades — no ease-in effect at all. */
-        .section-heading {
-            font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px;
-            letter-spacing: -0.2px; text-align: center; margin-bottom: 28px;
-            clip-path: none;
-            transition: none;
-        }
-        .section-heading.is-revealed { clip-path: inset(0 0% 0 0); }
+    /* ==== Identity — logo alone, sized to match homepage principle ==== */
+    .brand { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .brand-logo { height: 44px; width: auto; display: block; object-fit: contain; }
+    /* Same treatment as the site header logo: silhouette to white + soft
+       drop shadow. Only applied in dark mode so the natural dark logo
+       shows correctly against the cream light-mode background. */
+    @media (prefers-color-scheme: dark) {
+        .brand-logo { filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.25)); }
+    }
+    .brand-welcome { font-size: 12px; color: var(--text-soft); font-weight: 400; letter-spacing: 0.2px; margin-top: 2px; }
 
-        @media (prefers-reduced-motion: reduce) {
-            .section-heading { clip-path: none; transition: none; }
-        }
-        .async-reveal { display: none; }
-        .async-reveal.is-visible { display: block; animation: lp-fade-in-up 0.6s cubic-bezier(0.16,1,0.3,1); }
-        @keyframes lp-fade-in-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @media (prefers-reduced-motion: reduce) {
-            .async-reveal.is-visible { animation: lp-fade-in-simple 0.4s ease; }
-        }
-        @keyframes lp-fade-in-simple { from { opacity: 0; } to { opacity: 1; } }
-        .section-meta { font-size: 14.5px; color: var(--text-secondary); text-align: center; max-width: 460px; margin: 0 auto 32px; line-height: 1.75; }
-        .voices-stage { position: relative; width: 100%; height: 360px; min-height: 0; }
-        .voices-section { min-height: 0; display: flex; flex-direction: column; justify-content: center; padding: 80px 0; }
-        .experience-section { padding: 80px 0; }
-        .book-cta-section { padding: 60px 0 80px; }
+    /* ==== Link cards — one uniform style, no colored "primary" ==== */
+    .link-list { display: flex; flex-direction: column; gap: 10px; }
+    .link-card {
+        display: flex; align-items: center; gap: 14px;
+        background: var(--card-bg); border: 1px solid var(--border);
+        padding: 16px 18px; text-decoration: none; color: var(--text);
+        transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        box-shadow: 0 2px 8px var(--shadow);
+    }
+    .link-card:hover { background: var(--card-hover); transform: translateY(-2px); box-shadow: 0 10px 26px var(--shadow-lift); border-color: var(--accent); }
+    .link-card:active { transform: translateY(0); }
+    .link-icon { flex-shrink: 0; width: 22px; height: 22px; color: var(--accent); display: flex; align-items: center; justify-content: center; }
+    .link-icon svg { width: 100%; height: 100%; stroke-width: 1.6; }
+    .link-text { flex: 1; min-width: 0; }
+    .link-title { font-weight: 600; font-size: 13.5px; letter-spacing: 0.2px; }
+    .link-desc { font-size: 11.5px; color: var(--text-soft); margin-top: 3px; }
+    .link-arrow { color: var(--text-soft); font-size: 16px; opacity: 0.45; flex-shrink: 0; }
 
-        /* GLASS BUTTONS, light-background variant — same frosted
-           language as the hero buttons, tuned for legibility over a
-           flat cream/dark surface instead of a photograph. No borders
-           on either variant, by design. */
-        .btn-dark { display: inline-block; background: rgba(26,24,21,0.05); backdrop-filter: blur(14px) saturate(160%); -webkit-backdrop-filter: blur(14px) saturate(160%); color: var(--text-primary); padding: 19px 46px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 2.4px; text-decoration: none; transition: background 0.4s cubic-bezier(0.16,1,0.3,1), color 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s cubic-bezier(0.16,1,0.3,1); border: none; cursor: pointer; box-shadow: 0 4px 20px var(--shadow-subtle), inset 0 1px 0 rgba(255,255,255,0.5); }
-        /* Secondary action — a plain text link, deliberately with no
-           button chrome at all, so "Book a Session" reads as the one
-           clear action and this stays visually subordinate to it. */
-        .btn-link-secondary { display: inline-block; margin-top: 22px; color: var(--text-secondary); font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 1.4px; text-decoration: none; border-bottom: 1px solid var(--border-color); padding-bottom: 3px; transition: color 0.3s ease, border-color 0.3s ease; }
-        .btn-link-secondary:hover { color: var(--accent); border-color: var(--accent); }
-        .btn-dark:hover { background: rgba(138,115,85,0.16); color: var(--accent-deep); transform: translateY(-2px); box-shadow: 0 14px 32px var(--shadow-hover), inset 0 1px 0 rgba(255,255,255,0.6); }
-        @media (prefers-color-scheme: dark) {
-            .btn-dark { background: rgba(255,255,255,0.06); box-shadow: 0 4px 20px var(--shadow-subtle), inset 0 1px 0 rgba(255,255,255,0.08); }
-            .btn-dark:hover { background: rgba(196,166,126,0.18); }
-        }
+    /* ==== Footer ==== */
+    .links-footer {
+        margin-top: 20px; text-align: center;
+        display: flex; flex-direction: column; gap: 10px; align-items: center;
+    }
+    .footer-ig { display: none; align-items: center; gap: 6px; color: var(--text-soft); text-decoration: none; font-size: 11.5px; letter-spacing: 0.4px; transition: color 0.2s ease; }
+    .footer-ig.is-visible { display: inline-flex; }
+    .footer-ig:hover { color: var(--accent); }
+    .footer-ig svg { width: 14px; height: 14px; stroke-width: 1.8; }
+    .footer-review-link { color: var(--text-soft); text-decoration: none; opacity: 0.7; font-size: 10.5px; letter-spacing: 0.3px; }
+    .footer-review-link:hover { color: var(--accent); opacity: 1; text-decoration: underline; }
+    .footer-copy { opacity: 0.55; font-size: 10.5px; letter-spacing: 0.3px; margin-top: 2px; }
 
-        /* PAGE ENTRANCE — a graceful fade-in rather than an abrupt pop,
-           on first load and whenever arriving from another page. */
-        body { opacity: 0; animation: lp-page-in 0.7s ease 0.05s forwards; }
-        @keyframes lp-page-in { to { opacity: 1; } }
-
-        /* SITE HEADER — sits over the hero and scrolls away naturally
-           with it, like ordinary page content, rather than staying
-           pinned to the viewport. */
-        .site-header { position: absolute; top: 0; left: 0; right: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 14px 0; }
-        .site-logo-link { display: block; }
-        .site-logo { height: 38px; width: auto; filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.25)); }
-
-        /* HERO — identical mechanics to the booking page: video or
-           slideshow, controlled entirely from Settings. */
-        .lp-hero { position: relative; height: 92vh; height: 92svh; min-height: 560px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #141210; }
-        .lp-hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; }
-        .lp-hero-slideshow { position: absolute; inset: 0; }
-        .lp-hero-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 0.9s ease; }
-        .lp-hero-slide.is-active { opacity: 1; }
-        .lp-hero-flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; z-index: 3; transition: opacity 0.1s ease; }
-        .lp-hero-flash.is-flashing { opacity: 0.32; transition: opacity 0.06s ease; }
-        .lp-hero-scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(var(--hero-scrim-rgb),0.7), rgba(var(--hero-scrim-rgb),0.15) 55%); }
-        .lp-hero-content { position: relative; padding: 0 6vw; color: #fff; max-width: 700px; text-align: center; }
-        .lp-hero-title { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-size: clamp(30px, 5.5vw, 58px); line-height: 1.2; margin-bottom: 20px; color: #fff; text-shadow: 0 4px 24px rgba(0,0,0,0.4); }
-        .lp-hero-sub { font-size: 14px; color: rgba(255,255,255,0.82); max-width: 380px; margin: 0 auto; line-height: 1.7; }
-        .lp-hero-cta { display: inline-block; margin-top: 32px; padding: 18px 44px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px; color: #fff; background: rgba(255,255,255,0.12); backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); border: 1px solid rgba(255,255,255,0.2); text-decoration: none; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); box-shadow: 0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.15); }
-        .lp-hero-cta:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); box-shadow: 0 14px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2); }
-
-        /* SCROLL INDICATOR — a full-width frosted glass strip embedded
-           into the hero's own bottom edge, as if that edge of the page
-           itself were made of glass, rather than a floating element on
-           top of it. It sits straddling the boundary; the hero's
-           existing overflow:hidden naturally clips its lower half, so
-           only the upper sliver (with the chevron) is ever visible. A
-           slow breathing opacity pulse keeps it alive without drawing
-           attention; it fades away entirely once scrolling begins —
-           animation is explicitly cleared when hidden, since a running
-           keyframe animation would otherwise keep fighting the fade. */
-        .lp-scroll-indicator {
-            position: absolute; left: 0; right: 0; bottom: -14px;
-            height: 56px;
-            background: rgba(255,255,255,0.14);
-            backdrop-filter: blur(18px) saturate(180%);
-            -webkit-backdrop-filter: blur(18px) saturate(180%);
-            display: flex; align-items: flex-start; justify-content: center;
-            padding-top: 14px;
-            color: #fff;
-            box-shadow: 0 -4px 24px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.22);
-            animation: lp-breathe 4s ease-in-out infinite;
-            transition: opacity 0.6s ease;
-            pointer-events: none;
-        }
-        .lp-scroll-indicator.is-hidden { opacity: 0; animation: none; }
-        @keyframes lp-breathe {
-            0%, 100% { opacity: 0.75; }
-            50% { opacity: 1; }
-        }
-
-        /* FEATURED WORK */
-        .work-empty { text-align: center; color: var(--text-secondary); font-size: 13.5px; padding: 40px 0; }
-
-        /* SOCIAL PROOF COUNTER */
-        .social-proof { padding: 50px 0; text-align: center; border-bottom: 1px solid var(--border-color); }
-        .social-proof-items {
-            display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
-            /* Progress 0 → 1 set by JS on scroll. 1 = section settled in the
-               viewport center (numbers at full/max size). 0 = section
-               scrolled far away (numbers scaled down). Color is fixed brand
-               bronze — no interpolation. */
-            --proof-progress: 0;
-        }
-        .social-proof-item { text-align: center; }
-        .social-proof-number {
-            font-family: 'Fraunces', serif; font-size: clamp(22px, 3vw, 32px); font-weight: 500; line-height: 1.1;
-            color: var(--text-primary);
-            transform: scale(calc(0.74 + 0.26 * var(--proof-progress)));
-            transform-origin: 50% 100%;
-            transition: transform 0.22s cubic-bezier(0.33, 1, 0.68, 1);
-            will-change: transform;
-        }
-        .social-proof-label { font-size: 9.5px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--text-secondary); margin-top: 8px; font-weight: 500; }
-        @media (prefers-reduced-motion: reduce) {
-            .social-proof-number { transform: none; transition: none; }
-        }
-        /* Digital camera font for photo counter */
-        @media (max-width: 600px) { .social-proof-items { gap: 32px; } .social-proof { padding: 40px 0; } }
-
-        /* FEATURED IN */
-        .featured-in { padding: 60px 0; text-align: center; }
-        .featured-in-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 28px; }
-        .featured-in-logos { display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; opacity: 0.5; }
-        .featured-in-logos img { height: 28px; width: auto; filter: grayscale(1); transition: filter 0.3s ease, opacity 0.3s ease; }
-        .featured-in-logos img:hover { filter: grayscale(0); opacity: 1; }
-        .work-section { padding-top: 100px; padding-bottom: 60px; }
-
-
-        /* ABOUT — centered vertical composition: photo, bio, signature.
-           No title, no eyebrow, no grid. The signature (Fraunces italic
-           at display size) carries the identity instead of a label. */
-        .about-wrap { max-width: 520px; margin: 0 auto; text-align: center; }
-        .about-photo { width: 240px; margin: 0 auto 24px; overflow: hidden; aspect-ratio: 4/5; background: var(--bg-card); }
-        .about-photo img { width: 100%; height: 100%; object-fit: cover; }
-        .about-bio { font-size: 13.5px; color: var(--text-secondary); line-height: 1.85; margin-bottom: 20px; max-width: 320px; margin-left: auto; margin-right: auto; text-wrap: balance; white-space: pre-line; }
-
-
-        /* REVIEWS — a full-page editorial installation. The stage
-           fills the entire section so background words spread across
-           the full viewport, not crammed into a tiny box. The featured
-           quote sits dead center at a prominent size. */
-        .voices-stage { position: relative; width: 100%; height: 400px; min-height: 0; }
-        .voices-stage { position: relative; width: 100%; height: 360px; min-height: 0; }
-        .voices-section { min-height: 0; display: flex; flex-direction: column; justify-content: center; padding: 80px 0; }
-        .voices-section .testimonials-label { font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; letter-spacing: -0.2px; text-align: center; margin-bottom: 0; }
-        .voices-section .testimonials-label.is-revealed { clip-path: inset(0 0% 0 0); }
-
-        /* Background word field — words now spread across the full
-           stage (which is the full section height), creating a genuine
-           atmosphere rather than a cramped cluster. Each word breathes
-           on its own rhythm and has a subtle rotation for organic feel. */
-        .voices-word {
-            position: absolute; font-family: 'Fraunces', serif; font-style: italic;
-            color: var(--text-secondary); opacity: 0.12; white-space: nowrap;
-            animation: voices-breathe 8s ease-in-out infinite;
-            transition: opacity 1.2s ease;
-            transform: rotate(var(--word-rotation, 0deg));
-        }
-        .voices-stage.is-focused .voices-word { opacity: 0.05; }
-        @keyframes voices-breathe {
-            0%, 100% { transform: translate(0, 0) rotate(var(--word-rotation, 0deg)); }
-            50% { transform: translate(2px, -3px) rotate(var(--word-rotation, 0deg)); }
-        }
-
-        /* The featured quote — dead center of the full stage at a
-           prominent size that befits a full-page presentation. */
-        .voices-quote-wrap {
-            position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-            width: min(680px, 88%); text-align: center; pointer-events: none;
-        }
-        .voices-quote {
-            font-family: 'Fraunces', serif; font-style: italic; font-weight: 400;
-            font-size: clamp(19px, 2.8vw, 28px); line-height: 1.7; color: var(--text-primary);
-            opacity: 0; filter: blur(6px); transform: translateY(8px);
-            transition: opacity 1.3s cubic-bezier(0.22,1,0.36,1), filter 1.3s cubic-bezier(0.22,1,0.36,1), transform 1.3s cubic-bezier(0.22,1,0.36,1);
-        }
-        .voices-quote.is-visible { opacity: 1; filter: blur(0); transform: translateY(0); }
-        .voices-name {
-            margin-top: 24px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-            color: var(--accent); font-weight: 600;
-            opacity: 0; filter: blur(4px); transform: translateY(6px);
-            transition: opacity 1s cubic-bezier(0.22,1,0.36,1) 0.4s, filter 1s cubic-bezier(0.22,1,0.36,1) 0.4s, transform 1s cubic-bezier(0.22,1,0.36,1) 0.4s;
-        }
-        .voices-name.is-visible { opacity: 1; filter: blur(0); transform: translateY(0); }
-        .voices-stars {
-            display: inline-flex; align-items: center; gap: 1px;
-            margin-top: 14px; padding: 6px 14px;
-            background: rgba(26,24,21,0.05);
-            backdrop-filter: blur(12px) saturate(160%);
-            -webkit-backdrop-filter: blur(12px) saturate(160%);
-            border-radius: 20px;
-            box-shadow: 0 2px 10px var(--shadow-subtle), inset 0 1px 0 rgba(255,255,255,0.4);
-            font-size: 9px; letter-spacing: 2px; color: var(--text-primary);
-            opacity: 0; filter: blur(4px); transform: translateY(6px);
-            transition: opacity 1s cubic-bezier(0.22,1,0.36,1) 0.55s, filter 1s cubic-bezier(0.22,1,0.36,1) 0.55s, transform 1s cubic-bezier(0.22,1,0.36,1) 0.55s;
-        }
-        .voices-stars.is-visible { opacity: 1; filter: blur(0); transform: translateY(0); }
-        @media (prefers-color-scheme: dark) {
-            .voices-stars { background: rgba(255,255,255,0.06); box-shadow: 0 2px 10px var(--shadow-subtle), inset 0 1px 0 rgba(255,255,255,0.08); }
-        }
-
-        @media (max-width: 700px) {
-            .voices-stage { flex: none; height: 380px; margin: 0 auto; }
-            .voices-section { padding: 40px 0; }
-            .voices-quote-wrap { width: 90%; }
-            .voices-quote { font-size: clamp(16px, 4.5vw, 20px); }
-            .voices-word { display: none; }
-            .voices-word.voices-word-mobile { display: block; font-size: 12px !important; }
-        }
-
-        /* Reduced motion — the installation becomes a simple, calm
-           crossfade; no blur, no drift, no upward settle. */
-        @media (prefers-reduced-motion: reduce) {
-            .voices-word { animation: none !important; transition: opacity 0.6s ease !important; }
-            .voices-quote, .voices-name, .voices-stars { filter: none !important; transform: none !important; transition: opacity 0.6s ease !important; }
-        }
-
-        /* THE EXPERIENCE — a quiet, editorial sequence of reassuring
-           statements (not a process/steps grid): the emotional bridge
-           between Featured Work and Book. No cards, no numbers, no icons —
-           generous whitespace between each line lets it read almost
-           like a short poem. Each statement fades in independently as
-           it's scrolled to, via the same lpRevealOnScroll used
-           elsewhere on the page. All text is dashboard-editable. */
-        .experience-sequence { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; gap: 80px; padding: 0 0 40px; }
-        .experience-statement { text-align: center; padding: 0 12px; }
-        .experience-statement .statement-text { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-size: clamp(21px, 3vw, 29px); line-height: 1.55; color: var(--text-primary); }
-        .experience-statement .statement-support { margin-top: 14px; font-size: 13.5px; color: var(--text-secondary); line-height: 1.8; }
-        .experience-statement.lp-reveal { opacity: 0; transform: translateY(16px); transition: opacity 1.3s cubic-bezier(0.16,1,0.3,1), transform 1.3s cubic-bezier(0.16,1,0.3,1); }
-        .experience-statement.lp-reveal.is-in { opacity: 1; transform: translateY(0); }
-
-        .book-cta-section { }
-        .cta-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px var(--shadow-hover); border-color: var(--accent); }
-        .cta-card:hover span:last-child { color: var(--accent); }
-
-        .brand-footer { padding: 60px 0; text-align: center; border-top: 1px solid var(--border-color); }
-        .footer-mark { font-size: 15px; font-weight: 500; letter-spacing: 0.3px; }
-        .footer-contact { margin-top: 14px; font-size: 12.5px; color: var(--text-secondary); }
-        .footer-contact a { color: var(--text-secondary); text-decoration: none; transition: color 0.3s ease; }
-        .footer-contact a:hover { color: var(--accent); }
-        .footer-contact-divider { margin: 0 10px; opacity: 0.5; }
-
-        /* FEATURED WORK PRESENTATION — one large main photo with a
-           perforated film-strip of thumbnails along the edge, at every
-           screen size. Tapping a thumbnail crossfades the main photo
-           to it. Previously desktop showed a separate editorial grid;
-           that's retired in favor of one consistent presentation. */
-        .work-mobile-feature {
-            display: flex; gap: 3px; aspect-ratio: 2.5/3.3; overflow: hidden; position: relative;
-            margin-bottom: 28px; background: #141210;
-            box-shadow: 0 24px 60px var(--shadow-hover), 0 8px 32px rgba(0,0,0,0.15);
-            border-radius: 4px;
-        }
-
-        .work-mobile-feature.is-empty { aspect-ratio: auto; display: block; overflow: visible; background: none; }
-
-        .work-main-photo { flex: 1; position: relative; overflow: hidden; min-width: 0; }
-        .work-photo-counter {
-            text-align: center; padding: 8px 0 0; z-index: 5; position: absolute; top: 0; left: 0; right: 0;
-            color: #c4a67e; font-family: 'Share Tech Mono', monospace; font-size: 7px; font-weight: 400; letter-spacing: 1.5px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, transparent 100%);
-            pointer-events: none;
-        }
-        .work-main-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s ease; }
-        .work-main-photo img.is-active { opacity: 1; animation: lp-ken-burns 16s ease-out forwards; }
-        @keyframes lp-ken-burns { from { transform: scale(1); } to { transform: scale(1.02); } }
-        @media (prefers-reduced-motion: reduce) {
-            .work-main-photo img.is-active { animation: none; }
-        }
-        .work-strip-wrap {
-            width: 22%; position: relative; overflow-y: auto; overflow-x: hidden;
-            scroll-behavior: smooth; scrollbar-width: none; min-height: 0;
-            overscroll-behavior-y: contain;
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
-            mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
-        }
-        .work-strip-wrap::-webkit-scrollbar { display: none; }
-
-        /* Film strip — 35mm film aesthetic with rectangular sprocket
-           holes, frame numbers, and film-stock branding. The strip
-           adapts to light/dark mode: perforations shift from dark-on-
-           cream (light mode) to light-on-dark (dark mode). */
-        .work-strip-track {
-            display: flex; flex-direction: column; padding: 0 16px;
-            position: relative; gap: 2px;
-        }
-        /* Rectangular sprocket holes — real 35mm film has rounded
-           rectangular perforations, not circles. Adapts to theme. */
-        .work-strip-track::before,
-        .work-strip-track::after {
-            content: ""; position: absolute; top: 0; bottom: 0; width: 8px; z-index: 2;
-            -webkit-mask-image: repeating-linear-gradient(
-                to bottom,
-                transparent 0px, transparent 3px,
-                #000 3px, #000 13px,
-                transparent 13px, transparent 18px
-            );
-            mask-image: repeating-linear-gradient(
-                to bottom,
-                transparent 0px, transparent 3px,
-                #000 3px, #000 13px,
-                transparent 13px, transparent 18px
-            );
-            border-radius: 1px;
-        }
-        /* The strip background is always dark (film is always dark
-           regardless of page theme). Perforations are light-on-dark
-           in both modes, but slightly brighter in dark mode. */
-        .work-strip-track::before { left: 0; background: rgba(255,255,255,0.3); }
-        .work-strip-track::after { right: 0; background: rgba(255,255,255,0.3); }
-        @media (prefers-color-scheme: dark) {
-            .work-strip-track::before,
-            .work-strip-track::after { background: rgba(255,255,255,0.4); }
-        }
-
-        /* Frame number — small label like real film edge markings.
-           Always light text with a dark halo for legibility on the
-           dark strip background, regardless of page theme. */
-        .work-strip-thumb .frame-num {
-            position: absolute; right: 2px; bottom: 3px;
-            font-size: 8px; font-weight: 700; letter-spacing: 0.3px;
-            z-index: 3; font-family: 'Courier New', monospace;
-            pointer-events: none; line-height: 1;
-            color: rgba(255,255,255,0.6);
-            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
-        }
-        /* Film stock branding — vertical text along the strip edge */
-        .film-stock-label {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%) rotate(-90deg);
-            font-family: 'Courier New', monospace; font-size: 7px;
-            font-weight: 700; letter-spacing: 3px;
-            white-space: nowrap; pointer-events: none;
-            z-index: 1; text-transform: uppercase;
-            color: rgba(255,255,255,0.2);
-        }
-        .work-strip-thumb { position: relative; width: 100%; aspect-ratio: 1/1; border: none; padding: 4px; background: none; cursor: pointer; display: block; }
-        /* All thumbnails show as negatives — like un-developed film.
-           The main display is the "enlarged" positive. */
-        .work-strip-thumb img {
-            width: 100%; height: 100%; object-fit: cover; display: block;
-            filter: invert(1) hue-rotate(180deg) saturate(0.6) brightness(0.85) contrast(1.1);
-            opacity: 0.8;
-            transition: filter 0.5s ease, opacity 0.4s ease;
-        }
-        /* Hover — slightly brighter, like holding the strip to light */
-        .work-strip-thumb:hover img { opacity: 1; filter: invert(1) hue-rotate(180deg) saturate(0.8) brightness(1) contrast(1.05); }
-        /* Active frame — subtle warm border on the strip; the main
-           photo is the positive. */
-        .work-strip-thumb.is-active { box-shadow: inset 0 0 0 1.5px var(--accent); }
-
-        /* Wider screens get a shorter, more landscape main photo (the
-           mobile portrait ratio would otherwise stretch absurdly tall
-           across a ~1000px container) and a narrower strip, so more
-           thumbnails are visible at once without excess scrolling. */
-        @media (min-width: 900px) {
-            .work-mobile-feature { aspect-ratio: 16/9; }
-            .work-strip-wrap { width: 14%; }
-        }
-
-
-        @media (max-width: 900px) {
-            .about-wrap { max-width: 360px; }
-            .about-photo { width: 200px; }
-            .about-bio { max-width: 280px; }
-            .experience-sequence { gap: 56px; }
-        }
-        /* Digital camera font for photo counter */
-        @media (max-width: 600px) {
-            .container { padding: 0 22px; }
-            .section-block { padding: 70px 0; }
-            .work-section { padding-top: 70px; padding-bottom: 0; }
-            .lp-hero { height: 100vh; height: 100svh; }
-            .section-heading { font-size: 16px; }
-            .lp-hero-title { font-size: clamp(26px, 8vw, 34px); }
-            .lp-hero-sub { font-size: clamp(9.5px, 3.1vw, 12px); white-space: nowrap; max-width: none; }
-        }
-    </style>
+    @media (prefers-reduced-motion: reduce) {
+        body { animation: none; opacity: 1; }
+        .link-card { transition: none; }
+    }
+</style>
 </head>
 <body>
 
-    <header class="site-header" id="site-header">
-        <a href="./" class="site-logo-link"><img src="" alt="Libertypictures" class="site-logo" id="site-logo-img" style="display:none;"></a>
+<main class="page">
+    <!-- Identity: logo alone, warm one-line welcome underneath -->
+    <header class="brand">
+        <img id="brand-logo" class="brand-logo" alt="Libertypictures">
+        <p class="brand-welcome">Glad you're here.</p>
     </header>
 
-    <section class="lp-hero">
-        <video class="lp-hero-video" id="lp-hero-video" autoplay muted loop playsinline poster="">
-            <!-- <source src="studio-reel.mp4" type="video/mp4"> -->
-        </video>
-        <div class="lp-hero-slideshow" id="lp-hero-slideshow" style="display:none;"></div>
-        <div class="lp-hero-flash" id="lp-hero-flash"></div>
-        <div class="lp-hero-scrim"></div>
-        <div class="lp-hero-content">
-            <h1 class="lp-hero-title">Intimate visual stories</h1>
-            <p class="lp-hero-sub">Portraits that feel personal and beautifully authentic.</p>
-
-        </div>
-        <div class="lp-scroll-indicator" aria-hidden="true">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </div>
-    </section>
-
-    <!-- SOCIAL PROOF — stats between hero and portfolio, editable from admin Settings -->
-    <section class="section-block social-proof" id="social-proof-section">
-        <div class="container">
-            <div class="social-proof-items" id="social-proof-items">
-                <div class="social-proof-item"><div class="social-proof-number">500+</div><div class="social-proof-label">Sessions Captured</div></div>
-                <div class="social-proof-item"><div class="social-proof-number">4</div><div class="social-proof-label">Years Experience</div></div>
-                <div class="social-proof-item"><div class="social-proof-number">90%</div><div class="social-proof-label">5-Star Reviews</div></div>
+    <!-- Flat link list — same style for all, ordered by intent -->
+    <nav class="link-list" aria-label="Links">
+        <a href="https://libertypictures.github.io/pg/?utm_source=igbio&amp;utm_medium=links&amp;utm_campaign=portraits" class="link-card">
+            <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+            <div class="link-text">
+                <div class="link-title">Portrait Sessions</div>
+                <div class="link-desc">Portraits, family, branding — see what's included and book</div>
             </div>
-        </div>
-    </section>
-
-    <!-- FEATURED WORK -->
-    <section class="section-block work-section">
-        <div class="container">
-            <h2 class="section-heading serif">Featured Works</h2>
-            <div class="work-mobile-feature" id="work-mobile-feature"></div>
-        </div>
-    </section>
-
-    <!-- FEATURED IN -->
-    <section class="featured-in lp-reveal" id="featured-in-section" style="display:none;">
-        <div class="container">
-            <div class="featured-in-label">As Featured In</div>
-            <div class="featured-in-logos" id="featured-in-logos"></div>
-        </div>
-    </section>
-
-    <!-- REVIEWS — now its own section with proper space,
-         so longer quotes don't feel crammed into a corner of the
-         Featured Works area. -->
-    <section class="section-block voices-section async-reveal" id="testimonials-section">
-        <div class="container">
-            <h2 class="testimonials-label" style="text-align:center;">Reviews</h2>
-            <div class="voices-stage" id="voices-stage"></div>
-        </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section class="section-block async-reveal" id="about-section">
-        <div class="container">
-            <div class="about-wrap">
-                <div class="about-photo"><img id="about-photo-img" src="" alt="The photographer" loading="lazy" decoding="async"></div>
-                <p class="about-bio" id="about-bio-text"></p>
+            <span class="link-arrow">›</span>
+        </a>
+        <a href="https://libertypictures.github.io/pg/wedding.html?utm_source=igbio&amp;utm_medium=links&amp;utm_campaign=weddings" class="link-card">
+            <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div>
+            <div class="link-text">
+                <div class="link-title">Wedding Packages</div>
+                <div class="link-desc">Beloved Imprint — from pre-wedding to the first dance</div>
             </div>
-        </div>
-    </section>
+            <span class="link-arrow">›</span>
+        </a>
+        <a href="https://wa.me/2349075170240?text=Hi%20Liberty%2C%20I%27d%20like%20to%20chat%20about%20a%20session." target="_blank" rel="noopener" class="link-card">
+            <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></div>
+            <div class="link-text">
+                <div class="link-title">Chat on WhatsApp</div>
+                <div class="link-desc">Fastest way to reach me</div>
+            </div>
+            <span class="link-arrow">›</span>
+        </a>
+        <a href="mailto:visualsliberty@gmail.com" class="link-card">
+            <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
+            <div class="link-text">
+                <div class="link-title">Email</div>
+                <div class="link-desc">For the details, or when it's not urgent</div>
+            </div>
+            <span class="link-arrow">›</span>
+        </a>
+    </nav>
 
-    <!-- THE EXPERIENCE — a quiet, editorial sequence of reassuring
-         statements, the emotional bridge between Featured Work and Book.
-         Deliberately no session names, descriptions, or prices —
-         those live on Book. No overarching visible heading either
-         (the sequence itself carries the section); an sr-only heading
-         preserves a heading landmark for screen-reader navigation
-         without adding any visible chrome. All text is
-         dashboard-editable. -->
-    <section class="section-block experience-section">
-        <div class="container">
-            <h2 class="section-heading serif">The Experience</h2>
-            <div class="experience-sequence" id="experience-sequence"></div>
-        </div>
-    </section>
-
-    <!-- BOOK — editable from admin Settings -->
-    <section class="section-block book-cta-section lp-reveal">
-        <div class="container" style="text-align:center; padding: 0 20px;">
-            <div id="cta-content"></div>
-            <p style="margin-top:32px;font-size:13px;color:var(--text-secondary);">Questions? <a href="https://wa.me/2349075170240" target="_blank" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:1px;">Chat on WhatsApp</a></p>
-        </div>
-    </section>
-
-    <footer class="brand-footer">
-        <span class="serif footer-mark">Libertypictures © 2026</span>
-        <div class="footer-contact">
-            <a href="https://wa.me/2349075170240" target="_blank" rel="noopener">WhatsApp</a>
-            <span class="footer-contact-divider">·</span>
-            <a href="mailto:visualsliberty@gmail.com">Email</a>
-        </div>
+    <!-- Footer -->
+    <footer class="links-footer">
+        <a id="footer-ig" class="footer-ig" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
+            <span id="footer-ig-handle">@libertypictures</span>
+        </a>
+        <a class="footer-review-link" href="https://libertypictures.github.io/pg/review.html?utm_source=igbio&amp;utm_medium=links">Past client? Leave a review →</a>
+        <div class="footer-copy">Libertypictures © 2026</div>
     </footer>
+</main>
 
 <script>
     var API_BASE = 'https://liberty-booking-api.visualsliberty.workers.dev';
 
-    // Fetched once, shared by every section that needs Settings data
-    // (Hero, Logo, About, Experience) — previously each fetched
-    // /api/settings independently, doubling that request for no
-    // reason since it's the exact same data every time.
-    var settingsPromise = fetch(API_BASE + '/api/settings').then(function (res) { return res.json(); });
+    fetch(API_BASE + '/api/settings').then(function (r) { return r.json(); }).then(function (data) {
+        var s = (data && data.settings) || {};
 
-    function escapeHtml(str) {
-        var div = document.createElement('div');
-        div.textContent = String(str == null ? '' : str);
-        return div.innerHTML;
-    }
-    
-    // Reveals an `.async-reveal` element with a GPU-only fade (opacity +
-    // transform via a CSS keyframe animation, triggered by the display
-    // switch) instead of animating a layout property like max-height —
-    // layout properties force a reflow on every frame of the animation,
-    // which stutters if it happens to run while the visitor is actively
-    // scrolling. Used for sections whose content only exists after an
-    // API fetch resolves (About, Voices).
-    function lpRevealSmoothly(el) {
-        if (!el) return;
-        el.classList.add('is-visible');
-    }
-
-    // Simple one-time scroll reveal — fades/slides each element in the
-    // moment it scrolls into view, staggered by index for a gentle
-    // cascade. `.lp-reveal` alone (before this runs) is a no-op, so
-    // content stays visible if JS fails.
-    function lpRevealOnScroll(elements, minGap) {
-        if (!('IntersectionObserver' in window)) return;
-        var els = Array.prototype.slice.call(elements);
-        if (!els.length) return;
-        els.forEach(function (el) { el.classList.add('lp-reveal'); });
-
-        var pendingHides = new WeakMap();
-        // Tracks the earliest time the NEXT reveal is allowed to start.
-        // A reveal triggered well after this (normal/slow scrolling)
-        // gets zero delay — instant, tied directly to scroll position,
-        // not to a timer. Only when a reveal is triggered before this
-        // (several elements crossing into view within the same instant,
-        // i.e. a fast scroll) does it get pushed out by minGap from the
-        // previous one, so it still reads as sequential instead of all
-        // popping in together.
-        var nextRevealNotBefore = 0;
-
-        // No "already visible, skip the animation" shortcut here.
-        // IntersectionObserver always fires immediately upon observe()
-        // with whatever's currently true, so anything on-screen the
-        // moment observation starts still gets a real, correct entrance
-        // through the exact same path below — never a silent skip.
-        var observer = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                var el = entry.target;
-                if (entry.isIntersecting) {
-                    var pendingHide = pendingHides.get(el);
-                    if (pendingHide) { clearTimeout(pendingHide); pendingHides.delete(el); }
-                    if (el.classList.contains('is-in')) return;
-
-                    var now = Date.now();
-                    var delay = Math.max(0, nextRevealNotBefore - now);
-                    nextRevealNotBefore = now + delay + (minGap || 0);
-                    el.style.transitionDelay = delay + 'ms';
-                    el.classList.add('is-in');
-                } else {
-                    if (!el.classList.contains('is-in') || pendingHides.has(el)) return;
-                    var hideTimer = setTimeout(function () {
-                        pendingHides.delete(el);
-                        el.style.transitionDelay = '0ms';
-                        el.classList.remove('is-in');
-                    }, 400);
-                    pendingHides.set(el, hideTimer);
-                }
-            });
-        }, { threshold: 0.15, rootMargin: '0px 0px -25% 0px' });
-        els.forEach(function (el) { observer.observe(el); });
-    }
-
-    // CTA SECTION — editable from admin Settings
-    (function () {
-        settingsPromise.then(function (data) {
-            var s = data.settings || {};
-            var el = document.getElementById('cta-content');
-            if (!el) return;
-
-            var eyebrow = s.cta_eyebrow || "Let's work together";
-            // heading and description removed — cards speak for themselves
-            var portraitTitle = s.cta_portrait_title || "Portraits + Studio";
-            var portraitDesc = s.cta_portrait_desc || "Personal branding, family, maternity, couple, editorial";
-            var portraitBtn = s.cta_portrait_btn || "View packages";
-            var weddingTitle = s.cta_wedding_title || "Weddings — Beloved Imprint";
-            var weddingDesc = s.cta_wedding_desc || "Engagements, ceremonies, receptions — cinematic coverage from pre-wedding to first dance";
-            var weddingBtn = s.cta_wedding_btn || "Explore wedding packages";
-
-            el.innerHTML =
-                '<span style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);font-weight:600;display:block;margin-bottom:24px;">' + escapeHtml(eyebrow) + '</span>' +
-                '<div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">' +
-                    '<a href="book.html" class="cta-card" style="display:block;padding:28px 32px;background:var(--bg-card);border:1px solid var(--border-color);text-decoration:none;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);flex:1;min-width:220px;max-width:340px;text-align:left;">' +
-                        '<span class="serif" style="display:block;font-size:17px;color:var(--text-primary);margin-bottom:4px;">' + escapeHtml(portraitTitle) + '</span>' +
-                        '<span style="font-size:11.5px;color:var(--text-secondary);line-height:1.5;display:block;margin-bottom:10px;">' + escapeHtml(portraitDesc) + '</span>' +
-                        '<span style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);font-weight:600;">' + escapeHtml(portraitBtn) + ' &rarr;</span>' +
-                    '</a>' +
-                    '<a href="wedding.html" class="cta-card" style="display:block;padding:28px 32px;background:var(--bg-card);border:1px solid var(--border-color);text-decoration:none;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);flex:1;min-width:220px;max-width:340px;text-align:left;">' +
-                        '<span class="serif" style="display:block;font-size:17px;color:var(--text-primary);margin-bottom:4px;">' + escapeHtml(weddingTitle) + '</span>' +
-                        '<span style="font-size:11.5px;color:var(--text-secondary);line-height:1.5;display:block;margin-bottom:10px;">' + escapeHtml(weddingDesc) + '</span>' +
-                        '<span style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);font-weight:600;">' + escapeHtml(weddingBtn) + ' &rarr;</span>' +
-                    '</a>' +
-                '</div>';
-        });
-    })();
-
-    // SOCIAL PROOF — defaults are hardcoded in the HTML (500+, 4, 90%).
-    // Admin Settings overrides both the number (proof_sessions, proof_years, …)
-    // and the label (proof_sessions_label, proof_years_label, …).
-    (function () {
-        settingsPromise.then(function (data) {
-            var s = data.settings || {};
-
-            var proofItems = [];
-            if (s.proof_sessions) proofItems.push({ number: s.proof_sessions, label: s.proof_sessions_label || 'Sessions Captured' });
-            if (s.proof_years) proofItems.push({ number: s.proof_years, label: s.proof_years_label || 'Years Experience' });
-            if (s.proof_rating) proofItems.push({ number: s.proof_rating, label: s.proof_rating_label || '5-Star Reviews' });
-            if (s.proof_clients) proofItems.push({ number: s.proof_clients, label: s.proof_clients_label || 'Happy Clients' });
-
-            // If admin has set any values, replace the hardcoded defaults
-            if (proofItems.length) {
-                var el = document.getElementById('social-proof-items');
-                el.innerHTML = proofItems.map(function (item) {
-                    return '<div class="social-proof-item"><div class="social-proof-number">' + escapeHtml(item.number) + '</div><div class="social-proof-label">' + escapeHtml(item.label) + '</div></div>';
-                }).join('');
-            }
-
-            // Scroll-driven premium interaction — as the section moves
-            // through the viewport, the numbers scale + fade between the
-            // brand bronze (edges) and the primary ink color (center). rAF
-            // throttled + IntersectionObserver gated so it's cheap.
-            (function () {
-                var section = document.getElementById('social-proof-section');
-                var container = document.getElementById('social-proof-items');
-                if (!section || !container) return;
-                if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-                var ticking = false;
-                var inView = false;
-                function update() {
-                    ticking = false;
-                    var rect = section.getBoundingClientRect();
-                    var vh = window.innerHeight || document.documentElement.clientHeight;
-                    var sectionCenter = rect.top + rect.height / 2;
-                    var viewportCenter = vh / 2;
-                    // 60vh half-window — beyond that, progress is 0.
-                    var distance = Math.abs(sectionCenter - viewportCenter);
-                    var window60 = vh * 0.6;
-                    var raw = 1 - Math.min(distance / window60, 1);
-                    // Ease with a quick cubic so most of the range holds "big"
-                    // and only the far edges shrink — feels more intentional.
-                    var eased = raw * raw * (3 - 2 * raw);
-                    container.style.setProperty('--proof-progress', eased.toFixed(3));
-                }
-                function onScroll() {
-                    if (ticking || !inView) return;
-                    ticking = true;
-                    requestAnimationFrame(update);
-                }
-                if ('IntersectionObserver' in window) {
-                    new IntersectionObserver(function (entries) {
-                        entries.forEach(function (e) { inView = e.isIntersecting; });
-                        // Run once when leaving as well, so the value settles
-                        // at 0 instead of freezing on whatever the last scroll
-                        // frame set it to.
-                        requestAnimationFrame(update);
-                    }, { rootMargin: '80% 0px 80% 0px' }).observe(section);
-                } else {
-                    inView = true;
-                }
-                window.addEventListener('scroll', onScroll, { passive: true });
-                window.addEventListener('resize', function () { requestAnimationFrame(update); }, { passive: true });
-                requestAnimationFrame(update);
-            })();
-
-            // Featured in logos
-            if (s.featured_in_enabled === 'true' && s.featured_in_logos) {
-                var logos;
-                try { logos = JSON.parse(s.featured_in_logos); } catch (e) { return; }
-                if (Array.isArray(logos) && logos.length) {
-                    var logosEl = document.getElementById('featured-in-logos');
-                    logosEl.innerHTML = logos.map(function (logo) {
-                        return '<img src="' + API_BASE + logo.url + '" alt="' + escapeHtml(logo.name || 'Featured') + '">';
-                    }).join('');
-                    document.getElementById('featured-in-section').style.display = '';
-                }
-            }
-        });
-    })();
-
-    // HERO — identical logic to the booking page: two separate render
-    // paths based on hero_mode, never mixing video and slideshow.
-    (function () {
-        function renderVideo(s) {
-            if (!s.hero_video_url) return;
-            var oldVideo = document.getElementById('lp-hero-video');
-            var newVideo = oldVideo.cloneNode(false);
-            newVideo.muted = true;
-            newVideo.innerHTML = '<source src="' + API_BASE + s.hero_video_url + '" type="video/mp4">';
-            oldVideo.parentNode.replaceChild(newVideo, oldVideo);
-            newVideo.play().catch(function (err) { console.error('Hero video could not autoplay:', err.message); });
-        }
-        function renderSlideshow() {
-            document.getElementById('lp-hero-video').style.display = 'none';
-            var container = document.getElementById('lp-hero-slideshow');
-            var flash = document.getElementById('lp-hero-flash');
-            fetch(API_BASE + '/api/hero-images')
-                .then(function (res) { return res.json(); })
-                .then(function (data) {
-                    var images = data.images || [];
-                    if (!images.length) return;
-                    container.style.display = 'block';
-                    container.innerHTML = images.map(function (img, i) {
-                        return '<div class="lp-hero-slide' + (i === 0 ? ' is-active' : '') + '" style="background-image:url(' + API_BASE + img.imageUrl + ')"></div>';
-                    }).join('');
-                    if (images.length < 2) return;
-                    var slides = container.querySelectorAll('.lp-hero-slide');
-                    var current = 0;
-                    setInterval(function () {
-                        var next = (current + 1) % slides.length;
-                        flash.classList.add('is-flashing');
-                        setTimeout(function () { flash.classList.remove('is-flashing'); }, 90);
-                        slides[current].classList.remove('is-active');
-                        slides[next].classList.add('is-active');
-                        current = next;
-                    }, 2000);
-                })
-                .catch(function (err) { console.error('Could not load hero slideshow:', err); });
+        if (s.logo_url) {
+            document.getElementById('brand-logo').src = API_BASE + s.logo_url;
         }
 
-        settingsPromise
-            .then(function (data) {
-                var s = data.settings || {};
-                if (s.hero_mode === 'slideshow') { renderSlideshow(); } else { renderVideo(s); }
-
-                if (s.logo_url) {
-                    var siteLogo = document.getElementById('site-logo-img');
-                    siteLogo.src = API_BASE + s.logo_url;
-                    siteLogo.style.display = 'block';
-                }
-
-                // ABOUT — only shown once real content exists in Settings,
-                // never with placeholder/fabricated text. Smooth reveal
-                // (not an instant display swap) so a late-arriving fetch
-                // never causes a sudden layout jump if it resolves while
-                // the visitor is already scrolling past this point.
-                if (s.about_photo_url && s.about_bio) {
-                    document.getElementById('about-photo-img').src = API_BASE + s.about_photo_url;
-                    document.getElementById('about-bio-text').textContent = s.about_bio;
-                    lpRevealSmoothly(document.getElementById('about-section'));
-                }
-            })
-            .catch(function (err) { console.error('Could not load settings:', err); });
-    })();
-
-    // SCROLL INDICATOR — fades away the moment the visitor actually
-    // starts scrolling; its job is done at that point.
-    (function () {
-        var indicator = document.querySelector('.lp-scroll-indicator');
-        if (!indicator) return;
-        window.addEventListener('scroll', function () {
-            indicator.classList.toggle('is-hidden', window.scrollY > 12);
-        }, { passive: true });
-    })();
-
-    // FEATURED WORK — pulled from its own, separately-curated photo set
-    // (not Portfolio). Builds the main-photo + film-strip presentation
-    // used at every screen size.
-    (function () {
-        var mobileFeature = document.getElementById('work-mobile-feature');
-        if (!mobileFeature) return;
-
-        fetch(API_BASE + '/api/featured-work')
-            .then(function (res) { return res.json(); })
-            .then(function (data) {
-                var items = data.items || [];
-                if (!items.length) {
-                    mobileFeature.classList.add('is-empty');
-                    mobileFeature.innerHTML = '<p class="work-empty">New work coming soon.</p>';
-                    return;
-                }
-                buildMobileFeature(items);
-            })
-            .catch(function () {
-                mobileFeature.classList.add('is-empty');
-                mobileFeature.innerHTML = '<p class="work-empty">Couldn\'t load work right now.</p>';
-            });
-
-        function buildMobileFeature(sample) {
-            // A single photo doesn't need a strip — just show it plainly
-            // rather than showing nothing (the old behavior here).
-            if (sample.length < 2) {
-                mobileFeature.innerHTML = '<div class="work-main-photo"><img src="' + API_BASE + sample[0].imageUrl + '" alt="Featured work" class="is-active" fetchpriority="high" decoding="async"></div>';
-                return;
-            }
-
-            // Counter width matches the total length so "01 / 100" stays
-            // 3+3 aligned once you go past 99 frames.
-            var totalStr = String(sample.length);
-            var counterWidth = totalStr.length;
-            function frameLabel(i) { return String(i + 1).padStart(counterWidth, '0') + ' / ' + totalStr; }
-
-            // Thumbnails: only the first few load eagerly; the rest are
-            // deferred until they scroll into the strip's viewport (via
-            // IntersectionObserver, wired up after render). This keeps
-            // total-of-N-photos independent of what actually downloads on
-            // page load — matters most on mobile data + long strips.
-            var EAGER_THUMBS = 4;
-            var thumbsHtml = sample.map(function (item, i) {
-                var url = API_BASE + item.imageUrl;
-                var srcAttr = i < EAGER_THUMBS
-                    ? 'src="' + url + '" loading="lazy"'
-                    : 'data-src="' + url + '"';
-                return '<button type="button" class="work-strip-thumb' + (i === 0 ? ' is-active' : '') + '" data-index="' + i + '" aria-label="View photo ' + (i + 1) + ' of ' + sample.length + '"><img ' + srcAttr + ' alt="" fetchpriority="low" decoding="async"><span class="frame-num">' + (i + 1) + '</span></button>';
-            }).join('');
-
-            // Main viewer: eager-load only the first (visible) photo. All
-            // others get a data-src and load the moment they're activated,
-            // plus a pre-warm of the immediate neighbors so click→appear
-            // feels instant. This is the difference between downloading 1
-            // full-res image on page load vs. all N — the reason the strip
-            // was slow to become interactive.
-            var mainHtml = sample.map(function (item, i) {
-                var isFirst = i === 0;
-                var srcAttr = isFirst ? 'src="' + API_BASE + item.imageUrl + '" fetchpriority="high"' : 'data-src="' + API_BASE + item.imageUrl + '"';
-                return '<img ' + srcAttr + ' alt="Featured work" class="' + (isFirst ? 'is-active' : '') + '" data-index="' + i + '" decoding="async">';
-            }).join('');
-
-            mobileFeature.innerHTML =
-                '<div class="work-main-photo">' +
-                    '<div class="work-photo-counter" id="work-photo-counter">' + frameLabel(0) + '</div>' +
-                    mainHtml +
-                '</div>' +
-                '<div class="work-strip-wrap" id="work-strip-wrap">' +
-                    '<span class="film-stock-label">Liberty</span>' +
-                    '<div class="work-strip-track">' + thumbsHtml + '</div>' +
-                '</div>';
-
-            var mainImgs = mobileFeature.querySelectorAll('.work-main-photo img');
-            var stripWrap = document.getElementById('work-strip-wrap');
-            var thumbs = mobileFeature.querySelectorAll('.work-strip-thumb');
-            var photoCounter = document.getElementById('work-photo-counter');
-
-            function ensureLoaded(idx) {
-                var img = mainImgs[idx];
-                if (img && !img.src && img.dataset.src) img.src = img.dataset.src;
-            }
-
-            // Deferred thumbnails: load as they scroll into the strip.
-            // rootMargin gives ~200px of preload so the swap happens
-            // before the user visually reaches the thumb.
-            var pendingThumbs = mobileFeature.querySelectorAll('.work-strip-thumb img[data-src]');
-            if (pendingThumbs.length && 'IntersectionObserver' in window) {
-                var thumbObserver = new IntersectionObserver(function (entries) {
-                    entries.forEach(function (e) {
-                        if (!e.isIntersecting) return;
-                        var img = e.target;
-                        if (img.dataset.src) { img.src = img.dataset.src; delete img.dataset.src; }
-                        thumbObserver.unobserve(img);
-                    });
-                }, { root: stripWrap, rootMargin: '200px 0px 200px 0px' });
-                pendingThumbs.forEach(function (img) { thumbObserver.observe(img); });
-            } else if (pendingThumbs.length) {
-                pendingThumbs.forEach(function (img) { img.src = img.dataset.src; delete img.dataset.src; });
-            }
-            // Warm the two neighbors of the first frame so the first click
-            // in either direction is instant.
-            if (sample.length > 1) ensureLoaded(1);
-            if (sample.length > 2) ensureLoaded(sample.length - 1);
-
-            thumbs.forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    var idx = btn.dataset.index;
-                    var idxNum = parseInt(idx, 10);
-                    ensureLoaded(idxNum);
-                    ensureLoaded((idxNum + 1) % sample.length);
-                    ensureLoaded((idxNum - 1 + sample.length) % sample.length);
-                    // If the clicked thumbnail hasn't loaded yet, load it
-                    // now — otherwise it stays blank while the main photo
-                    // updates.
-                    var btnImg = btn.querySelector('img');
-                    if (btnImg && btnImg.dataset.src) { btnImg.src = btnImg.dataset.src; delete btnImg.dataset.src; }
-                    mainImgs.forEach(function (img) { img.classList.toggle('is-active', img.dataset.index === idx); });
-                    photoCounter.textContent = frameLabel(idxNum);
-                    thumbs.forEach(function (t) { t.classList.toggle('is-active', t.dataset.index === idx); });
-
-                    // Smooth scroll to center the clicked thumbnail —
-                    // like advancing the film strip to the next frame.
-                    var thumbHeight = btn.offsetHeight;
-                    var scrollTarget = btn.offsetTop - (stripWrap.clientHeight / 2) + (thumbHeight / 2);
-                    stripWrap.scrollTo({ top: scrollTarget, behavior: 'smooth' });
-                });
-            });
+        if (s.instagram_handle) {
+            var handle = s.instagram_handle.replace(/^@/, '');
+            var ig = document.getElementById('footer-ig');
+            ig.href = 'https://instagram.com/' + handle;
+            ig.classList.add('is-visible');
+            document.getElementById('footer-ig-handle').textContent = '@' + handle;
         }
-    })();
-
-    // VOICES — an editorial installation, not a review carousel.
-    // A scattered field of atmosphere words sits in the background;
-    // real reviews surface into focus one at a time — reveal,
-    // hold, dissolve — and the field softens while one is showing.
-    // Pauses entirely when off-screen or under prefers-reduced-motion.
-    (function () {
-        var stage = document.getElementById('voices-stage');
-        var section = document.getElementById('testimonials-section');
-        var items = [];
-        var lastIndex = -1;
-        var running = false;
-        var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        var timers = [];
-
-        // Purely decorative atmosphere — generic words evoking the
-        // feeling of a session, not quotes attributed to any specific
-        // client (real reviews only ever come from the API below).
-        var ATMOSPHERE_WORDS = ['beautiful', 'effortless', 'authentic', 'unforgettable', 'comfortable', 'timeless', 'gorgeous', 'natural', 'confident', 'seen', 'gentle', 'genuine', 'warm', 'alive', 'graceful'];
-
-        // Hand-placed, deliberately not gridded — a curated scatter
-        // rather than a random one. Kept clear of the dead-center zone
-        // where the featured quote sits.
-        var SLOTS = [
-            { x: 5, y: 6 }, { x: 88, y: 4 }, { x: 12, y: 85 }, { x: 90, y: 88 },
-            { x: 2, y: 38 }, { x: 94, y: 35 }, { x: 20, y: 15 }, { x: 72, y: 92 },
-            { x: 6, y: 68 }, { x: 82, y: 18 }, { x: 38, y: 3 }, { x: 58, y: 96 },
-            { x: 25, y: 95 }, { x: 68, y: 6 },
-        ];
-
-        function buildWordField() {
-            var isMobile = window.innerWidth <= 700;
-            var MOBILE_POSITIONS = [
-                { x: 4, y: 5 }, { x: 82, y: 3 },
-                { x: 2, y: 82 }, { x: 85, y: 85 },
-                { x: 6, y: 40 }, { x: 88, y: 38 },
-                { x: 35, y: 2 },
-            ];
-            var MOBILE_SLOT_INDEXES = [0, 2, 4, 6, 8, 9, 12];
-            var html = SLOTS.map(function (slot, i) {
-                var word = ATMOSPHERE_WORDS[i % ATMOSPHERE_WORDS.length];
-                var size = 13 + (i % 4) * 3;
-                var delay = (i * 0.5).toFixed(2);
-                var rotation = ((i % 5) - 2) * 1.8;
-                var isMobileWord = MOBILE_SLOT_INDEXES.indexOf(i) !== -1;
-                var mobileClass = isMobileWord ? ' voices-word-mobile' : '';
-                var mobilePos = isMobileWord ? MOBILE_POSITIONS[MOBILE_SLOT_INDEXES.indexOf(i)] : null;
-                var useX = (isMobile && mobilePos) ? mobilePos.x : slot.x;
-                var useY = (isMobile && mobilePos) ? mobilePos.y : slot.y;
-                return '<span class="voices-word' + mobileClass + '" style="left:' + useX + '%; top:' + useY + '%; font-size:' + size + 'px; animation-delay:' + delay + 's; --word-rotation:' + rotation + 'deg;">' + word + '</span>';
-            }).join('');
-            stage.insertAdjacentHTML('afterbegin', html);
-        }
-
-        function clearTimers() { timers.forEach(clearTimeout); timers = []; }
-        function after(ms, fn) { var t = setTimeout(fn, ms); timers.push(t); return t; }
-
-        var shuffledQueue = [];
-
-        function pickNext() {
-            if (!items.length) return 0;
-            if (!shuffledQueue.length) {
-                // Reshuffle all reviews into a new queue
-                shuffledQueue = items.map(function (_, i) { return i; });
-                // Fisher-Yates shuffle
-                for (var i = shuffledQueue.length - 1; i > 0; i--) {
-                    var j = Math.floor(Math.random() * (i + 1));
-                    var temp = shuffledQueue[i];
-                    shuffledQueue[i] = shuffledQueue[j];
-                    shuffledQueue[j] = temp;
-                }
-                // If the first item in the new shuffle is the same as
-                // the last one shown, swap it further in so we never
-                // see the same review twice in a row at the seam
-                if (shuffledQueue.length > 1 && shuffledQueue[0] === lastIndex) {
-                    var swapWith = 1 + Math.floor(Math.random() * (shuffledQueue.length - 1));
-                    shuffledQueue[0] = shuffledQueue[swapWith];
-                    shuffledQueue[swapWith] = lastIndex;
-                }
-            }
-            lastIndex = shuffledQueue.shift();
-            return lastIndex;
-        }
-
-        function starsHtml(rating) {
-            var filled = Math.max(0, Math.min(5, Math.round(rating || 0)));
-            var out = '';
-            for (var i = 1; i <= 5; i++) out += (i <= filled ? '\u2605' : '\u2606');
-            return out;
-        }
-
-        function runCycle() {
-            if (!running) return;
-            var t = items[pickNext()];
-
-            var quoteEl = document.getElementById('voices-quote');
-            var nameEl = document.getElementById('voices-name');
-            var starsEl = document.getElementById('voices-stars');
-            quoteEl.textContent = t.quote;
-            nameEl.textContent = t.clientName;
-            starsEl.textContent = starsHtml(t.rating);
-
-            stage.classList.add('is-focused');
-            // A frame of delay before adding is-visible so the browser
-            // registers the text change first — otherwise the reveal
-            // transition can be skipped entirely on some browsers.
-            after(reducedMotion ? 30 : 60, function () {
-                quoteEl.classList.add('is-visible');
-                nameEl.classList.add('is-visible');
-                starsEl.classList.add('is-visible');
-            });
-
-            var holdFor = reducedMotion ? 2000 : 3200;
-            var revealTime = reducedMotion ? 400 : 1300;
-            var dissolveTime = reducedMotion ? 400 : 1200;
-
-            after(revealTime + holdFor, function () {
-                quoteEl.classList.remove('is-visible');
-                nameEl.classList.remove('is-visible');
-                starsEl.classList.remove('is-visible');
-                stage.classList.remove('is-focused');
-            });
-
-            after(revealTime + holdFor + dissolveTime + 900, runCycle);
-        }
-
-        function start() {
-            if (running) return;
-            running = true;
-            runCycle();
-        }
-        function stop() {
-            running = false;
-            clearTimers();
-        }
-
-        fetch(API_BASE + '/api/testimonials?publishedOnly=true')
-            .then(function (res) { return res.json(); })
-            .then(function (data) {
-                items = data.testimonials || [];
-                if (!items.length) return;
-
-                buildWordField();
-                stage.insertAdjacentHTML('beforeend',
-                    '<div class="voices-quote-wrap">' +
-                        '<p class="voices-quote" id="voices-quote"></p>' +
-                        '<div class="voices-name" id="voices-name"></div>' +
-                        '<div class="voices-stars" id="voices-stars" aria-hidden="true"></div>' +
-                    '</div>'
-                );
-
-                lpRevealSmoothly(section);
-
-                if ('IntersectionObserver' in window) {
-                    var observer = new IntersectionObserver(function (entries) {
-                        entries.forEach(function (entry) {
-                            if (entry.isIntersecting) start(); else stop();
-                        });
-                    }, { threshold: 0.2 });
-                    observer.observe(section);
-                } else {
-                    start();
-                }
-            })
-            .catch(function (err) { console.error('Could not load Voices content:', err); });
-    })();
-
-    // THE EXPERIENCE — a quiet, editorial sequence of reassuring
-    // statements, pulled entirely from Settings (dashboard-editable).
-    // Stays hidden if nothing's been saved yet, same honesty rule as
-    // About and Testimonials — never shows placeholder text. Staggered
-    // reveal (not simultaneous) so it always reads as one statement
-    // delivered at a time, even on a fast scroll that brings several
-    // into view within the same instant — lpRevealOnScroll assigns
-    // each element's delay by its fixed position in the sequence, so
-    // they stay visually sequential regardless of how quickly they're
-    // all technically "in view" together.
-    (function () {
-        var sequenceEl = document.getElementById('experience-sequence');
-
-        settingsPromise
-            .then(function (data) {
-                var s = data.settings || {};
-                if (!s.experience_statements_json) return;
-
-                var statements;
-                try { statements = JSON.parse(s.experience_statements_json); } catch (e) { return; }
-                if (!Array.isArray(statements) || !statements.length) return;
-
-                sequenceEl.innerHTML = statements.map(function (item) {
-                    if (!item || !item.text) return '';
-                    var supportHtml = item.supporting ? '<p class="statement-support">' + escapeHtml(item.supporting) + '</p>' : '';
-                    return '<div class="experience-statement"><p class="statement-text serif">' + escapeHtml(item.text) + '</p>' + supportHtml + '</div>';
-                }).join('');
-
-                lpRevealOnScroll(sequenceEl.querySelectorAll('.experience-statement'), 180);
-            })
-            .catch(function (err) { console.error('Could not load Experience content:', err); });
-    })();
-
-    // BOOK CTA — reveal on scroll
-    (function () {
-        var el = document.querySelector('.book-cta-section');
-        if (el) lpRevealOnScroll([el], 0);
-    })();
-
-    // SECTION REVEAL — as each section scrolls into view, its title
-    // writes itself in (left-to-right clip reveal). Content is always
-    // visible — no fade, no ease-in, no delay.
-    (function () {
-        if (!('IntersectionObserver' in window)) {
-            document.querySelectorAll('.section-heading, .testimonials-label').forEach(function (el) { el.classList.add('is-revealed'); });
-            return;
-        }
-        var observer = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (!entry.isIntersecting) return;
-                var section = entry.target;
-                var heading = section.querySelector('.section-heading, .testimonials-label');
-                if (heading && !heading.classList.contains('is-revealed')) {
-                    heading.classList.add('is-revealed');
-                }
-                observer.unobserve(section);
-            });
-        }, { threshold: 0.15 });
-        document.querySelectorAll('.section-block').forEach(function (s) { observer.observe(s); });
-    })();
-
-    // HERO VIDEO — resume on visibility change, same pattern as book.html.
-    (function () {
-        function resume() {
-            var video = document.getElementById('lp-hero-video');
-            if (video && video.paused) video.play().catch(function () {});
-        }
-        document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') resume(); });
-        window.addEventListener('pageshow', resume);
-        ['touchstart', 'click'].forEach(function (evt) { document.addEventListener(evt, resume, { passive: true }); });
-    })();
+    }).catch(function () { /* page renders fine without settings */ });
 </script>
-
-</body></html>
+</body>
+</html>
