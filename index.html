@@ -675,16 +675,17 @@
     })();
 
     // SOCIAL PROOF — defaults are hardcoded in the HTML (500+, 4, 90%).
-    // Admin Settings can override each stat via proof_sessions, proof_years, etc.
+    // Admin Settings overrides both the number (proof_sessions, proof_years, …)
+    // and the label (proof_sessions_label, proof_years_label, …).
     (function () {
         settingsPromise.then(function (data) {
             var s = data.settings || {};
 
             var proofItems = [];
-            if (s.proof_sessions) proofItems.push({ number: s.proof_sessions, label: 'Sessions Captured' });
-            if (s.proof_years) proofItems.push({ number: s.proof_years, label: 'Years Experience' });
-            if (s.proof_rating) proofItems.push({ number: s.proof_rating, label: '5-Star Reviews' });
-            if (s.proof_clients) proofItems.push({ number: s.proof_clients, label: 'Happy Clients' });
+            if (s.proof_sessions) proofItems.push({ number: s.proof_sessions, label: s.proof_sessions_label || 'Sessions Captured' });
+            if (s.proof_years) proofItems.push({ number: s.proof_years, label: s.proof_years_label || 'Years Experience' });
+            if (s.proof_rating) proofItems.push({ number: s.proof_rating, label: s.proof_rating_label || '5-Star Reviews' });
+            if (s.proof_clients) proofItems.push({ number: s.proof_clients, label: s.proof_clients_label || 'Happy Clients' });
 
             // If admin has set any values, replace the hardcoded defaults
             if (proofItems.length) {
