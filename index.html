@@ -344,6 +344,9 @@
         .book-cta-section { }
         .cta-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px var(--shadow-hover); border-color: var(--accent); }
         .cta-card:hover span:last-child { color: var(--accent); }
+        .cta-primary-btn:hover { transform: translateY(-3px); box-shadow: 0 18px 40px var(--shadow-lift); background: var(--accent); color: #fff; }
+        .cta-primary-btn:active { transform: translateY(0); }
+        .book-cta-section a[href="wedding.html"]:hover { color: var(--accent); border-color: var(--accent); }
 
         .brand-footer { padding: 60px 0; text-align: center; border-top: 1px solid var(--border-color); }
         .footer-mark { font-size: 15px; font-weight: 500; letter-spacing: 0.3px; }
@@ -684,35 +687,31 @@
         els.forEach(function (el) { observer.observe(el); });
     }
 
-    // CTA SECTION — editable from admin Settings
+    // CTA SECTION — a single dominant "View Packages" button (the whole
+    // page is the studio home, so the visitor's already picked studio;
+    // don't force them to re-choose). The wedding path stays available
+    // as a tiny secondary line for anyone who came in the wrong door.
     (function () {
         settingsPromise.then(function (data) {
             var s = data.settings || {};
             var el = document.getElementById('cta-content');
             if (!el) return;
 
-            var eyebrow = s.cta_eyebrow || "Let's work together";
-            // heading and description removed — cards speak for themselves
-            var portraitTitle = s.cta_portrait_title || "Portraits + Studio";
-            var portraitDesc = s.cta_portrait_desc || "Personal branding, family, maternity, couple, editorial";
-            var portraitBtn = s.cta_portrait_btn || "View packages";
-            var weddingTitle = s.cta_wedding_title || "Weddings — Beloved Imprint";
-            var weddingDesc = s.cta_wedding_desc || "Engagements, ceremonies, receptions — cinematic coverage from pre-wedding to first dance";
-            var weddingBtn = s.cta_wedding_btn || "Explore wedding packages";
+            var eyebrow = s.cta_eyebrow || "Ready when you are";
+            var title = s.cta_studio_title || "Book your session";
+            var desc = s.cta_studio_desc || "Beauty, personal branding, family, maternity, couple, editorial — see what's included and pick your date.";
+            var btn = s.cta_studio_btn || "See Packages";
+            var weddingHint = s.cta_wedding_hint || "Planning a wedding? See Beloved Imprint";
 
             el.innerHTML =
-                '<span style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);font-weight:600;display:block;margin-bottom:24px;">' + escapeHtml(eyebrow) + '</span>' +
-                '<div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">' +
-                    '<a href="book.html" class="cta-card" style="display:block;padding:28px 32px;background:var(--bg-card);border:1px solid var(--border-color);text-decoration:none;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);flex:1;min-width:220px;max-width:340px;text-align:left;">' +
-                        '<span class="serif" style="display:block;font-size:17px;color:var(--text-primary);margin-bottom:4px;">' + escapeHtml(portraitTitle) + '</span>' +
-                        '<span style="font-size:11.5px;color:var(--text-secondary);line-height:1.5;display:block;margin-bottom:10px;">' + escapeHtml(portraitDesc) + '</span>' +
-                        '<span style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);font-weight:600;">' + escapeHtml(portraitBtn) + ' &rarr;</span>' +
-                    '</a>' +
-                    '<a href="wedding.html" class="cta-card" style="display:block;padding:28px 32px;background:var(--bg-card);border:1px solid var(--border-color);text-decoration:none;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);flex:1;min-width:220px;max-width:340px;text-align:left;">' +
-                        '<span class="serif" style="display:block;font-size:17px;color:var(--text-primary);margin-bottom:4px;">' + escapeHtml(weddingTitle) + '</span>' +
-                        '<span style="font-size:11.5px;color:var(--text-secondary);line-height:1.5;display:block;margin-bottom:10px;">' + escapeHtml(weddingDesc) + '</span>' +
-                        '<span style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);font-weight:600;">' + escapeHtml(weddingBtn) + ' &rarr;</span>' +
-                    '</a>' +
+                '<span style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);font-weight:600;display:block;margin-bottom:18px;">' + escapeHtml(eyebrow) + '</span>' +
+                '<h2 class="serif" style="font-family:\'Fraunces\',serif;font-weight:500;font-size:clamp(24px,3.6vw,34px);letter-spacing:-0.4px;color:var(--text-primary);margin:0 auto 12px;max-width:520px;line-height:1.2;">' + escapeHtml(title) + '</h2>' +
+                '<p style="font-size:14px;color:var(--text-secondary);line-height:1.7;max-width:440px;margin:0 auto 28px;">' + escapeHtml(desc) + '</p>' +
+                '<a href="book.html" class="cta-primary-btn" style="display:inline-flex;align-items:center;gap:10px;padding:20px 40px;background:var(--btn-primary-bg);color:var(--btn-primary-text);text-decoration:none;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:2.4px;box-shadow:0 8px 28px var(--shadow-hover);transition:transform 0.35s cubic-bezier(0.16,1,0.3,1),box-shadow 0.35s cubic-bezier(0.16,1,0.3,1),background 0.35s ease;">' +
+                    escapeHtml(btn) + ' &rarr;' +
+                '</a>' +
+                '<div style="margin-top:32px;">' +
+                    '<a href="wedding.html" style="color:var(--text-secondary);font-size:12px;letter-spacing:0.4px;text-decoration:none;border-bottom:1px solid var(--border-color);padding-bottom:2px;transition:color 0.3s ease,border-color 0.3s ease;">' + escapeHtml(weddingHint) + ' &rarr;</a>' +
                 '</div>';
         });
     })();
