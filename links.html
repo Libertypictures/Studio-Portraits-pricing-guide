@@ -4,156 +4,161 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Libertypictures — Links</title>
-<meta name="description" content="Libertypictures — all the important links in one place.">
-<meta name="theme-color" content="#8a7355">
+<meta name="description" content="Libertypictures — book a portrait or wedding session, chat, or send an email.">
+<meta name="theme-color" content="#8a7355" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161513" media="(prefers-color-scheme: dark)">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23000000'/%3E%3Ctext x='50' y='68' font-size='52' font-family='Georgia, serif' fill='%23c4a67e' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com/">
 <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://liberty-booking-api.visualsliberty.workers.dev" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
 <style>
     :root {
         --bg: #faf8f4; --text: #1a1815; --text-soft: #6b6459; --accent: #8a7355; --accent-deep: #6e5c44;
         --border: #e8e3d9; --card-bg: rgba(26,24,21,0.03); --card-hover: rgba(138,115,85,0.10);
-        --shadow: rgba(26,24,21,0.06); --input-bg: #ffffff;
+        --shadow: rgba(26,24,21,0.06); --shadow-lift: rgba(26,24,21,0.14);
     }
     @media (prefers-color-scheme: dark) {
         :root {
             --bg: #161513; --text: #f3f0ea; --text-soft: #a8a196; --accent: #c4a67e; --accent-deep: #d9bf98;
             --border: #35332d; --card-bg: rgba(255,255,255,0.04); --card-hover: rgba(196,166,126,0.14);
-            --shadow: rgba(0,0,0,0.3); --input-bg: #1f1e1b;
+            --shadow: rgba(0,0,0,0.3); --shadow-lift: rgba(0,0,0,0.5);
         }
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
         font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text);
-        min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        padding: 18px 20px; -webkit-font-smoothing: antialiased;
+        min-height: 100vh; min-height: 100svh;
+        display: flex; flex-direction: column; align-items: center;
+        padding: 48px 20px 40px; -webkit-font-smoothing: antialiased;
         opacity: 0; animation: fade-in 0.6s ease 0.05s forwards;
     }
     @keyframes fade-in { to { opacity: 1; } }
 
-    .links-list { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 8px; }
-    .link-item {
-        display: flex; align-items: center; gap: 14px; background: var(--card-bg);
-        padding: 14px 18px; text-decoration: none; color: var(--text);
-        transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    .page { width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 22px; }
+
+    /* ==== Identity — logo alone, sized to match homepage principle ==== */
+    .brand { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .brand-logo { height: 44px; width: auto; display: block; object-fit: contain; }
+    /* Same treatment as the site header logo: silhouette to white + soft
+       drop shadow. Only applied in dark mode so the natural dark logo
+       shows correctly against the cream light-mode background. */
+    @media (prefers-color-scheme: dark) {
+        .brand-logo { filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.25)); }
+    }
+    .brand-welcome { font-size: 12px; color: var(--text-soft); font-weight: 400; letter-spacing: 0.2px; margin-top: 2px; }
+
+    /* ==== Link cards — one uniform style, no colored "primary" ==== */
+    .link-list { display: flex; flex-direction: column; gap: 10px; }
+    .link-card {
+        display: flex; align-items: center; gap: 14px;
+        background: var(--card-bg); border: 1px solid var(--border);
+        padding: 16px 18px; text-decoration: none; color: var(--text);
+        transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         box-shadow: 0 2px 8px var(--shadow);
     }
-    .link-item:hover { background: var(--card-hover); transform: translateY(-2px); box-shadow: 0 8px 24px var(--shadow); }
-    .link-item:active { transform: translateY(0); }
-    .link-icon { flex-shrink: 0; width: 20px; height: 20px; color: var(--accent); }
-    .link-icon svg { width: 100%; height: 100%; }
+    .link-card:hover { background: var(--card-hover); transform: translateY(-2px); box-shadow: 0 10px 26px var(--shadow-lift); border-color: var(--accent); }
+    .link-card:active { transform: translateY(0); }
+    .link-icon { flex-shrink: 0; width: 22px; height: 22px; color: var(--accent); display: flex; align-items: center; justify-content: center; }
+    .link-icon svg { width: 100%; height: 100%; stroke-width: 1.6; }
     .link-text { flex: 1; min-width: 0; }
-    .link-title { font-weight: 600; font-size: 13.5px; letter-spacing: 0.3px; }
-    .link-desc { font-size: 11.5px; color: var(--text-soft); margin-top: 2px; }
-    .link-arrow { color: var(--text-soft); font-size: 14px; opacity: 0.4; flex-shrink: 0; }
+    .link-title { font-weight: 600; font-size: 13.5px; letter-spacing: 0.2px; }
+    .link-desc { font-size: 11.5px; color: var(--text-soft); margin-top: 3px; }
+    .link-arrow { color: var(--text-soft); font-size: 16px; opacity: 0.45; flex-shrink: 0; }
 
-    .consult-card {
-        width: 100%; max-width: 400px; margin-top: 12px;
-        background: var(--card-bg); box-shadow: 0 2px 8px var(--shadow); padding: 18px;
+    /* ==== Footer ==== */
+    .links-footer {
+        margin-top: 20px; text-align: center;
+        display: flex; flex-direction: column; gap: 10px; align-items: center;
     }
-    .consult-title { font-weight: 600; font-size: 13.5px; margin-bottom: 4px; }
-    .consult-desc { font-size: 11.5px; color: var(--text-soft); margin-bottom: 12px; line-height: 1.5; }
-    .consult-row { display: flex; gap: 10px; margin-bottom: 10px; }
-    .consult-field { flex: 1; display: flex; flex-direction: column; gap: 5px; }
-    .consult-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-soft); font-weight: 600; }
-    .consult-input, .consult-select {
-        width: 100%; height: 46px; padding: 0 12px; font-size: 16px; font-family: 'Poppins', sans-serif;
-        border: 1px solid var(--border); background: var(--input-bg); color: var(--text);
-        -webkit-appearance: none; appearance: none; line-height: 46px;
-    }
-    .consult-input:focus, .consult-select:focus { outline: none; border-color: var(--accent); }
-    .consult-select {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6459' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-        background-repeat: no-repeat; background-position: right 12px center;
-    }
-    .consult-btn {
-        width: 100%; padding: 13px; font-size: 11.5px; font-weight: 600; font-family: 'Poppins', sans-serif;
-        text-transform: uppercase; letter-spacing: 1.6px;
-        background: var(--accent); color: #fff; border: none; cursor: pointer;
-        transition: background 0.25s ease;
-    }
-    .consult-btn:hover { background: var(--accent-deep); }
-    .consult-btn:active { transform: scale(0.98); }
+    .footer-ig { display: none; align-items: center; gap: 6px; color: var(--text-soft); text-decoration: none; font-size: 11.5px; letter-spacing: 0.4px; transition: color 0.2s ease; }
+    .footer-ig.is-visible { display: inline-flex; }
+    .footer-ig:hover { color: var(--accent); }
+    .footer-ig svg { width: 14px; height: 14px; stroke-width: 1.8; }
+    .footer-review-link { color: var(--text-soft); text-decoration: none; opacity: 0.7; font-size: 10.5px; letter-spacing: 0.3px; }
+    .footer-review-link:hover { color: var(--accent); opacity: 1; text-decoration: underline; }
+    .footer-copy { opacity: 0.55; font-size: 10.5px; letter-spacing: 0.3px; margin-top: 2px; }
 
-    .links-footer { margin-top: 16px; text-align: center; font-size: 11px; color: var(--text-soft); }
-
-    @media (max-width: 480px) { .consult-row { flex-direction: column; gap: 10px; } }
-    @media (prefers-reduced-motion: reduce) { body { animation: none; opacity: 1; } .link-item, .consult-btn { transition: none; } }
+    @media (prefers-reduced-motion: reduce) {
+        body { animation: none; opacity: 1; }
+        .link-card { transition: none; }
+    }
 </style>
 </head>
 <body>
 
-<div class="links-list">
-    <a href="https://libertypictures.github.io/pg/" class="link-item">
-        <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
-        <div class="link-text"><div class="link-title">Portrait Sessions + Studio</div><div class="link-desc">Portraits, personal branding, family, celebrations, editorial</div></div>
-        <span class="link-arrow">›</span>
-    </a>
-    <a href="https://libertypictures.github.io/pg/wedding.html" class="link-item">
-        <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div>
-        <div class="link-text"><div class="link-title">Weddings + Nuptials</div><div class="link-desc">Beloved Imprint — engagements, ceremonies, receptions</div></div>
-        <span class="link-arrow">›</span>
-    </a>
-    <a href="sms:+2349075170240" class="link-item">
-        <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></div>
-        <div class="link-text"><div class="link-title">Text Me</div><div class="link-desc">Send a quick message</div></div>
-        <span class="link-arrow">›</span>
-    </a>
-    <a href="mailto:visualsliberty@gmail.com" class="link-item">
-        <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
-        <div class="link-text"><div class="link-title">Email</div><div class="link-desc">visualsliberty@gmail.com</div></div>
-        <span class="link-arrow">›</span>
-    </a>
-    <a href="https://libertypictures.github.io/pg/review.html" class="link-item">
-        <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
-        <div class="link-text"><div class="link-title">Leave a Review</div><div class="link-desc">Share your experience</div></div>
-        <span class="link-arrow">›</span>
-    </a>
-</div>
+<main class="page">
+    <!-- Identity: logo alone, warm one-line welcome underneath -->
+    <header class="brand">
+        <img id="brand-logo" class="brand-logo" alt="Libertypictures">
+        <p class="brand-welcome">Glad you're here.</p>
+    </header>
 
-<div class="consult-card">
-    <div class="consult-title">Schedule a Virtual Consultation</div>
-    <div class="consult-desc">A quick video call to discuss your session — vision, styling, location, anything on your mind.</div>
-    <div class="consult-row">
-        <div class="consult-field">
-            <label class="consult-label">Your Name</label>
-            <input type="text" class="consult-input" id="consult-name" placeholder="First name">
-        </div>
-    </div>
-    <div class="consult-row">
-        <div class="consult-field">
-            <label class="consult-label">Preferred Date</label>
-            <input type="date" class="consult-input" id="consult-date">
-        </div>
-        <div class="consult-field">
-            <label class="consult-label">Time of Day</label>
-            <select class="consult-select" id="consult-time">
-                <option value="">Select</option>
-                <option value="Morning (9am – 12pm)">Morning</option>
-                <option value="Afternoon (12pm – 4pm)">Afternoon</option>
-                <option value="Evening (4pm – 7pm)">Evening</option>
-            </select>
-        </div>
-    </div>
-    <button type="button" class="consult-btn" id="consult-send-btn">Send Request via WhatsApp</button>
-</div>
+    <!-- Flat link list — same style for all, ordered by intent -->
+    <nav class="link-list" aria-label="Links">
+        <a href="https://libertypictures.github.io/pg/?utm_source=igbio&amp;utm_medium=links&amp;utm_campaign=portraits" class="link-card">
+            <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+            <div class="link-text">
+                <div class="link-title">Portrait Sessions</div>
+                <div class="link-desc">Portraits, family, branding — see what's included and book</div>
+            </div>
+            <span class="link-arrow">›</span>
+        </a>
+        <a href="https://libertypictures.github.io/pg/wedding.html?utm_source=igbio&amp;utm_medium=links&amp;utm_campaign=weddings" class="link-card">
+            <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div>
+            <div class="link-text">
+                <div class="link-title">Wedding Packages</div>
+                <div class="link-desc">Beloved Imprint — from pre-wedding to the first dance</div>
+            </div>
+            <span class="link-arrow">›</span>
+        </a>
+        <a href="https://wa.me/2349075170240?text=Hi%20Liberty%2C%20I%27d%20like%20to%20chat%20about%20a%20session." target="_blank" rel="noopener" class="link-card">
+            <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></div>
+            <div class="link-text">
+                <div class="link-title">Chat on WhatsApp</div>
+                <div class="link-desc">Fastest way to reach me</div>
+            </div>
+            <span class="link-arrow">›</span>
+        </a>
+        <a href="mailto:visualsliberty@gmail.com" class="link-card">
+            <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
+            <div class="link-text">
+                <div class="link-title">Email</div>
+                <div class="link-desc">For the details, or when it's not urgent</div>
+            </div>
+            <span class="link-arrow">›</span>
+        </a>
+    </nav>
 
-<div class="links-footer"><span>Libertypictures © 2026</span></div>
+    <!-- Footer -->
+    <footer class="links-footer">
+        <a id="footer-ig" class="footer-ig" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
+            <span id="footer-ig-handle">@libertypictures</span>
+        </a>
+        <a class="footer-review-link" href="https://libertypictures.github.io/pg/review.html?utm_source=igbio&amp;utm_medium=links">Past client? Leave a review →</a>
+        <div class="footer-copy">Libertypictures © 2026</div>
+    </footer>
+</main>
 
 <script>
-    document.getElementById('consult-date').min = new Date().toISOString().slice(0, 10);
-    document.getElementById('consult-send-btn').addEventListener('click', function () {
-        var name = document.getElementById('consult-name').value.trim();
-        var date = document.getElementById('consult-date').value;
-        var time = document.getElementById('consult-time').value;
-        if (!name) { alert('Please enter your name.'); return; }
-        if (!date) { alert('Please pick a preferred date.'); return; }
-        if (!time) { alert('Please select a time of day.'); return; }
-        var dateFormatted = new Date(date + 'T00:00:00').toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-        var message = 'Hi! My name is ' + name + '. I\u2019d like to schedule a virtual consultation on ' + dateFormatted + ' (' + time + '). Looking forward to hearing from you!';
-        window.open('https://wa.me/2349075170240?text=' + encodeURIComponent(message), '_blank');
-    });
+    var API_BASE = 'https://liberty-booking-api.visualsliberty.workers.dev';
+
+    fetch(API_BASE + '/api/settings').then(function (r) { return r.json(); }).then(function (data) {
+        var s = (data && data.settings) || {};
+
+        if (s.logo_url) {
+            document.getElementById('brand-logo').src = API_BASE + s.logo_url;
+        }
+
+        if (s.instagram_handle) {
+            var handle = s.instagram_handle.replace(/^@/, '');
+            var ig = document.getElementById('footer-ig');
+            ig.href = 'https://instagram.com/' + handle;
+            ig.classList.add('is-visible');
+            document.getElementById('footer-ig-handle').textContent = '@' + handle;
+        }
+    }).catch(function () { /* page renders fine without settings */ });
 </script>
 </body>
 </html>
