@@ -190,10 +190,27 @@
 
         /* SOCIAL PROOF COUNTER */
         .social-proof { padding: 50px 0; text-align: center; border-bottom: 1px solid var(--border-color); }
-        .social-proof-items { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; }
+        .social-proof-items {
+            display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
+            /* Progress 0 → 1 set by JS on scroll. 1 = section settled in the
+               viewport center (numbers small + brand bronze — the read state).
+               0 = section scrolled far away (numbers big + white). */
+            --proof-progress: 0;
+        }
         .social-proof-item { text-align: center; }
-        .social-proof-number { font-family: 'Fraunces', serif; font-size: clamp(28px, 4vw, 42px); font-weight: 500; color: var(--text-primary); line-height: 1.1; }
-        .social-proof-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-secondary); margin-top: 8px; font-weight: 500; }
+        .social-proof-number {
+            font-family: 'Fraunces', serif; font-size: clamp(28px, 4vw, 42px); font-weight: 500; line-height: 1.1;
+            color: var(--text-primary); /* fallback if color-mix isn't supported */
+            transform: scale(calc(1 - 0.26 * var(--proof-progress)));
+            transform-origin: 50% 100%;
+            color: color-mix(in oklab, #c4a67e calc(var(--proof-progress) * 100%), var(--text-primary));
+            transition: transform 0.22s cubic-bezier(0.33, 1, 0.68, 1), color 0.32s cubic-bezier(0.33, 1, 0.68, 1);
+            will-change: transform;
+        }
+        .social-proof-label { font-size: 9.5px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--text-secondary); margin-top: 8px; font-weight: 500; }
+        @media (prefers-reduced-motion: reduce) {
+            .social-proof-number { transform: none; color: var(--text-primary); transition: none; }
+        }
         /* Digital camera font for photo counter */
         @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
         @media (max-width: 600px) { .social-proof-items { gap: 32px; } .social-proof { padding: 40px 0; } }
@@ -337,9 +354,9 @@
 
         .work-main-photo { flex: 1; position: relative; overflow: hidden; min-width: 0; }
         .work-photo-counter {
-            text-align: center; padding: 10px 0 0; z-index: 5; position: absolute; top: 0; left: 0; right: 0;
-            color: #c4a67e; font-family: 'Share Tech Mono', monospace; font-size: 11px; font-weight: 400; letter-spacing: 2px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 100%);
+            text-align: center; padding: 8px 0 0; z-index: 5; position: absolute; top: 0; left: 0; right: 0;
+            color: #c4a67e; font-family: 'Share Tech Mono', monospace; font-size: 7px; font-weight: 400; letter-spacing: 1.5px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, transparent 100%);
             pointer-events: none;
         }
         .work-main-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s ease; }
@@ -695,6 +712,53 @@
                 }).join('');
             }
 
+            // Scroll-driven premium interaction — as the section moves
+            // through the viewport, the numbers scale + fade between the
+            // brand bronze (edges) and the primary ink color (center). rAF
+            // throttled + IntersectionObserver gated so it's cheap.
+            (function () {
+                var section = document.getElementById('social-proof-section');
+                var container = document.getElementById('social-proof-items');
+                if (!section || !container) return;
+                if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                var ticking = false;
+                var inView = false;
+                function update() {
+                    ticking = false;
+                    var rect = section.getBoundingClientRect();
+                    var vh = window.innerHeight || document.documentElement.clientHeight;
+                    var sectionCenter = rect.top + rect.height / 2;
+                    var viewportCenter = vh / 2;
+                    // 60vh half-window — beyond that, progress is 0.
+                    var distance = Math.abs(sectionCenter - viewportCenter);
+                    var window60 = vh * 0.6;
+                    var raw = 1 - Math.min(distance / window60, 1);
+                    // Ease with a quick cubic so most of the range holds "big"
+                    // and only the far edges shrink — feels more intentional.
+                    var eased = raw * raw * (3 - 2 * raw);
+                    container.style.setProperty('--proof-progress', eased.toFixed(3));
+                }
+                function onScroll() {
+                    if (ticking || !inView) return;
+                    ticking = true;
+                    requestAnimationFrame(update);
+                }
+                if ('IntersectionObserver' in window) {
+                    new IntersectionObserver(function (entries) {
+                        entries.forEach(function (e) { inView = e.isIntersecting; });
+                        // Run once when leaving as well, so the value settles
+                        // at 0 instead of freezing on whatever the last scroll
+                        // frame set it to.
+                        requestAnimationFrame(update);
+                    }, { rootMargin: '80% 0px 80% 0px' }).observe(section);
+                } else {
+                    inView = true;
+                }
+                window.addEventListener('scroll', onScroll, { passive: true });
+                window.addEventListener('resize', function () { requestAnimationFrame(update); }, { passive: true });
+                requestAnimationFrame(update);
+            })();
+
             // Featured in logos
             if (s.featured_in_enabled === 'true' && s.featured_in_logos) {
                 var logos;
@@ -812,20 +876,36 @@
             // A single photo doesn't need a strip — just show it plainly
             // rather than showing nothing (the old behavior here).
             if (sample.length < 2) {
-                mobileFeature.innerHTML = '<div class="work-main-photo"><img src="' + API_BASE + sample[0].imageUrl + '" alt="Featured work" class="is-active" decoding="async"></div>';
+                mobileFeature.innerHTML = '<div class="work-main-photo"><img src="' + API_BASE + sample[0].imageUrl + '" alt="Featured work" class="is-active" fetchpriority="high" decoding="async"></div>';
                 return;
             }
+
+            // Counter width matches the total length so "01 / 100" stays
+            // 3+3 aligned once you go past 99 frames.
+            var totalStr = String(sample.length);
+            var counterWidth = totalStr.length;
+            function frameLabel(i) { return String(i + 1).padStart(counterWidth, '0') + ' / ' + totalStr; }
 
             var thumbsHtml = sample.map(function (item, i) {
                 return '<button type="button" class="work-strip-thumb' + (i === 0 ? ' is-active' : '') + '" data-index="' + i + '" aria-label="View photo ' + (i + 1) + ' of ' + sample.length + '"><img src="' + API_BASE + item.imageUrl + '" alt="" loading="lazy" decoding="async"><span class="frame-num">' + (i + 1) + '</span></button>';
             }).join('');
 
+            // Main viewer: eager-load only the first (visible) photo. All
+            // others get a data-src and load the moment they're activated,
+            // plus a pre-warm of the immediate neighbors so click→appear
+            // feels instant. This is the difference between downloading 1
+            // full-res image on page load vs. all N — the reason the strip
+            // was slow to become interactive.
+            var mainHtml = sample.map(function (item, i) {
+                var isFirst = i === 0;
+                var srcAttr = isFirst ? 'src="' + API_BASE + item.imageUrl + '" fetchpriority="high"' : 'data-src="' + API_BASE + item.imageUrl + '"';
+                return '<img ' + srcAttr + ' alt="Featured work" class="' + (isFirst ? 'is-active' : '') + '" data-index="' + i + '" decoding="async">';
+            }).join('');
+
             mobileFeature.innerHTML =
                 '<div class="work-main-photo">' +
-                    '<div class="work-photo-counter" id="work-photo-counter">01 / ' + String(sample.length).padStart(2, '0') + '</div>' +
-                    sample.map(function (item, i) {
-                        return '<img src="' + API_BASE + item.imageUrl + '" alt="Featured work" class="' + (i === 0 ? 'is-active' : '') + '" data-index="' + i + '" decoding="async">';
-                    }).join('') +
+                    '<div class="work-photo-counter" id="work-photo-counter">' + frameLabel(0) + '</div>' +
+                    mainHtml +
                 '</div>' +
                 '<div class="work-strip-wrap" id="work-strip-wrap">' +
                     '<span class="film-stock-label">Liberty</span>' +
@@ -837,11 +917,24 @@
             var thumbs = mobileFeature.querySelectorAll('.work-strip-thumb');
             var photoCounter = document.getElementById('work-photo-counter');
 
-            thumbs.forEach(function (btn, i) {
+            function ensureLoaded(idx) {
+                var img = mainImgs[idx];
+                if (img && !img.src && img.dataset.src) img.src = img.dataset.src;
+            }
+            // Warm the two neighbors of the first frame so the first click
+            // in either direction is instant.
+            if (sample.length > 1) ensureLoaded(1);
+            if (sample.length > 2) ensureLoaded(sample.length - 1);
+
+            thumbs.forEach(function (btn) {
                 btn.addEventListener('click', function () {
                     var idx = btn.dataset.index;
+                    var idxNum = parseInt(idx, 10);
+                    ensureLoaded(idxNum);
+                    ensureLoaded((idxNum + 1) % sample.length);
+                    ensureLoaded((idxNum - 1 + sample.length) % sample.length);
                     mainImgs.forEach(function (img) { img.classList.toggle('is-active', img.dataset.index === idx); });
-                    photoCounter.textContent = String(parseInt(idx, 10) + 1).padStart(2, '0') + ' / ' + String(sample.length).padStart(2, '0');
+                    photoCounter.textContent = frameLabel(idxNum);
                     thumbs.forEach(function (t) { t.classList.toggle('is-active', t.dataset.index === idx); });
 
                     // Smooth scroll to center the clicked thumbnail —
