@@ -228,10 +228,12 @@
         .featured-in-logos { display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; opacity: 0.5; }
         .featured-in-logos img { height: 28px; width: auto; filter: grayscale(1); transition: filter 0.3s ease, opacity 0.3s ease; }
         .featured-in-logos img:hover { filter: grayscale(0); opacity: 1; }
-        /* FEATURED WORK spacing — hugs Social Proof above (tight top
-           padding) but leaves generous room below so Reviews doesn't
-           feel like a second page of the same section. */
-        .work-section { padding-top: 12px; padding-bottom: 88px; }
+        /* FEATURED WORK spacing — hugs Social Proof above with a
+           tight top padding, and now hugs Reviews below too: the
+           Reviews section's own atmosphere-word stage (600px tall)
+           does the work of pushing the quote down and giving the
+           visitor a "breathing" scroll distance — no dead gap. */
+        .work-section { padding-top: 12px; padding-bottom: 24px; }
 
 
         /* ABOUT — centered vertical composition: photo, bio, signature.
@@ -247,8 +249,21 @@
            fills the entire section so background words spread across
            the full viewport, not crammed into a tiny box. The featured
            quote sits dead center at a prominent size. */
-        .voices-stage { position: relative; width: 100%; height: 360px; min-height: 0; }
-        .voices-section { min-height: 0; display: flex; flex-direction: column; justify-content: center; padding: 88px 0 80px; }
+        /* Atmosphere zone — a tall breathing panel that sits BEFORE
+           the Reviews title. Populated with the same scattered word
+           field, so scrolling past Featured Work drifts through
+           atmosphere for a while before the "Reviews" heading and
+           customer quote arrive on-screen. */
+        .voices-atmosphere { position: relative; width: 100%; height: 380px; overflow: hidden; pointer-events: none; }
+        /* Stage is now just the space that holds the centered quote —
+           no longer needs to be tall since atmosphere lives in its
+           own zone above. */
+        .voices-stage { position: relative; width: 100%; height: 320px; min-height: 0; }
+        /* Small top padding so the Reviews section starts CLOSE to
+           Featured Work. The atmosphere zone inside is what actually
+           does the "scroll transition". Bottom padding preserved so
+           the distance to About Photographer holds. */
+        .voices-section { min-height: 0; display: flex; flex-direction: column; padding: 20px 0 80px; }
         .voices-section .testimonials-label { font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; letter-spacing: -0.2px; text-align: center; margin-bottom: 0; }
         .voices-section .testimonials-label.is-revealed { clip-path: inset(0 0% 0 0); }
 
@@ -263,7 +278,7 @@
             transition: opacity 1.2s ease;
             transform: rotate(var(--word-rotation, 0deg));
         }
-        .voices-stage.is-focused .voices-word { opacity: 0.05; }
+        .voices-section.is-focused .voices-word { opacity: 0.05; }
         @keyframes voices-breathe {
             0%, 100% { transform: translate(0, 0) rotate(var(--word-rotation, 0deg)); }
             50% { transform: translate(2px, -3px) rotate(var(--word-rotation, 0deg)); }
@@ -307,8 +322,9 @@
         }
 
         @media (max-width: 700px) {
-            .voices-stage { flex: none; height: 380px; margin: 0 auto; }
-            .voices-section { padding: 56px 0 40px; }
+            .voices-atmosphere { height: 320px; }
+            .voices-stage { flex: none; height: 300px; margin: 0 auto; }
+            .voices-section { padding: 16px 0 40px; }
             .voices-quote-wrap { width: 90%; }
             .voices-quote { font-size: clamp(16px, 4.5vw, 20px); }
             .voices-word { display: none; }
@@ -534,7 +550,7 @@
         @media (max-width: 600px) {
             .container { padding: 0 22px; }
             .section-block { padding: 70px 0; }
-            .work-section { padding-top: 8px; padding-bottom: 60px; }
+            .work-section { padding-top: 8px; padding-bottom: 16px; }
             .lp-hero { height: 100vh; height: 100svh; }
             .section-heading { font-size: 16px; }
             .lp-hero-title { font-size: clamp(26px, 8vw, 34px); }
@@ -592,10 +608,12 @@
         </div>
     </section>
 
-    <!-- REVIEWS — now its own section with proper space,
-         so longer quotes don't feel crammed into a corner of the
-         Featured Works area. -->
+    <!-- REVIEWS — atmosphere-word field starts right after Featured
+         Work as a "breathing" scroll zone; the actual Reviews title +
+         customer quote sit further down inside the section, so the
+         visitor scrolls THROUGH atmosphere before reaching content. -->
     <section class="section-block voices-section async-reveal" id="testimonials-section">
+        <div class="voices-atmosphere" id="voices-atmosphere"></div>
         <div class="container">
             <h2 class="testimonials-label" style="text-align:center;">Reviews</h2>
             <div class="voices-stage" id="voices-stage"></div>
@@ -1096,7 +1114,12 @@
                 var useY = (isMobile && mobilePos) ? mobilePos.y : slot.y;
                 return '<span class="voices-word' + mobileClass + '" style="left:' + useX + '%; top:' + useY + '%; font-size:' + size + 'px; animation-delay:' + delay + 's; --word-rotation:' + rotation + 'deg;">' + word + '</span>';
             }).join('');
-            stage.insertAdjacentHTML('afterbegin', html);
+            // Atmosphere words live in the dedicated .voices-atmosphere
+            // panel that sits BEFORE the Reviews title — so scrolling
+            // past Featured Work drifts through the word field first,
+            // and the "Reviews" heading + quote arrive further down.
+            var atmosphere = document.getElementById('voices-atmosphere');
+            (atmosphere || stage).insertAdjacentHTML('afterbegin', html);
         }
 
         function clearTimers() { timers.forEach(clearTimeout); timers = []; }
@@ -1147,7 +1170,7 @@
             nameEl.textContent = t.clientName;
             starsEl.textContent = starsHtml(t.rating);
 
-            stage.classList.add('is-focused');
+            section.classList.add('is-focused');
             // A frame of delay before adding is-visible so the browser
             // registers the text change first — otherwise the reveal
             // transition can be skipped entirely on some browsers.
@@ -1165,7 +1188,7 @@
                 quoteEl.classList.remove('is-visible');
                 nameEl.classList.remove('is-visible');
                 starsEl.classList.remove('is-visible');
-                stage.classList.remove('is-focused');
+                section.classList.remove('is-focused');
             });
 
             after(revealTime + holdFor + dissolveTime + 900, runCycle);
