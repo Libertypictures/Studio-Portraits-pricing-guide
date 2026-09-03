@@ -587,14 +587,14 @@
         </div>
     </section>
 
-    <!-- SOCIAL PROOF — stats between hero and portfolio, editable from admin Settings -->
-    <section class="section-block social-proof" id="social-proof-section">
+    <!-- SOCIAL PROOF — stats between hero and portfolio, editable from
+         admin Settings. Hidden by default; the section only appears if
+         the backend actually returns proof_* values, otherwise the
+         page collapses over it like it wasn't there. No placeholder /
+         mockup numbers, ever. -->
+    <section class="section-block social-proof" id="social-proof-section" style="display:none;">
         <div class="container">
-            <div class="social-proof-items" id="social-proof-items">
-                <div class="social-proof-item"><div class="social-proof-number">500+</div><div class="social-proof-label">Sessions Captured</div></div>
-                <div class="social-proof-item"><div class="social-proof-number">4</div><div class="social-proof-label">Years Experience</div></div>
-                <div class="social-proof-item"><div class="social-proof-number">90%</div><div class="social-proof-label">5-Star Reviews</div></div>
-            </div>
+            <div class="social-proof-items" id="social-proof-items"></div>
         </div>
     </section>
 
@@ -782,18 +782,24 @@
         settingsPromise.then(function (data) {
             var s = data.settings || {};
 
+            // Section is hidden by default and only appears if at least
+            // one proof_* value comes back from the backend. No labels
+            // fall back to a generic string — an item without an
+            // admin-set label is skipped entirely, so the page never
+            // shows a number under a placeholder like "Sessions
+            // Captured" that the studio didn't actually type.
             var proofItems = [];
-            if (s.proof_sessions) proofItems.push({ number: s.proof_sessions, label: s.proof_sessions_label || 'Sessions Captured' });
-            if (s.proof_years) proofItems.push({ number: s.proof_years, label: s.proof_years_label || 'Years Experience' });
-            if (s.proof_rating) proofItems.push({ number: s.proof_rating, label: s.proof_rating_label || '5-Star Reviews' });
-            if (s.proof_clients) proofItems.push({ number: s.proof_clients, label: s.proof_clients_label || 'Happy Clients' });
+            if (s.proof_sessions && s.proof_sessions_label) proofItems.push({ number: s.proof_sessions, label: s.proof_sessions_label });
+            if (s.proof_years && s.proof_years_label) proofItems.push({ number: s.proof_years, label: s.proof_years_label });
+            if (s.proof_rating && s.proof_rating_label) proofItems.push({ number: s.proof_rating, label: s.proof_rating_label });
+            if (s.proof_clients && s.proof_clients_label) proofItems.push({ number: s.proof_clients, label: s.proof_clients_label });
 
-            // If admin has set any values, replace the hardcoded defaults
             if (proofItems.length) {
                 var el = document.getElementById('social-proof-items');
                 el.innerHTML = proofItems.map(function (item) {
                     return '<div class="social-proof-item"><div class="social-proof-number">' + escapeHtml(item.number) + '</div><div class="social-proof-label">' + escapeHtml(item.label) + '</div></div>';
                 }).join('');
+                document.getElementById('social-proof-section').style.display = '';
             }
 
             // Scroll-driven premium interaction — as the section moves
