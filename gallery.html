@@ -35,11 +35,9 @@ a{color:inherit}
 .lock-bg{position:absolute;inset:0;background:linear-gradient(160deg,#2a2419,#0f0c09);background-size:cover;background-position:center;filter:brightness(0.35);transform:scale(1.05)}
 .lock-scrim{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(15,12,9,0.72),rgba(15,12,9,0.88))}
 .state-screen .lock-card{position:relative;z-index:2;max-width:460px;width:100%;text-align:center;background:rgba(26,23,20,0.6);border:1px solid var(--border);border-radius:18px;padding:44px 34px 36px;backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%);box-shadow:0 30px 80px rgba(0,0,0,0.5);animation:coverIn .7s ease both}
-.state-screen .lock-card h1{font-family:'Fraunces',serif;font-weight:400;font-style:normal;font-size:25px;line-height:1.35;margin-bottom:14px}
-.state-screen .lock-card h1 .lock-soft{color:var(--accent);font-style:italic}
+.state-screen .lock-card h1{font-family:'Fraunces',serif;font-weight:400;font-style:normal;font-size:24px;line-height:1.4;margin-bottom:16px}
 .state-screen .lock-card p{max-width:none;font-size:13px;color:var(--cream-soft);line-height:1.8}
-.lock-eyebrow{font-family:'Outfit',sans-serif;font-size:9px;letter-spacing:6px;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
-.lock-icon{width:52px;height:52px;margin:0 auto 20px;border-radius:50%;background:rgba(196,166,126,0.12);border:1px solid rgba(196,166,126,0.3);display:flex;align-items:center;justify-content:center;color:var(--accent)}
+.lock-icon{width:48px;height:48px;margin:0 auto 22px;border-radius:50%;background:rgba(196,166,126,0.12);border:1px solid rgba(196,166,126,0.3);display:flex;align-items:center;justify-content:center;color:var(--accent)}
 .state-screen .lock-card p.lock-lead{margin-bottom:26px}
 .lock-perks{text-align:left;background:rgba(246,241,231,0.04);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:24px;display:flex;flex-direction:column;gap:12px}
 .state-screen .lock-card p.lock-perk{display:flex;gap:12px;align-items:flex-start;font-size:12.5px;line-height:1.6;margin:0}
@@ -47,12 +45,13 @@ a{color:inherit}
 .lock-price{display:flex;align-items:baseline;justify-content:center;gap:10px;margin-bottom:22px}
 .lock-price strong{font-family:'Fraunces',serif;font-size:30px;font-weight:500;color:var(--cream)}
 .lock-price span{font-size:11px;color:var(--cream-faint);letter-spacing:0.5px}
-.lock-cta{display:block;padding:15px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:#0f0c09;background:var(--accent);border-radius:26px;text-decoration:none;transition:background .25s ease}
+.lock-cta{display:block;padding:16px 20px;font-size:14px;letter-spacing:0.2px;font-weight:600;color:#0f0c09;background:var(--accent);border-radius:0;text-decoration:none;transition:background .25s ease}
 .lock-cta:hover{background:var(--accent-deep)}
 .state-screen .lock-card p.lock-urgency{margin-top:18px;font-size:11.5px;color:var(--cream-faint)}
 .lock-urgency strong{color:var(--cream-soft);font-weight:500}
 .state-screen .lock-card p.lock-help{margin-top:14px;font-size:12px;color:var(--cream-faint)}
-.lock-help a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(196,166,126,0.4)}
+.lock-help a{color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.lock-help a:hover{color:var(--accent-deep)}
 .state-screen .lock-card p.lock-secure{margin-top:20px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(246,241,231,0.3)}
 @media(max-width:480px){.lock-wrap{padding:28px 16px}.state-screen .lock-card{padding:36px 22px 30px}.state-screen .lock-card h1{font-size:22px}}
 
@@ -62,7 +61,7 @@ a{color:inherit}
 .expiry-banner-text{font-size:12.5px;color:var(--cream-soft);line-height:1.5}
 .expiry-banner-text strong{color:var(--accent);font-weight:500}
 .expiry-banner-actions{display:flex;align-items:center;gap:10px}
-.expiry-banner-btn{padding:8px 18px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;color:#0f0c09;background:var(--accent);border:none;border-radius:20px;white-space:nowrap;cursor:pointer;transition:background .25s ease}
+.expiry-banner-btn{padding:9px 18px;font-size:12px;letter-spacing:0.2px;font-weight:600;color:#0f0c09;background:var(--accent);border:none;border-radius:0;white-space:nowrap;cursor:pointer;transition:background .25s ease}
 .expiry-banner-btn:hover{background:var(--accent-deep)}
 .expiry-banner-close{width:28px;height:28px;border-radius:50%;background:rgba(246,241,231,0.08);border:none;color:var(--cream-faint);font-size:14px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s}
 .expiry-banner-close:hover{background:rgba(246,241,231,0.16)}
@@ -211,7 +210,7 @@ textarea.review-field{resize:vertical;min-height:100px;line-height:1.6}
         </div>
         <div class="intro-step">
             <div class="intro-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-            <p id="guide-expiry-text"><strong>This gallery expires in 7 days.</strong> Make sure to save your favourites before then.</p>
+            <p id="guide-expiry-text"><strong>This gallery is available for a limited time.</strong> Make sure to save your favourites before the window closes.</p>
         </div>
         <button class="welcome-dismiss" id="welcome-dismiss-btn">Got it</button>
     </div>
@@ -391,14 +390,21 @@ function showState(title, msg, actionHtml) {
 /* ── LOCKED WALL — the conversion moment, kept soft and warm ── */
 function showLockedWall(d) {
     var fee = d.fee || 9000;
-    var days = d.extensionDays || 7;
+    var days = d.extensionDays || 14;
     var graceDays = d.graceDays || 1;
-    var lockedDate = d.lockedAt ? new Date(String(d.lockedAt).replace(' ', 'T')) : null;
-    var closedText = lockedDate && !isNaN(lockedDate.getTime())
-        ? lockedDate.toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })
+    var graceMs = graceDays * 86400000;
+    // The date the window actually closed is the gallery's real expiry (expires_at),
+    // not when the sweep happened to run (locked_at). The grace countdown for final
+    // deletion, however, starts from locked_at — that is when the sweep will delete it.
+    var closeAt = d.closedAt || d.lockedAt || null;
+    var closeTs = closeAt ? new Date(String(closeAt).replace(' ', 'T')) : null;
+    var closedText = closeTs && !isNaN(closeTs.getTime())
+        ? closeTs.toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })
         : 'recently';
-    var deleted = lockedDate && !isNaN(lockedDate.getTime())
-        ? new Date(lockedDate.getTime() + graceDays * 86400000).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })
+    var lockAt = d.lockedAt || d.closedAt || null;
+    var lockTs = lockAt ? new Date(String(lockAt).replace(' ', 'T')) : null;
+    var deleted = lockTs && !isNaN(lockTs.getTime())
+        ? new Date(lockTs.getTime() + graceMs).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })
         : 'soon';
     var payUrl = 'pay/index.html?type=gallery&amount=' + fee + '&gallery=' + encodeURIComponent(token) + '&name=' + encodeURIComponent(d.clientName || '') + '&days=' + days + '&return=' + encodeURIComponent(window.location.href);
     var scr = $('state-screen');
@@ -409,17 +415,16 @@ function showLockedWall(d) {
             '<div class="lock-bg" id="lock-bg"></div>' +
             '<div class="lock-scrim"></div>' +
             '<div class="lock-card">' +
-                '<div class="lock-eyebrow">Libertypictures</div>' +
-                '<div class="lock-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>' +
-                '<h1>Your gallery is resting,<br><span class="lock-soft">not gone.</span></h1>' +
-                '<p class="lock-lead">The viewing window for ' + escHtml(d.clientName || 'your') + '\u2019s gallery closed on <strong>' + closedText + '</strong>. Your photos and every pick you made are safe \u2014 nothing has been deleted.</p>' +
+                '<div class="lock-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>' +
+                '<h1>' + (d.clientName ? escHtml(d.clientName) + ', your' : 'Your') + ' gallery\u2019s viewing window has closed.</h1>' +
+                '<p class="lock-lead">The window closed on <strong>' + closedText + '</strong>. Your photos and every pick you made are safe \u2014 nothing has been deleted.</p>' +
                 '<div class="lock-perks">' +
                     '<div class="lock-perk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Instant access \u2014 reopens the moment payment clears</span></div>' +
                     '<div class="lock-perk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Your selections are preserved</span></div>' +
                     '<div class="lock-perk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>' + days + ' more days to view, download and share</span></div>' +
                 '</div>' +
-                '<div class="lock-price"><strong>&#8358;' + fee.toLocaleString() + '</strong><span>once \u00b7 reopens for ' + days + ' day' + (days === 1 ? '' : 's') + '</span></div>' +
-                '<a class="lock-cta" href="' + payUrl + '">Reopen my gallery</a>' +
+                '<div class="lock-price"><strong>&#8358;' + fee.toLocaleString() + '</strong><span>once \u00b7 reopens for ' + days + ' more day' + (days === 1 ? '' : 's') + '</span></div>' +
+                '<a class="lock-cta" href="' + payUrl + '">Pay &#8358;' + fee.toLocaleString() + ' to extend</a>' +
                 '<p class="lock-urgency">If not extended, this gallery will be permanently removed on <strong>' + deleted + '</strong>.</p>' +
                 '<p class="lock-help">Questions? <a href="#" id="lock-wa">Message us on WhatsApp</a></p>' +
                 '<p class="lock-secure">Secure payment \u00b7 Card or transfer</p>' +
@@ -504,7 +509,7 @@ function initPage() {
         var s = d.settings || {};
         if (s.logo_url) { var logo = $('cover-logo'); logo.src = API + s.logo_url; logo.style.display = 'block'; }
         var fee = parseInt(s.gallery_extension_fee, 10) || 9000;
-        var extDays = parseInt(s.gallery_extension_days, 10) || 7;
+        var extDays = parseInt(s.gallery_extension_days, 10) || 14;
         showExpiryBanner(daysLeft, fee, extDays);
     }).catch(function () {});
 
