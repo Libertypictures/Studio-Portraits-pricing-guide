@@ -601,7 +601,7 @@
     <!-- FEATURED WORK -->
     <section class="section-block work-section">
         <div class="container">
-            <h2 class="section-heading serif">Featured Works</h2>
+            <h2 class="section-heading serif" id="featured-work-title">Featured Works</h2>
             <div class="work-mobile-feature" id="work-mobile-feature"></div>
         </div>
     </section>
@@ -781,6 +781,11 @@
     (function () {
         settingsPromise.then(function (data) {
             var s = data.settings || {};
+
+            // Featured Work section title — editable from the admin's
+            // Featured Work tab; falls back to the hardcoded heading.
+            var fwTitleEl = document.getElementById('featured-work-title');
+            if (fwTitleEl && s.featured_work_title) fwTitleEl.textContent = s.featured_work_title;
 
             // Section is hidden by default and only appears if at least
             // one proof_* value comes back from the backend. No labels
