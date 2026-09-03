@@ -153,7 +153,7 @@ textarea.review-field{resize:vertical;min-height:100px;line-height:1.6}
 <body>
 
 <div class="loader-screen" id="loader"><div class="loader-mark serif">Preparing your gallery&hellip;</div></div>
-<div class="state-screen" id="state-screen" style="display:none;"><div><h1 class="serif" id="state-title"></h1><p id="state-message"></p></div></div>
+<div class="state-screen" id="state-screen" style="display:none;"><div><h1 class="serif" id="state-title"></h1><p id="state-message"></p><div id="state-action" style="margin-top:26px;"></div></div></div>
 
 <!-- GUIDE OVERLAY — first visit only -->
 <div class="welcome-sheet" id="welcome-sheet" style="display:none;">
@@ -173,7 +173,7 @@ textarea.review-field{resize:vertical;min-height:100px;line-height:1.6}
         </div>
         <div class="intro-step">
             <div class="intro-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-            <p><strong>This gallery expires in 7 days.</strong> Make sure to save your favourites before then.</p>
+            <p id="guide-expiry-text"><strong>This gallery expires in 7 days.</strong> Make sure to save your favourites before then.</p>
         </div>
         <button class="welcome-dismiss" id="welcome-dismiss-btn">Got it</button>
     </div>
@@ -306,6 +306,7 @@ if (!token) {
     fetch(API + '/api/gallery/' + encodeURIComponent(token))
         .then(function (r) {
             if (r.status === 410) return r.json().then(function (d) { throw { expired: true, clientName: d.clientName }; });
+            if (r.status === 409) return r.json().then(function (d) { throw { locked: true, info: d }; });
             if (!r.ok) throw new Error('not found');
             return r.json();
         })
@@ -320,16 +321,25 @@ if (!token) {
         .catch(function (err) {
             $('loader').classList.add('hidden');
             if (err && err.expired) {
-                showState('Gallery Expired', (err.clientName ? err.clientName + ', your' : 'Your') + ' gallery was available for 7 days and has since closed. Please reach out to your photographer if you need anything.');
+                showState('Gallery Expired', (err.clientName ? err.clientName + ', your' : 'Your') + ' gallery\u2019s viewing window has closed. Please reach out to your photographer if you need anything.');
+            } else if (err && err.locked) {
+                var d = err.info || {};
+                var fee = d.fee || 9000;
+                var days = d.extensionDays || 7;
+                var payUrl = 'pay/index.html?type=gallery&amount=' + fee + '&gallery=' + encodeURIComponent(token) + '&name=' + encodeURIComponent(d.clientName || '') + '&days=' + days + '&return=' + encodeURIComponent(window.location.href);
+                var btnStyle = 'display:inline-block;padding:14px 34px;background:var(--accent);color:#0f0c09;border-radius:24px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;text-decoration:none;';
+                showState('Gallery Locked', (d.clientName ? d.clientName + ', your' : 'Your') + ' gallery\u2019s viewing window has closed. Pay \u20a6' + fee.toLocaleString() + ' to reopen it for ' + days + ' more day' + (days === 1 ? '' : 's') + '.', '<a href="' + payUrl + '" style="' + btnStyle + '">Pay \u20a6' + fee.toLocaleString() + ' to Extend</a>');
             } else {
                 showState('Gallery Not Found', 'This link may be incorrect or no longer active. Please check with your photographer.');
             }
         });
 }
 
-function showState(title, msg) {
+function showState(title, msg, actionHtml) {
     $('state-title').textContent = title;
     $('state-message').textContent = msg;
+    var act = $('state-action');
+    if (act) act.innerHTML = actionHtml || '';
     $('state-screen').style.display = 'flex';
 }
 
@@ -369,6 +379,8 @@ function initPage() {
 
     var daysLeft = Math.max(0, Math.ceil((new Date(gallery.expiresAt) - new Date()) / 86400000));
     $('cover-expiry').textContent = daysLeft <= 0 ? 'Expires today' : 'Available for ' + daysLeft + ' more day' + (daysLeft === 1 ? '' : 's');
+    var guideExpiry = $('guide-expiry-text');
+    if (guideExpiry) guideExpiry.innerHTML = '<strong>This gallery expires in ' + daysLeft + ' day' + (daysLeft === 1 ? '' : 's') + '.</strong> Make sure to save your favourites before then.';
 
     // Logo
     fetch(API + '/api/settings').then(function (r) { return r.json(); }).then(function (d) {

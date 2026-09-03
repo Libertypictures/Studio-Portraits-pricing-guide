@@ -196,6 +196,15 @@
             </button>
         </div>
 
+        <!-- GALLERY EXTENSION -->
+        <div class="form-section" id="gallery-section" style="display:none;">
+            <div class="amount-display" id="gallery-amount-display" style="display:none;">
+                <span class="label">Gallery Extension</span>
+                <span class="value" id="gallery-amount-value">₦0</span>
+            </div>
+            <p class="field-hint" id="gallery-extension-hint">Paying reopens your gallery for 7 more days.</p>
+        </div>
+
         <!-- BALANCE DUE -->
         <div class="form-section" id="balance-section">
             <div class="field-group">
@@ -263,6 +272,7 @@
             Message Us on WhatsApp
         </a>
         <p style="font-size:11px; color:var(--ink-faint); margin-top:12px;">If WhatsApp didn't open automatically, tap the button above.</p>
+        <button type="button" id="gallery-return-btn" style="display:none; margin-top:14px; background:var(--gold); color:#1c1917; border:none; border-radius:10px; padding:13px 26px; font-size:13px; font-weight:600; cursor:pointer; font-family:'Inter',sans-serif;">Back to my gallery</button>
         <button type="button" id="success-reset-btn" style="margin-top:18px; background:none; border:none; color:var(--ink-soft); font-size:12.5px; text-decoration:underline; cursor:pointer; font-family:'Inter',sans-serif;">Make Another Payment</button>
     </div>
 </div>
@@ -283,8 +293,20 @@
 
     var state = { type: null, packages: [], selectedPackage: null };
 
+    // Gallery-extension mode — opened from a locked gallery page with
+    // the fee, the gallery's private token and a return URL pre-filled.
+    var galleryParams = new URLSearchParams(window.location.search);
+    var galleryToken = galleryParams.get('gallery') || null;
+    var galleryAmount = parseInt(galleryParams.get('amount'), 10) || 0;
+    var galleryDays = parseInt(galleryParams.get('days'), 10) || 7;
+    var galleryReturn = galleryParams.get('return') || '';
+
     var typeBalanceBtn = document.getElementById('type-balance-btn');
     var typeOtherBtn = document.getElementById('type-other-btn');
+    var gallerySection = document.getElementById('gallery-section');
+    var galleryAmountDisplay = document.getElementById('gallery-amount-display');
+    var galleryAmountValue = document.getElementById('gallery-amount-value');
+    var galleryExtensionHint = document.getElementById('gallery-extension-hint');
     var balanceSection = document.getElementById('balance-section');
     var otherSection = document.getElementById('other-section');
     var contactFields = document.getElementById('contact-fields');
@@ -328,6 +350,23 @@
     typeBalanceBtn.addEventListener('click', function () { selectType('balance'); });
     typeOtherBtn.addEventListener('click', function () { selectType('other'); });
 
+    if (galleryToken) {
+        // Locked-gallery flow: no type chooser, fixed fee, straight to contact details.
+        state.type = 'gallery';
+        var typeGrid = document.querySelector('.type-grid');
+        if (typeGrid) typeGrid.style.display = 'none';
+        gallerySection.classList.add('is-visible');
+        galleryAmountValue.textContent = formatNaira(galleryAmount);
+        if (galleryAmountDisplay) galleryAmountDisplay.style.display = 'flex';
+        galleryExtensionHint.textContent = 'This reopens your gallery for ' + galleryDays + ' more day' + (galleryDays === 1 ? '' : 's') + '.';
+        contactFields.style.display = 'block';
+        var gName = galleryParams.get('name') || '';
+        if (gName) document.getElementById('customer-name').value = gName;
+        document.querySelector('h1').textContent = 'Extend Your Gallery';
+        document.querySelector('.sub').textContent = 'Reopen your gallery in one quick payment';
+        updatePayButton();
+    }
+
     packageSelect.addEventListener('change', function () {
         var pkg = state.packages.find(function (p) { return String(p.id) === packageSelect.value; });
         state.selectedPackage = pkg || null;
@@ -348,6 +387,9 @@
         }
         if (state.type === 'other') {
             return parseInt(otherAmountInput.value, 10) || 0;
+        }
+        if (state.type === 'gallery') {
+            return galleryAmount;
         }
         return 0;
     }
@@ -418,6 +460,9 @@
         };
         if (state.type === 'balance') {
             payload.packageName = state.selectedPackage.name;
+        } else if (state.type === 'gallery') {
+            payload.galleryToken = galleryToken;
+            payload.description = 'Gallery extension';
         } else {
             payload.description = otherDescriptionInput.value.trim();
         }
@@ -447,11 +492,19 @@
         document.getElementById('success-view').classList.add('is-visible');
         document.getElementById('success-reference').textContent = reference;
 
-        var purpose = state.type === 'balance' ? state.selectedPackage.name + ' balance' : otherDescriptionInput.value.trim();
+        var purpose = state.type === 'balance' ? state.selectedPackage.name + ' balance' : (state.type === 'gallery' ? 'my gallery extension' : otherDescriptionInput.value.trim());
         var waMessage = "Hello there! I've just paid " + formatNaira(details.amount) + " for " + purpose + " (Reference: " + reference + ").";
         var waLink = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(waMessage);
         document.getElementById('whatsapp-link').href = waLink;
         window.open(waLink, '_blank');
+
+        // Gallery flow — take the client straight back to their photos.
+        var returnBtn = document.getElementById('gallery-return-btn');
+        if (state.type === 'gallery' && galleryReturn && returnBtn) {
+            returnBtn.style.display = 'inline-block';
+            returnBtn.onclick = function () { window.location.href = galleryReturn; };
+            setTimeout(function () { window.location.href = galleryReturn; }, 4000);
+        }
     }
 
     document.getElementById('success-reset-btn').addEventListener('click', function () {
