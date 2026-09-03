@@ -28,6 +28,44 @@ a{color:inherit}
 .state-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 24px}
 .state-screen h1{font-family:'Fraunces',serif;font-weight:400;font-style:italic;font-size:28px;margin-bottom:16px}
 .state-screen p{color:var(--cream-soft);font-size:14px;line-height:1.8;max-width:360px}
+.state-screen.lock-mode{padding:0}
+
+/* ── LOCKED WALL — soft, warm, conversion-forward ── */
+.lock-wrap{position:relative;min-height:100vh;min-height:100dvh;width:100%;display:flex;align-items:center;justify-content:center;padding:48px 20px;overflow:hidden}
+.lock-bg{position:absolute;inset:0;background:linear-gradient(160deg,#2a2419,#0f0c09);background-size:cover;background-position:center;filter:brightness(0.35);transform:scale(1.05)}
+.lock-scrim{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(15,12,9,0.72),rgba(15,12,9,0.88))}
+.state-screen .lock-card{position:relative;z-index:2;max-width:460px;width:100%;text-align:center;background:rgba(26,23,20,0.6);border:1px solid var(--border);border-radius:18px;padding:44px 34px 36px;backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%);box-shadow:0 30px 80px rgba(0,0,0,0.5);animation:coverIn .7s ease both}
+.state-screen .lock-card h1{font-family:'Fraunces',serif;font-weight:400;font-style:normal;font-size:25px;line-height:1.35;margin-bottom:14px}
+.state-screen .lock-card h1 .lock-soft{color:var(--accent);font-style:italic}
+.state-screen .lock-card p{max-width:none;font-size:13px;color:var(--cream-soft);line-height:1.8}
+.lock-eyebrow{font-family:'Outfit',sans-serif;font-size:9px;letter-spacing:6px;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
+.lock-icon{width:52px;height:52px;margin:0 auto 20px;border-radius:50%;background:rgba(196,166,126,0.12);border:1px solid rgba(196,166,126,0.3);display:flex;align-items:center;justify-content:center;color:var(--accent)}
+.state-screen .lock-card p.lock-lead{margin-bottom:26px}
+.lock-perks{text-align:left;background:rgba(246,241,231,0.04);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:24px;display:flex;flex-direction:column;gap:12px}
+.state-screen .lock-card p.lock-perk{display:flex;gap:12px;align-items:flex-start;font-size:12.5px;line-height:1.6;margin:0}
+.lock-perk svg{flex-shrink:0;margin-top:2px;color:var(--accent)}
+.lock-price{display:flex;align-items:baseline;justify-content:center;gap:10px;margin-bottom:22px}
+.lock-price strong{font-family:'Fraunces',serif;font-size:30px;font-weight:500;color:var(--cream)}
+.lock-price span{font-size:11px;color:var(--cream-faint);letter-spacing:0.5px}
+.lock-cta{display:block;padding:15px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:#0f0c09;background:var(--accent);border-radius:26px;text-decoration:none;transition:background .25s ease}
+.lock-cta:hover{background:var(--accent-deep)}
+.state-screen .lock-card p.lock-urgency{margin-top:18px;font-size:11.5px;color:var(--cream-faint)}
+.lock-urgency strong{color:var(--cream-soft);font-weight:500}
+.state-screen .lock-card p.lock-help{margin-top:14px;font-size:12px;color:var(--cream-faint)}
+.lock-help a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(196,166,126,0.4)}
+.state-screen .lock-card p.lock-secure{margin-top:20px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(246,241,231,0.3)}
+@media(max-width:480px){.lock-wrap{padding:28px 16px}.state-screen .lock-card{padding:36px 22px 30px}.state-screen .lock-card h1{font-size:22px}}
+
+/* ── SOFT EXPIRY WARNING BANNER — last 3 days ── */
+.expiry-banner{background:linear-gradient(90deg,rgba(196,166,126,0.14),rgba(196,166,126,0.05));border-bottom:1px solid rgba(196,166,126,0.25)}
+.expiry-banner-inner{max-width:1100px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.expiry-banner-text{font-size:12.5px;color:var(--cream-soft);line-height:1.5}
+.expiry-banner-text strong{color:var(--accent);font-weight:500}
+.expiry-banner-actions{display:flex;align-items:center;gap:10px}
+.expiry-banner-btn{padding:8px 18px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;color:#0f0c09;background:var(--accent);border:none;border-radius:20px;white-space:nowrap;cursor:pointer;transition:background .25s ease}
+.expiry-banner-btn:hover{background:var(--accent-deep)}
+.expiry-banner-close{width:28px;height:28px;border-radius:50%;background:rgba(246,241,231,0.08);border:none;color:var(--cream-faint);font-size:14px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s}
+.expiry-banner-close:hover{background:rgba(246,241,231,0.16)}
 
 /* ── COVER — continuous scroll, not a separate screen ── */
 .cover{position:relative;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;overflow:hidden}
@@ -206,6 +244,18 @@ textarea.review-field{resize:vertical;min-height:100px;line-height:1.6}
             <button id="favs-toggle-btn" style="display:none;padding:8px 16px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;color:var(--accent);background:rgba(196,166,126,0.12);border:1px solid rgba(196,166,126,0.25);border-radius:20px;white-space:nowrap;cursor:pointer;transition:all .25s ease;">★ My Favourites</button>
         </div>
     </div>
+
+    <!-- Soft expiry warning — appears in the last 3 days, dismissible per session -->
+    <div class="expiry-banner" id="expiry-banner" style="display:none">
+        <div class="expiry-banner-inner">
+            <div class="expiry-banner-text" id="expiry-banner-text"></div>
+            <div class="expiry-banner-actions">
+                <button class="expiry-banner-btn" id="expiry-banner-btn">Extend access</button>
+                <button class="expiry-banner-close" id="expiry-banner-close" aria-label="Dismiss">&times;</button>
+            </div>
+        </div>
+    </div>
+
     <div class="gallery-grid" id="gallery-grid"></div>
 
     <!-- Download All — shown when 20+ photos -->
@@ -323,12 +373,7 @@ if (!token) {
             if (err && err.expired) {
                 showState('Gallery Expired', (err.clientName ? err.clientName + ', your' : 'Your') + ' gallery\u2019s viewing window has closed. Please reach out to your photographer if you need anything.');
             } else if (err && err.locked) {
-                var d = err.info || {};
-                var fee = d.fee || 9000;
-                var days = d.extensionDays || 7;
-                var payUrl = 'pay/index.html?type=gallery&amount=' + fee + '&gallery=' + encodeURIComponent(token) + '&name=' + encodeURIComponent(d.clientName || '') + '&days=' + days + '&return=' + encodeURIComponent(window.location.href);
-                var btnStyle = 'display:inline-block;padding:14px 34px;background:var(--accent);color:#0f0c09;border-radius:24px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;text-decoration:none;';
-                showState('Gallery Locked', (d.clientName ? d.clientName + ', your' : 'Your') + ' gallery\u2019s viewing window has closed. Pay \u20a6' + fee.toLocaleString() + ' to reopen it for ' + days + ' more day' + (days === 1 ? '' : 's') + '.', '<a href="' + payUrl + '" style="' + btnStyle + '">Pay \u20a6' + fee.toLocaleString() + ' to Extend</a>');
+                showLockedWall(err.info || {});
             } else {
                 showState('Gallery Not Found', 'This link may be incorrect or no longer active. Please check with your photographer.');
             }
@@ -341,6 +386,78 @@ function showState(title, msg, actionHtml) {
     var act = $('state-action');
     if (act) act.innerHTML = actionHtml || '';
     $('state-screen').style.display = 'flex';
+}
+
+/* ── LOCKED WALL — the conversion moment, kept soft and warm ── */
+function showLockedWall(d) {
+    var fee = d.fee || 9000;
+    var days = d.extensionDays || 7;
+    var graceDays = d.graceDays || 1;
+    var lockedDate = d.lockedAt ? new Date(String(d.lockedAt).replace(' ', 'T')) : null;
+    var closedText = lockedDate && !isNaN(lockedDate.getTime())
+        ? lockedDate.toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })
+        : 'recently';
+    var deleted = lockedDate && !isNaN(lockedDate.getTime())
+        ? new Date(lockedDate.getTime() + graceDays * 86400000).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })
+        : 'soon';
+    var payUrl = 'pay/index.html?type=gallery&amount=' + fee + '&gallery=' + encodeURIComponent(token) + '&name=' + encodeURIComponent(d.clientName || '') + '&days=' + days + '&return=' + encodeURIComponent(window.location.href);
+    var scr = $('state-screen');
+    scr.classList.add('lock-mode');
+    scr.style.display = 'flex';
+    scr.innerHTML = '' +
+        '<div class="lock-wrap">' +
+            '<div class="lock-bg" id="lock-bg"></div>' +
+            '<div class="lock-scrim"></div>' +
+            '<div class="lock-card">' +
+                '<div class="lock-eyebrow">Libertypictures</div>' +
+                '<div class="lock-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>' +
+                '<h1>Your gallery is resting,<br><span class="lock-soft">not gone.</span></h1>' +
+                '<p class="lock-lead">The viewing window for ' + escHtml(d.clientName || 'your') + '\u2019s gallery closed on <strong>' + closedText + '</strong>. Your photos and every pick you made are safe \u2014 nothing has been deleted.</p>' +
+                '<div class="lock-perks">' +
+                    '<div class="lock-perk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Instant access \u2014 reopens the moment payment clears</span></div>' +
+                    '<div class="lock-perk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Your selections are preserved</span></div>' +
+                    '<div class="lock-perk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>' + days + ' more days to view, download and share</span></div>' +
+                '</div>' +
+                '<div class="lock-price"><strong>&#8358;' + fee.toLocaleString() + '</strong><span>once \u00b7 reopens for ' + days + ' day' + (days === 1 ? '' : 's') + '</span></div>' +
+                '<a class="lock-cta" href="' + payUrl + '">Reopen my gallery</a>' +
+                '<p class="lock-urgency">If not extended, this gallery will be permanently removed on <strong>' + deleted + '</strong>.</p>' +
+                '<p class="lock-help">Questions? <a href="#" id="lock-wa">Message us on WhatsApp</a></p>' +
+                '<p class="lock-secure">Secure payment \u00b7 Card or transfer</p>' +
+            '</div>' +
+        '</div>';
+
+    if (d.coverUrl) {
+        var bg = $('lock-bg');
+        var img = new Image();
+        img.onload = function () { bg.style.backgroundImage = 'url(' + API + d.coverUrl + ')'; };
+        img.src = API + d.coverUrl;
+    }
+
+    // Studio name + WhatsApp link from backend settings
+    fetch(API + '/api/settings').then(function (r) { return r.json(); }).then(function (res) {
+        var s = res.settings || {};
+        var num = (s.whatsapp_number || '').replace(/[^0-9]/g, '');
+        var studio = s.studio_name || 'Libertypictures';
+        var wa = $('lock-wa');
+        if (wa) wa.textContent = 'Message ' + studio + ' on WhatsApp';
+        if (wa && num) wa.href = 'https://wa.me/' + num + '?text=' + encodeURIComponent('Hi ' + studio + '! My gallery is locked and I have a question.');
+    }).catch(function () {});
+}
+
+/* ── SOFT PRE-EXPIRY BANNER — last 3 days, dismissible per session ── */
+function showExpiryBanner(daysLeft, fee, extDays) {
+    var banner = $('expiry-banner');
+    if (!banner) return;
+    if (daysLeft > 3) return;
+    if (sessionStorage.getItem('lp-ban-dismiss-' + token)) return;
+    var when = daysLeft <= 0 ? 'today only' : (daysLeft === 1 ? '1 more day' : daysLeft + ' more days');
+    var end = new Date(String(gallery.expiresAt).replace(' ', 'T'));
+    var endText = !isNaN(end.getTime()) ? end.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' }) : '';
+    $('expiry-banner-text').innerHTML = '<strong>Available for ' + when + (endText ? ' \u00b7 ends ' + endText : '') + '.</strong> Keep your gallery open for ' + extDays + ' more day' + (extDays === 1 ? '' : 's') + ' with one small payment.';
+    var payUrl = 'pay/index.html?type=gallery&amount=' + fee + '&gallery=' + encodeURIComponent(token) + '&name=' + encodeURIComponent(gallery.clientName || '') + '&days=' + extDays + '&return=' + encodeURIComponent(window.location.href);
+    $('expiry-banner-btn').onclick = function () { window.location.href = payUrl; };
+    $('expiry-banner-close').onclick = function () { banner.style.display = 'none'; sessionStorage.setItem('lp-ban-dismiss-' + token, '1'); };
+    banner.style.display = 'block';
 }
 
 /* ── GUIDE — first visit only ── */
@@ -382,10 +499,13 @@ function initPage() {
     var guideExpiry = $('guide-expiry-text');
     if (guideExpiry) guideExpiry.innerHTML = '<strong>This gallery expires in ' + daysLeft + ' day' + (daysLeft === 1 ? '' : 's') + '.</strong> Make sure to save your favourites before then.';
 
-    // Logo
+    // Logo + extension fee (for the soft expiry banner)
     fetch(API + '/api/settings').then(function (r) { return r.json(); }).then(function (d) {
         var s = d.settings || {};
         if (s.logo_url) { var logo = $('cover-logo'); logo.src = API + s.logo_url; logo.style.display = 'block'; }
+        var fee = parseInt(s.gallery_extension_fee, 10) || 9000;
+        var extDays = parseInt(s.gallery_extension_days, 10) || 7;
+        showExpiryBanner(daysLeft, fee, extDays);
     }).catch(function () {});
 
     // Header
