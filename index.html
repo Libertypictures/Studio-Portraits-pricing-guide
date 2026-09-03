@@ -437,29 +437,30 @@
         }
         .work-strip-wrap::-webkit-scrollbar { display: none; }
 
-        /* Film strip — each thumbnail is one 35mm frame tile. The tile's
-           SVG paints the film base with actual sprocket cut-outs (mask),
-           so the background surface shows THROUGH the perforations.
-           Photos are HTML <img> elements overlaid on the frame window.
-           Tiles stack seamlessly because sprocket rhythm aligns across
-           the tile boundary. */
+        /* Film strip — the film base + sprockets are ONE continuous
+           SVG background on the track, repeated vertically. Previously
+           each thumbnail had its own SVG background; at 148px strip
+           width × aspect 400/560 = 207.2px per tile, browsers rounded
+           adjacent tile boundaries differently and the surface behind
+           leaked through as 1px horizontal cuts (invisible in dark mode
+           where the surface is near-black, glaring in light mode).
+           Repeating the background on the track means there are no
+           per-tile boundaries — sprocket rhythm just continues. */
         .work-strip-track {
             display: flex; flex-direction: column;
             position: relative; gap: 0;
-            background: none;
+            background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 560' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='fb' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23070503'/%3E%3Cstop offset='0.5' stop-color='%23130d07'/%3E%3Cstop offset='1' stop-color='%23070503'/%3E%3C/linearGradient%3E%3ClinearGradient id='fw' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23050403'/%3E%3Cstop offset='1' stop-color='%23070604'/%3E%3C/linearGradient%3E%3Cmask id='m'%3E%3Crect x='0' y='0' width='400' height='560' fill='white'/%3E%3Crect x='16' y='40' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='120' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='200' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='280' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='360' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='440' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='520' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='40' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='120' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='200' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='280' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='360' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='440' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='520' width='22' height='16' rx='2' fill='black'/%3E%3C/mask%3E%3C/defs%3E%3Crect x='0' y='0' width='400' height='560' fill='url(%23fb)' mask='url(%23m)'/%3E%3Crect x='70' y='15' width='260' height='530' fill='url(%23fw)'/%3E%3C/svg%3E");
+            /* 100% width, height derived from SVG's intrinsic 400:560
+               ratio → each repeat is exactly one tile tall, so the
+               sprocket rhythm keeps aligning with the thumb slots. */
+            background-size: 100% auto;
+            background-repeat: repeat-y;
+            background-position: top center;
         }
         .work-strip-thumb {
             position: relative; width: 100%; aspect-ratio: 400 / 560;
             border: none; padding: 0; cursor: pointer; display: block;
-            background-color: transparent;
-            /* Tile viewBox 400×560 — film fills the tile edge-to-edge, no
-               transparent outer padding (so no visual gap between the
-               main photo and the strip). Sprockets at x=16–38 (left)
-               and x=362–384 (right). Frame window x=70 y=15 w=260 h=530
-               (aspect 260/530 = 0.49, portrait). */
-            background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 560' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='fb' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23070503'/%3E%3Cstop offset='0.5' stop-color='%23130d07'/%3E%3Cstop offset='1' stop-color='%23070503'/%3E%3C/linearGradient%3E%3ClinearGradient id='fw' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23050403'/%3E%3Cstop offset='1' stop-color='%23070604'/%3E%3C/linearGradient%3E%3Cmask id='m'%3E%3Crect x='0' y='0' width='400' height='560' fill='white'/%3E%3Crect x='16' y='40' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='120' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='200' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='280' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='360' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='440' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='520' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='40' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='120' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='200' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='280' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='360' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='440' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='520' width='22' height='16' rx='2' fill='black'/%3E%3C/mask%3E%3C/defs%3E%3Crect x='0' y='0' width='400' height='560' fill='url(%23fb)' mask='url(%23m)'/%3E%3Crect x='70' y='15' width='260' height='530' fill='url(%23fw)'/%3E%3C/svg%3E");
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
+            background: none;
         }
         /* Photo overlay — inside the frame window (70/400 → 330/400,
            15/560 → 545/560). Negative-film treatment back on: colour
