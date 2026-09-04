@@ -771,21 +771,30 @@
 
     // CTA SECTION — a single dominant "View Packages" button (the whole
     // SECTION TITLES — every Home page heading is editable from the
-    // admin's Section Titles page (one place for all of them). Falls
-    // back to the default baked into the markup when a field is blank.
+    // admin's Section Titles page (one place for all of them). A title
+    // saved as blank hides that heading entirely. A title that was
+    // never saved keeps the default baked into the markup, so the
+    // headings only disappear when the studio deliberately clears
+    // them and saves.
     (function () {
         settingsPromise.then(function (data) {
             var s = data.settings || {};
             var titles = {
-                'featured-work-title': [s.featured_work_title, 'Featured Works'],
-                'reviews-title': [s.reviews_title, 'Reviews'],
-                'about-title': [s.about_title, 'About the Photographer'],
-                'experience-title': [s.experience_title, 'The Experience']
+                'featured-work-title': s.featured_work_title,
+                'reviews-title': s.reviews_title,
+                'about-title': s.about_title,
+                'experience-title': s.experience_title
             };
             Object.keys(titles).forEach(function (id) {
                 var el = document.getElementById(id);
                 if (!el) return;
-                el.textContent = titles[id][0] || titles[id][1];
+                var value = titles[id];
+                if (value == null) return; // never saved — keep the default
+                if (String(value).trim()) {
+                    el.textContent = value;
+                } else {
+                    el.style.display = 'none';
+                }
             });
         });
     })();
@@ -803,9 +812,16 @@
             var desc = s.cta_studio_desc || "Fashion, beauty, family, corporate, branding — see what's included and pick your date.";
             var btn = s.cta_studio_btn || "See Packages";
             var weddingHint = s.cta_wedding_hint || "Planning a wedding? See Beloved Imprint";
+            // Blank eyebrow hides the label line entirely; an eyebrow
+            // that was never saved keeps the default.
+            var eyebrowHtml = (s.cta_eyebrow == null)
+                ? '<span style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);font-weight:600;display:block;margin-bottom:22px;">' + escapeHtml("Ready when you are") + '</span>'
+                : (String(s.cta_eyebrow).trim()
+                    ? '<span style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);font-weight:600;display:block;margin-bottom:22px;">' + escapeHtml(s.cta_eyebrow) + '</span>'
+                    : '');
 
             el.innerHTML =
-                '<span style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);font-weight:600;display:block;margin-bottom:22px;">' + escapeHtml(eyebrow) + '</span>' +
+                eyebrowHtml +
                 '<p style="font-size:14px;color:var(--text-secondary);line-height:1.7;max-width:440px;margin:0 auto 28px;">' + escapeHtml(desc) + '</p>' +
                 '<a href="book.html" class="cta-primary-btn" style="display:inline-flex;align-items:center;gap:10px;padding:20px 40px;background:var(--btn-primary-bg);color:var(--btn-primary-text);text-decoration:none;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:2.4px;box-shadow:0 8px 28px var(--shadow-hover);transition:transform 0.35s cubic-bezier(0.16,1,0.3,1),box-shadow 0.35s cubic-bezier(0.16,1,0.3,1),background 0.35s ease;">' +
                     escapeHtml(btn) + ' &rarr;' +
