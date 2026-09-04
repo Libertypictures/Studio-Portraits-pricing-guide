@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#0f0c09">
 <link rel="preconnect" href="https://fonts.googleapis.com/">
 <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&family=Outfit:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&family=Outfit:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
 :root{--bg:#0f0c09;--surface:#1a1714;--surface2:#232019;--cream:#f6f1e7;--cream-soft:rgba(246,241,231,0.7);--cream-faint:rgba(246,241,231,0.4);--accent:#c4a67e;--accent-deep:#a3835c;--border:rgba(246,241,231,0.12);--gold-glow:rgba(196,166,126,0.25)}
@@ -111,28 +111,61 @@ a{color:inherit}
 .gallery-header-name{font-size:13px}
 }
 
-/* ── LIGHTBOX ── */
+/* ── CINEMATIC VIEWER — the Featured Work film presentation fused
+   onto the gallery: a fullscreen film stage with a perforated
+   film-strip rail of every photo, numbered frames, negative-film
+   thumbnails, and star badges marking your picks on the frames. ── */
 .lightbox{position:fixed;inset:0;background:rgba(6,5,4,0.97);z-index:100;display:none;flex-direction:column}
 .lightbox.active{display:flex}
 .lb-top{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;flex-shrink:0;z-index:5}
 .lb-close{width:38px;height:38px;border-radius:50%;background:rgba(246,241,231,0.08);border:none;color:var(--cream);display:flex;align-items:center;justify-content:center}
-.lb-counter{font-size:12px;color:var(--cream-faint);letter-spacing:1px}
+.lb-counter{font-family:'Share Tech Mono','Courier New',monospace;font-size:13px;color:var(--accent);letter-spacing:2px;text-shadow:0 1px 2px rgba(0,0,0,0.8)}
+.lb-counter .lb-hint{color:var(--cream-faint);letter-spacing:1px;font-family:'Outfit',sans-serif;font-size:9.5px;text-transform:uppercase;margin-left:10px}
 .lb-star-btn{width:38px;height:38px;border-radius:50%;background:rgba(246,241,231,0.08);border:none;display:flex;align-items:center;justify-content:center;transition:background .2s ease}
 .lb-star-btn svg{width:18px;height:18px;stroke:var(--cream);fill:none;transition:all .2s ease}
 .lb-star-btn.is-active{background:rgba(196,166,126,0.25)}
 .lb-star-btn.is-active svg{fill:var(--accent);stroke:var(--accent)}
-.lb-stage{flex:1;display:flex;align-items:center;justify-content:center;position:relative;padding:0 8px;min-height:0;touch-action:pan-x}
-.lb-img-wrap{max-width:100%;max-height:100%;display:flex;align-items:center;justify-content:center}
-.lb-img-wrap img{max-width:100%;max-height:calc(100vh - 180px);max-height:calc(100dvh - 180px);object-fit:contain}
+.lb-main{flex:1;display:flex;min-height:0;position:relative}
+.lb-stage{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;position:relative;padding:0 6px;min-height:0;touch-action:pan-x;overflow:hidden}
+.lb-img-wrap{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.lb-img-wrap img{max-width:100%;max-height:100%;object-fit:contain}
 .lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(246,241,231,0.06);border:none;color:var(--cream);display:flex;align-items:center;justify-content:center;z-index:5;transition:background .2s}
 .lb-nav:hover{background:rgba(246,241,231,0.14)}
-.lb-nav.prev{left:10px}
-.lb-nav.next{right:10px}
-@media(max-width:600px){.lb-nav{width:36px;height:36px;background:rgba(246,241,231,0.04)}.lb-nav.prev{left:4px}.lb-nav.next{right:4px}}
-.lb-bottom{padding:16px 20px;flex-shrink:0;display:flex;justify-content:center;gap:10px}
+.lb-nav.prev{left:8px}
+.lb-nav.next{right:8px}
+
+/* FILM RAIL — vertical perforated contact sheet along the stage's
+   right edge, the same design language as the homepage viewer. */
+.lb-film{width:min(150px,23vw);flex-shrink:0;position:relative;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior-y:contain;border-left:1px solid var(--border);filter:drop-shadow(0 4px 10px rgba(0,0,0,0.4));-webkit-mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,0.08) 0.4%,rgba(0,0,0,0.25) 0.9%,rgba(0,0,0,0.5) 1.4%,rgba(0,0,0,0.78) 1.9%,black 2.5%,black 97.5%,rgba(0,0,0,0.78) 98.1%,rgba(0,0,0,0.5) 98.6%,rgba(0,0,0,0.25) 99.1%,rgba(0,0,0,0.08) 99.6%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,0.08) 0.4%,rgba(0,0,0,0.25) 0.9%,rgba(0,0,0,0.5) 1.4%,rgba(0,0,0,0.78) 1.9%,black 2.5%,black 97.5%,rgba(0,0,0,0.78) 98.1%,rgba(0,0,0,0.5) 98.6%,rgba(0,0,0,0.25) 99.1%,rgba(0,0,0,0.08) 99.6%,transparent 100%)}
+.lb-film::-webkit-scrollbar{display:none}
+.film-track{display:flex;flex-direction:column;position:relative;gap:0;background:none}
+.film-thumb{position:relative;width:100%;aspect-ratio:400/560;border:none;padding:0;cursor:pointer;display:block;flex-shrink:0;background-color:transparent;background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 560' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='fb' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%230a0805'/%3E%3Cstop offset='0.5' stop-color='%2316100a'/%3E%3Cstop offset='1' stop-color='%230a0805'/%3E%3C/linearGradient%3E%3ClinearGradient id='fw' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23050403'/%3E%3Cstop offset='1' stop-color='%23070604'/%3E%3C/linearGradient%3E%3Cmask id='m'%3E%3Crect x='0' y='0' width='400' height='560' fill='white'/%3E%3Crect x='16' y='40' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='120' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='200' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='280' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='360' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='440' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='520' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='40' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='120' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='200' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='280' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='360' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='440' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='520' width='22' height='16' rx='2' fill='black'/%3E%3C/mask%3E%3C/defs%3E%3Crect x='0' y='0' width='400' height='560' fill='url(%23fb)' mask='url(%23m)'/%3E%3Crect x='70' y='15' width='260' height='530' fill='url(%23fw)'/%3E%3C/svg%3E");background-size:100% 100%;background-repeat:no-repeat}
+.film-thumb + .film-thumb{margin-top:-3px}
+.film-thumb img{position:absolute;left:17.5%;top:2.68%;width:65%;height:94.64%;object-fit:cover;filter:invert(1) sepia(0.45) hue-rotate(-25deg) saturate(0.42) brightness(0.88) contrast(0.95);opacity:0.5;transition:filter 0.3s ease,opacity 0.25s ease}
+.film-thumb:hover img,.film-thumb.is-active img{opacity:0.62;filter:invert(1) sepia(0.4) hue-rotate(-22deg) saturate(0.5) brightness(0.92) contrast(0.96)}
+.film-thumb.is-active::after{content:'';position:absolute;pointer-events:none;left:17.5%;top:2.68%;width:65%;height:94.64%;box-shadow:inset 0 0 0 1.5px #d4a030;z-index:4}
+.film-thumb .frame-num,.film-thumb .brand-text{position:absolute;top:50%;font-family:'Share Tech Mono','Courier New',monospace;font-weight:700;color:#d4a030;text-shadow:0 1px 2px rgba(0,0,0,0.85);pointer-events:none;line-height:1;z-index:3;white-space:nowrap}
+.film-thumb .frame-num{right:11%;transform:translate(50%,-50%) rotate(-90deg);transform-origin:center;font-size:7px;letter-spacing:0.3px}
+.film-thumb .frame-num::before{content:'\25B6 ';opacity:0.9}
+.film-thumb .brand-text{left:13%;transform:translate(-50%,-50%) rotate(-90deg);transform-origin:center;font-size:5px;letter-spacing:1.2px;text-transform:uppercase}
+/* Gold keep-mark star on starred frames — the favourites system
+   lives right on the film. */
+.film-star{position:absolute;top:4.5%;right:18.5%;width:11%;height:11%;display:none;align-items:center;justify-content:center;z-index:5;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.9))}
+.film-thumb.is-starred .film-star{display:flex}
+.film-star svg{width:100%;height:100%;fill:var(--accent);stroke:var(--accent);stroke-width:2}
+@media(max-width:600px){.lb-nav{width:36px;height:36px;background:rgba(246,241,231,0.04)}.lb-nav.prev{left:4px}.lb-nav.next{right:4px}.lb-counter .lb-hint{display:none}}
+.lb-bottom{padding:14px 20px calc(14px + env(safe-area-inset-bottom,0px));flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.lb-picks{font-family:'Share Tech Mono','Courier New',monospace;font-size:12px;color:var(--accent);letter-spacing:1px;white-space:nowrap}
+.lb-picks.hidden{visibility:hidden}
+.lb-bottom-actions{display:flex;align-items:center;gap:10px;margin-left:auto}
 .lb-action-btn{display:flex;align-items:center;gap:8px;padding:12px 22px;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:500;color:var(--cream);background:rgba(246,241,231,0.08);border:1px solid var(--border);border-radius:24px;transition:all .25s ease}
 .lb-action-btn:hover{background:rgba(246,241,231,0.14)}
 .lb-action-btn svg{width:15px;height:15px}
+.lb-action-btn.is-primary{color:#0f0c09;background:var(--accent);border-color:var(--accent)}
+.lb-action-btn.is-primary:hover{background:var(--accent-deep)}
+@media(max-width:600px){.lb-picks{font-size:10px}.lb-action-btn{padding:10px 14px;font-size:9.5px}}
+.btn-short{display:none}
+@media(max-width:600px){.lb-action-btn .btn-long{display:none}.lb-action-btn .btn-short{display:inline}}
 
 /* ── SELECTION BAR ── */
 .dl-all-bar{text-align:center;padding:20px 20px 0;}
@@ -209,7 +242,7 @@ textarea.review-field{resize:vertical;min-height:100px;line-height:1.6}
         <h2 style="font-family:'Outfit',sans-serif;font-weight:600;font-size:16px;letter-spacing:3px;text-transform:uppercase;margin-bottom:28px;color:var(--cream);">Quick Guide</h2>
         <div class="intro-step">
             <div class="intro-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-            <p><strong>Scroll to browse</strong> your photos. Tap any photo to view it full screen, then swipe left or right to go through them.</p>
+            <p><strong>Scroll to browse</strong> your photos. Tap any photo to open the <strong>film viewer</strong> — swipe, use the arrows, or tap a frame on the film strip to move through your shoot.</p>
         </div>
         <div class="intro-step">
             <div class="intro-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
@@ -316,20 +349,27 @@ textarea.review-field{resize:vertical;min-height:100px;line-height:1.6}
     </div>
 </div>
 
-<!-- LIGHTBOX — star only, no 5-star rating -->
+<!-- CINEMATIC VIEWER — Featured Work film stage + favourites on the film -->
 <div class="lightbox" id="lightbox">
     <div class="lb-top">
         <button class="lb-close" id="lb-close-btn" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
         <span class="lb-counter" id="lb-counter"></span>
         <button class="lb-star-btn" id="lb-star-btn" aria-label="Star this photo"><svg viewBox="0 0 24 24" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
     </div>
-    <div class="lb-stage" id="lb-stage">
-        <button class="lb-nav prev" id="lb-prev" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-        <div class="lb-img-wrap"><img src="" id="lb-img" alt=""></div>
-        <button class="lb-nav next" id="lb-next" aria-label="Next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+    <div class="lb-main">
+        <div class="lb-stage" id="lb-stage">
+            <button class="lb-nav prev" id="lb-prev" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <div class="lb-img-wrap"><img src="" id="lb-img" alt=""></div>
+            <button class="lb-nav next" id="lb-next" aria-label="Next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+        <div class="lb-film" id="lb-film"><div class="film-track" id="film-track"></div></div>
     </div>
     <div class="lb-bottom">
-        <button class="lb-action-btn" id="lb-save-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Save Photo</button>
+        <div class="lb-picks hidden" id="lb-picks">&#9733; 0 picked</div>
+        <div class="lb-bottom-actions">
+            <button class="lb-action-btn is-primary" id="lb-save-all-btn" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span class="btn-long">Save all picks</span><span class="btn-short">Save all</span></button>
+            <button class="lb-action-btn" id="lb-save-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span class="btn-long">Save Photo</span><span class="btn-short">Save</span></button>
+        </div>
     </div>
 </div>
 
@@ -568,9 +608,12 @@ function renderGrid() {
 
 function refreshTile(photoId) {
     var tile = document.querySelector('.g-tile[data-id="' + photoId + '"]');
-    if (!tile) return;
-    tile.classList.toggle('is-starred', !!starred[photoId]);
-    tile.querySelector('.g-tile-star').innerHTML = starSvg(!!starred[photoId]);
+    if (tile) {
+        tile.classList.toggle('is-starred', !!starred[photoId]);
+        tile.querySelector('.g-tile-star').innerHTML = starSvg(!!starred[photoId]);
+    }
+    refreshFilmThumb(photoId);
+    updateLbPicks();
 }
 
 function toggleStar(photoId) {
@@ -595,6 +638,7 @@ function updateSelectionBar() {
     $('selection-bar').classList.toggle('visible', count > 0);
     updateFavsButton();
     updateFinishedPrompt();
+    updateLbPicks();
 }
 
 
@@ -640,13 +684,19 @@ function closeLightbox() {
     window.scrollTo(0, savedScrollY);
 }
 function renderLb() {
+    if (!photos.length) return;
+    buildFilm();
     var p = photos[currentLbIdx];
     $('lb-img').src = API + p.url;
     $('lb-img').alt = p.filename || 'Photo';
-    $('lb-counter').textContent = (currentLbIdx + 1) + ' / ' + photos.length;
+    var totalStr = String(photos.length);
+    $('lb-counter').textContent = String(currentLbIdx + 1).padStart(totalStr.length, '0') + ' / ' + totalStr;
     $('lb-star-btn').classList.toggle('is-active', !!starred[p.id]);
     $('lb-prev').style.visibility = currentLbIdx === 0 ? 'hidden' : 'visible';
     $('lb-next').style.visibility = currentLbIdx === photos.length - 1 ? 'hidden' : 'visible';
+    syncFilmActive();
+    preloadLbNeighbors();
+    updateLbPicks();
 }
 $('lb-close-btn').addEventListener('click', closeLightbox);
 $('lb-prev').addEventListener('click', function () { if (currentLbIdx > 0) { currentLbIdx--; renderLb(); } });
@@ -670,6 +720,125 @@ document.addEventListener('keydown', function (e) {
 $('lb-star-btn').addEventListener('click', function () {
     var p = photos[currentLbIdx];
     toggleStar(p.id);
+});
+
+/* ── FILM VIEWER — the Featured Work film rail fused onto the
+   gallery: every photo becomes a numbered 35mm frame on a perforated
+   strip at the stage's edge; starred photos carry a gold keep-mark
+   star right on their frame. ── */
+var filmThumbs = [];
+var filmBuilt = false;
+var BRAND_PATTERN = [null, 'LIBERTY PORTRA', null, 'LIBERTYPICTURES', null, null, 'LIBERTY PORTRA', null, 'LIBERTYPICTURES', null, 'LIBERTY PORTRA', null];
+
+function buildFilm() {
+    if (filmBuilt) return;
+    filmBuilt = true;
+    var film = $('lb-film');
+    var track = $('film-track');
+    if (!film || !track) return;
+    // A single photo needs no contact sheet — the stage takes the full width.
+    if (photos.length < 2) { film.style.display = 'none'; return; }
+    film.style.display = '';
+    var EAGER = 5;
+    var thumbsHtml = photos.map(function (p, i) {
+        var thumbUrl = API + (p.thumbUrl || p.url);
+        var srcAttr = i < EAGER ? 'src="' + thumbUrl + '" loading="lazy"' : 'data-src="' + thumbUrl + '"';
+        var brand = BRAND_PATTERN[i % BRAND_PATTERN.length];
+        var brandHtml = brand ? '<span class="brand-text">' + brand + '</span>' : '';
+        return '<button type="button" class="film-thumb' + (starred[p.id] ? ' is-starred' : '') + '" data-index="' + i + '" data-id="' + p.id + '" aria-label="View photo ' + (i + 1) + ' of ' + photos.length + '"><img ' + srcAttr + ' alt="" decoding="async"><span class="film-star">' + starSvg(true) + '</span><span class="frame-num">' + (i + 1) + '</span>' + brandHtml + '</button>';
+    }).join('');
+    track.innerHTML = thumbsHtml;
+    filmThumbs = track.querySelectorAll('.film-thumb');
+
+    // Deferred frames load as they scroll into the rail (rootMargin
+    // preloads ~250px ahead so the swap happens before the eye arrives).
+    var pending = track.querySelectorAll('.film-thumb img[data-src]');
+    if (pending.length && 'IntersectionObserver' in window) {
+        var filmObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (!e.isIntersecting) return;
+                var img = e.target;
+                if (img.dataset.src) { img.src = img.dataset.src; delete img.dataset.src; }
+                filmObserver.unobserve(img);
+            });
+        }, { root: film, rootMargin: '250px 0px 250px 0px' });
+        pending.forEach(function (img) { filmObserver.observe(img); });
+    } else if (pending.length) {
+        pending.forEach(function (img) { img.src = img.dataset.src; delete img.dataset.src; });
+    }
+
+    filmThumbs.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var idx = parseInt(btn.dataset.index, 10);
+            if (idx === currentLbIdx) return;
+            currentLbIdx = idx;
+            renderLb();
+        });
+    });
+}
+
+function syncFilmActive() {
+    if (!filmThumbs.length) return;
+    filmThumbs.forEach(function (t) { t.classList.toggle('is-active', parseInt(t.dataset.index, 10) === currentLbIdx); });
+    var film = $('lb-film');
+    var active = filmThumbs[currentLbIdx];
+    if (film && active) {
+        var target = active.offsetTop - (film.clientHeight / 2) + (active.offsetHeight / 2);
+        film.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
+    }
+}
+
+function refreshFilmThumb(photoId) {
+    if (!filmThumbs.length) return;
+    filmThumbs.forEach(function (t) {
+        if (parseInt(t.dataset.id, 10) !== photoId) return;
+        t.classList.toggle('is-starred', !!starred[photoId]);
+        var star = t.querySelector('.film-star');
+        if (star) star.innerHTML = starSvg(!!starred[photoId]);
+    });
+}
+
+// Warm the two neighbours of the current frame so advancing feels
+// instant, without ever downloading the whole shoot's full-res set.
+function preloadLbNeighbors() {
+    if (currentLbIdx > 0) { var a = new Image(); a.src = API + photos[currentLbIdx - 1].url; }
+    if (currentLbIdx < photos.length - 1) { var b = new Image(); b.src = API + photos[currentLbIdx + 1].url; }
+}
+
+function lbPickedCount() {
+    return Object.keys(starred).filter(function (id) { return starred[id]; }).length;
+}
+function updateLbPicks() {
+    var picks = $('lb-picks');
+    var saveAll = $('lb-save-all-btn');
+    if (!picks || !saveAll) return;
+    var count = lbPickedCount();
+    picks.textContent = '\u2605 ' + count + ' picked';
+    picks.classList.toggle('hidden', count === 0);
+    saveAll.style.display = count > 0 ? 'inline-flex' : 'none';
+}
+
+// Scroll the stage (wheel over the photo) to advance the film.
+(function () {
+    var stage = $('lb-stage');
+    if (!stage) return;
+    var last = 0;
+    stage.addEventListener('wheel', function (e) {
+        if (!$('lightbox').classList.contains('active')) return;
+        if (Math.abs(e.deltaY) < 8) return;
+        e.preventDefault();
+        var now = Date.now();
+        if (now - last < 280) return;
+        last = now;
+        if (e.deltaY > 0) $('lb-next').click(); else $('lb-prev').click();
+    }, { passive: false });
+})();
+
+// "Save all picks" inside the viewer reuses the same save flow as the
+// selection bar (native share for a few, zip otherwise).
+$('lb-save-all-btn').addEventListener('click', function () {
+    if (!lbPickedCount()) return;
+    $('save-selected-btn').click();
 });
 
 /* ── DOWNLOAD: single photo ── */
