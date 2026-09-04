@@ -210,7 +210,7 @@
         .social-proof-number {
             font-family: 'Fraunces', serif; font-size: clamp(22px, 3vw, 32px); font-weight: 500; line-height: 1.1;
             color: var(--text-primary);
-            transform: scale(calc(0.74 + 0.26 * var(--proof-progress)));
+            transform: scale(calc(0.62 + 0.28 * var(--proof-progress)));
             transform-origin: 50% 100%;
             transition: transform 0.22s cubic-bezier(0.33, 1, 0.68, 1);
             will-change: transform;
@@ -261,6 +261,7 @@
         .about-photo { width: 240px; margin: 0 auto 24px; overflow: hidden; aspect-ratio: 4/5; background: var(--bg-card); }
         .about-photo img { width: 100%; height: 100%; object-fit: cover; }
         .about-bio { font-size: 13.5px; color: var(--text-secondary); line-height: 1.85; margin-bottom: 20px; max-width: 320px; margin-left: auto; margin-right: auto; text-wrap: balance; white-space: pre-line; }
+        #about-section { padding: 140px 0 120px; }
 
 
         /* REVIEWS — a full-page editorial installation. The stage
@@ -281,7 +282,7 @@
            Featured Work. The atmosphere zone inside is what actually
            does the "scroll transition". Bottom padding preserved so
            the distance to About Photographer holds. */
-        .voices-section { min-height: 0; display: flex; flex-direction: column; padding: 20px 0 80px; }
+        .voices-section { min-height: 0; display: flex; flex-direction: column; padding: 20px 0 0; }
         .voices-section .testimonials-label { font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; letter-spacing: -0.2px; text-align: center; margin-bottom: 0; }
         .voices-section .testimonials-label.is-revealed { clip-path: inset(0 0% 0 0); }
 
@@ -342,7 +343,8 @@
         @media (max-width: 700px) {
             .voices-atmosphere { height: 320px; }
             .voices-stage { flex: none; height: 300px; margin: 0 auto; }
-            .voices-section { padding: 16px 0 40px; }
+            .voices-section { padding: 16px 0 0; }
+            #about-section { padding: 90px 0 70px; }
             .voices-quote-wrap { width: 90%; }
             .voices-quote { font-size: clamp(16px, 4.5vw, 20px); }
             .voices-word { display: none; }
@@ -619,7 +621,7 @@
     <!-- FEATURED WORK -->
     <section class="section-block work-section">
         <div class="container">
-            <h2 class="section-heading serif">Featured Works</h2>
+            <h2 class="section-heading serif" id="featured-work-title">Featured Works</h2>
             <div class="work-mobile-feature" id="work-mobile-feature"></div>
         </div>
     </section>
@@ -639,7 +641,7 @@
     <section class="section-block voices-section async-reveal" id="testimonials-section">
         <div class="voices-atmosphere" id="voices-atmosphere"></div>
         <div class="container">
-            <h2 class="testimonials-label" style="text-align:center;">Reviews</h2>
+            <h2 class="testimonials-label" style="text-align:center;" id="reviews-title">Reviews</h2>
             <div class="voices-stage" id="voices-stage"></div>
         </div>
     </section>
@@ -647,6 +649,7 @@
     <!-- ABOUT -->
     <section class="section-block async-reveal" id="about-section">
         <div class="container">
+            <h2 class="section-heading serif" id="about-title">About the Photographer</h2>
             <div class="about-wrap">
                 <div class="about-photo"><img id="about-photo-img" src="" alt="The photographer" loading="lazy" decoding="async"></div>
                 <p class="about-bio" id="about-bio-text"></p>
@@ -664,7 +667,7 @@
          dashboard-editable. -->
     <section class="section-block experience-section">
         <div class="container">
-            <h2 class="section-heading serif">The Experience</h2>
+            <h2 class="section-heading serif" id="experience-title">The Experience</h2>
             <div class="experience-sequence" id="experience-sequence"></div>
         </div>
     </section>
@@ -767,6 +770,26 @@
     }
 
     // CTA SECTION — a single dominant "View Packages" button (the whole
+    // SECTION TITLES — every Home page heading is editable from the
+    // admin's Section Titles page (one place for all of them). Falls
+    // back to the default baked into the markup when a field is blank.
+    (function () {
+        settingsPromise.then(function (data) {
+            var s = data.settings || {};
+            var titles = {
+                'featured-work-title': [s.featured_work_title, 'Featured Works'],
+                'reviews-title': [s.reviews_title, 'Reviews'],
+                'about-title': [s.about_title, 'About the Photographer'],
+                'experience-title': [s.experience_title, 'The Experience']
+            };
+            Object.keys(titles).forEach(function (id) {
+                var el = document.getElementById(id);
+                if (!el) return;
+                el.textContent = titles[id][0] || titles[id][1];
+            });
+        });
+    })();
+
     // page is the studio home, so the visitor's already picked studio;
     // don't force them to re-choose). The wedding path stays available
     // as a tiny secondary line for anyone who came in the wrong door.
