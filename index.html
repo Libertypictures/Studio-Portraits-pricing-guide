@@ -197,7 +197,7 @@
         .work-empty { text-align: center; color: var(--text-secondary); font-size: 13.5px; padding: 40px 0; }
 
         /* SOCIAL PROOF COUNTER */
-        .social-proof { padding: 50px 0 20px; text-align: center; border-bottom: 1px solid var(--border-color); }
+        .social-proof { padding: 50px 0 20px; text-align: center; }
         .social-proof-items {
             display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
             /* Progress 0 → 1 set by JS on scroll. 1 = section settled in the
@@ -228,12 +228,30 @@
         .featured-in-logos { display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; opacity: 0.5; }
         .featured-in-logos img { height: 28px; width: auto; filter: grayscale(1); transition: filter 0.3s ease, opacity 0.3s ease; }
         .featured-in-logos img:hover { filter: grayscale(0); opacity: 1; }
-        /* FEATURED WORK spacing — hugs Social Proof above with a
-           tight top padding, and now hugs Reviews below too: the
-           Reviews section's own atmosphere-word stage (600px tall)
-           does the work of pushing the quote down and giving the
-           visitor a "breathing" scroll distance — no dead gap. */
-        .work-section { padding-top: 12px; padding-bottom: 24px; }
+        /* FEATURED WORK spacing — generous top padding so the scroll
+           from Social Proof breathes for a moment before the strip
+           appears; hugs Reviews below (that section's atmosphere
+           stage does the "breathing scroll" job in the other
+           direction). Heading sits right on top of the strip. */
+        .work-section { padding-top: 180px; padding-bottom: 24px; }
+
+        /* FEATURED WORK heading — matches the social-proof LABEL
+           voice exactly (same font, size, weight, colour), just with
+           a touch more letter-spacing to earn its role as a section
+           title. Sits close to the strip via a small margin-bottom.
+           Overrides the default .section-heading (Fraunces 18px 500)
+           only inside this section; the reveal animation still
+           applies via the base class. */
+        .work-section .section-heading {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 9.5px;
+            letter-spacing: 4.5px;
+            word-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
 
 
         /* ABOUT — centered vertical composition: photo, bio, signature.
@@ -556,7 +574,7 @@
         @media (max-width: 600px) {
             .container { padding: 0 22px; }
             .section-block { padding: 70px 0; }
-            .work-section { padding-top: 8px; padding-bottom: 16px; }
+            .work-section { padding-top: 130px; padding-bottom: 16px; }
             .lp-hero { height: 100vh; height: 100svh; }
             .section-heading { font-size: 16px; }
             .lp-hero-title { font-size: clamp(26px, 8vw, 34px); }
@@ -601,7 +619,7 @@
     <!-- FEATURED WORK -->
     <section class="section-block work-section">
         <div class="container">
-            <h2 class="section-heading serif" id="featured-work-title">Featured Works</h2>
+            <h2 class="section-heading serif">Featured Works</h2>
             <div class="work-mobile-feature" id="work-mobile-feature"></div>
         </div>
     </section>
@@ -781,11 +799,6 @@
     (function () {
         settingsPromise.then(function (data) {
             var s = data.settings || {};
-
-            // Featured Work section title — editable from the admin's
-            // Featured Work tab; falls back to the hardcoded heading.
-            var fwTitleEl = document.getElementById('featured-work-title');
-            if (fwTitleEl && s.featured_work_title) fwTitleEl.textContent = s.featured_work_title;
 
             // Section is hidden by default and only appears if at least
             // one proof_* value comes back from the backend. No labels
