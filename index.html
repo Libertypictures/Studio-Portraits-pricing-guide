@@ -208,14 +208,14 @@
         }
         .social-proof-item { text-align: center; }
         .social-proof-number {
-            font-family: 'Fraunces', serif; font-size: clamp(22px, 3vw, 32px); font-weight: 500; line-height: 1.1;
+            font-family: 'Fraunces', serif; font-size: clamp(16px, 2.2vw, 24px); font-weight: 500; line-height: 1.1;
             color: var(--text-primary);
             transform: scale(calc(0.62 + 0.28 * var(--proof-progress)));
             transform-origin: 50% 100%;
             transition: transform 0.22s cubic-bezier(0.33, 1, 0.68, 1);
             will-change: transform;
         }
-        .social-proof-label { font-size: 9.5px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--text-secondary); margin-top: 8px; font-weight: 500; }
+        .social-proof-label { font-size: 8px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--text-secondary); margin-top: 8px; font-weight: 500; }
         @media (prefers-reduced-motion: reduce) {
             .social-proof-number { transform: none; transition: none; }
         }
@@ -507,6 +507,18 @@
         /* Hover / active — brighten enough to preview */
         .work-strip-thumb:hover img { opacity: 0.62; filter: invert(1) sepia(0.4) hue-rotate(-22deg) saturate(0.5) brightness(0.92) contrast(0.96); }
         .work-strip-thumb.is-active img { opacity: 0.62; filter: invert(1) sepia(0.4) hue-rotate(-22deg) saturate(0.5) brightness(0.92) contrast(0.96); }
+        /* Landscape frames — same fix as the gallery film rail: a
+           landscape photo is rotated 90° inside its frame window
+           instead of being cropped. The box maths mirror the rail:
+           132.5% × 46.43% centred on the window, turned sideways. */
+        .work-strip-thumb.is-landscape img {
+            left: -16.25%;
+            top: 26.79%;
+            width: 132.5%;
+            height: 46.43%;
+            max-width: none;
+            transform: rotate(90deg);
+        }
         /* Active highlight sits on the FRAME WINDOW only, never on the
            outer film/sprocket columns. Colour matches the frame-number
            gold so the whole edge-marking language reads as one system. */
@@ -1107,6 +1119,21 @@
             // in either direction is instant.
             if (sample.length > 1) ensureLoaded(1);
             if (sample.length > 2) ensureLoaded(sample.length - 1);
+
+            // Landscape frames — same behaviour as the gallery film rail:
+            // check each thumbnail's real dimensions once it has loaded and
+            // rotate the landscape ones 90° inside their frame. (Covers
+            // images that load eagerly, lazily via the observer, or on tap.)
+            function orientLandscapeThumb(btn) {
+                var img = btn.querySelector('img');
+                if (!img) return;
+                var apply = function () {
+                    if (img.naturalWidth > img.naturalHeight) btn.classList.add('is-landscape');
+                };
+                if (img.complete) apply();
+                else img.addEventListener('load', apply);
+            }
+            thumbs.forEach(orientLandscapeThumb);
 
             thumbs.forEach(function (btn) {
                 btn.addEventListener('click', function () {
