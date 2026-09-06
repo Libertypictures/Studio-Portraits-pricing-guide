@@ -7,10 +7,10 @@
 <meta name="theme-color" content="#0f0c09">
 <link rel="preconnect" href="https://fonts.googleapis.com/">
 <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&family=Outfit:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&family=Outfit:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
-:root{--bg:#0f0c09;--surface:#1a1714;--surface2:#232019;--cream:#f6f1e7;--cream-soft:rgba(246,241,231,0.7);--cream-faint:rgba(246,241,231,0.4);--accent:#c4a67e;--accent-deep:#a3835c;--border:rgba(246,241,231,0.12);--gold-glow:rgba(196,166,126,0.25)}
+:root{--bg:#0f0c09;--surface:#1a1714;--surface2:#232019;--cream:#f6f1e7;--cream-soft:rgba(246,241,231,0.7);--cream-faint:rgba(246,241,231,0.4);--accent:#c4a67e;--accent-deep:#a3835c;--border:rgba(246,241,231,0.12);--gold-glow:rgba(196,166,126,0.25);--strip-surface:#38322b}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--cream);-webkit-font-smoothing:antialiased;-webkit-overflow-scrolling:touch}
 img{display:block;max-width:100%}
@@ -111,28 +111,87 @@ a{color:inherit}
 .gallery-header-name{font-size:13px}
 }
 
-/* ── LIGHTBOX ── */
+/* ── CINEMATIC VIEWER — the Featured Work film presentation fused
+   onto the gallery: a fullscreen film stage with a perforated
+   film-strip rail of every photo, numbered frames, negative-film
+   thumbnails, and star badges marking your picks on the frames. ── */
 .lightbox{position:fixed;inset:0;background:rgba(6,5,4,0.97);z-index:100;display:none;flex-direction:column}
 .lightbox.active{display:flex}
 .lb-top{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;flex-shrink:0;z-index:5}
 .lb-close{width:38px;height:38px;border-radius:50%;background:rgba(246,241,231,0.08);border:none;color:var(--cream);display:flex;align-items:center;justify-content:center}
-.lb-counter{font-size:12px;color:var(--cream-faint);letter-spacing:1px}
+.lb-counter{font-family:'Share Tech Mono','Courier New',monospace;font-size:13px;color:var(--accent);letter-spacing:2px;text-shadow:0 1px 2px rgba(0,0,0,0.8)}
+.lb-counter .lb-hint{color:var(--cream-faint);letter-spacing:1px;font-family:'Outfit',sans-serif;font-size:9.5px;text-transform:uppercase;margin-left:10px}
 .lb-star-btn{width:38px;height:38px;border-radius:50%;background:rgba(246,241,231,0.08);border:none;display:flex;align-items:center;justify-content:center;transition:background .2s ease}
 .lb-star-btn svg{width:18px;height:18px;stroke:var(--cream);fill:none;transition:all .2s ease}
 .lb-star-btn.is-active{background:rgba(196,166,126,0.25)}
 .lb-star-btn.is-active svg{fill:var(--accent);stroke:var(--accent)}
-.lb-stage{flex:1;display:flex;align-items:center;justify-content:center;position:relative;padding:0 8px;min-height:0;touch-action:pan-x}
-.lb-img-wrap{max-width:100%;max-height:100%;display:flex;align-items:center;justify-content:center}
-.lb-img-wrap img{max-width:100%;max-height:calc(100vh - 180px);max-height:calc(100dvh - 180px);object-fit:contain}
-.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(246,241,231,0.06);border:none;color:var(--cream);display:flex;align-items:center;justify-content:center;z-index:5;transition:background .2s}
-.lb-nav:hover{background:rgba(246,241,231,0.14)}
-.lb-nav.prev{left:10px}
-.lb-nav.next{right:10px}
-@media(max-width:600px){.lb-nav{width:36px;height:36px;background:rgba(246,241,231,0.04)}.lb-nav.prev{left:4px}.lb-nav.next{right:4px}}
-.lb-bottom{padding:16px 20px;flex-shrink:0;display:flex;justify-content:center;gap:10px}
-.lb-action-btn{display:flex;align-items:center;gap:8px;padding:12px 22px;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:500;color:var(--cream);background:rgba(246,241,231,0.08);border:1px solid var(--border);border-radius:24px;transition:all .25s ease}
-.lb-action-btn:hover{background:rgba(246,241,231,0.14)}
-.lb-action-btn svg{width:15px;height:15px}
+.lb-main{flex:1;display:flex;min-height:0;position:relative}
+.lb-stage{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;position:relative;padding:0 6px;min-height:0;touch-action:pan-x;overflow:hidden}
+.lb-img-wrap{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.lb-img-wrap img{max-width:100%;max-height:100%;object-fit:contain}
+
+/* FILM RAIL — vertical perforated contact sheet along the stage's
+   right edge, the same design language as the homepage viewer. */
+.lb-film{width:min(150px,23vw);flex-shrink:0;position:relative;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior-y:contain;background:var(--strip-surface);filter:drop-shadow(0 4px 10px rgba(0,0,0,0.4));-webkit-mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,0.08) 0.4%,rgba(0,0,0,0.25) 0.9%,rgba(0,0,0,0.5) 1.4%,rgba(0,0,0,0.78) 1.9%,black 2.5%,black 97.5%,rgba(0,0,0,0.78) 98.1%,rgba(0,0,0,0.5) 98.6%,rgba(0,0,0,0.25) 99.1%,rgba(0,0,0,0.08) 99.6%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,0.08) 0.4%,rgba(0,0,0,0.25) 0.9%,rgba(0,0,0,0.5) 1.4%,rgba(0,0,0,0.78) 1.9%,black 2.5%,black 97.5%,rgba(0,0,0,0.78) 98.1%,rgba(0,0,0,0.5) 98.6%,rgba(0,0,0,0.25) 99.1%,rgba(0,0,0,0.08) 99.6%,transparent 100%)}
+.lb-film::-webkit-scrollbar{display:none}
+.film-track{display:flex;flex-direction:column;position:relative;gap:0;background:none}
+.film-thumb{position:relative;width:100%;aspect-ratio:400/560;border:none;padding:0;cursor:pointer;display:block;flex-shrink:0;background-color:transparent;background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 560' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='fb' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%230a0805'/%3E%3Cstop offset='0.5' stop-color='%2316100a'/%3E%3Cstop offset='1' stop-color='%230a0805'/%3E%3C/linearGradient%3E%3ClinearGradient id='fw' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23050403'/%3E%3Cstop offset='1' stop-color='%23070604'/%3E%3C/linearGradient%3E%3Cmask id='m'%3E%3Crect x='0' y='0' width='400' height='560' fill='white'/%3E%3Crect x='16' y='40' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='120' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='200' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='280' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='360' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='440' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='16' y='520' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='40' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='120' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='200' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='280' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='360' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='440' width='22' height='16' rx='2' fill='black'/%3E%3Crect x='362' y='520' width='22' height='16' rx='2' fill='black'/%3E%3C/mask%3E%3C/defs%3E%3Crect x='0' y='0' width='400' height='560' fill='url(%23fb)' mask='url(%23m)'/%3E%3Crect x='70' y='15' width='260' height='530' fill='url(%23fw)'/%3E%3C/svg%3E");background-size:100% 100%;background-repeat:no-repeat}
+.film-thumb + .film-thumb{margin-top:-3px}
+.film-thumb img{position:absolute;left:17.5%;top:2.68%;width:65%;height:94.64%;object-fit:cover;opacity:0.92;transition:filter 0.3s ease,opacity 0.25s ease}
+.film-thumb.is-neg img{filter:invert(1) sepia(0.45) hue-rotate(-25deg) saturate(0.42) brightness(0.88) contrast(0.95);opacity:0.5}
+.film-thumb:hover img,.film-thumb.is-active img{opacity:1}
+.film-thumb.is-neg:hover img,.film-thumb.is-neg.is-active img{opacity:0.62;filter:invert(1) sepia(0.4) hue-rotate(-22deg) saturate(0.5) brightness(0.92) contrast(0.96)}
+.film-thumb.is-landscape img{left:-16.25%;top:26.79%;width:132.5%;height:46.43%;max-width:none;transform:rotate(90deg)}
+.film-thumb.is-active::after{content:'';position:absolute;pointer-events:none;left:17.5%;top:2.68%;width:65%;height:94.64%;box-shadow:inset 0 0 0 1.5px #d4a030;z-index:4}
+.film-thumb .frame-num,.film-thumb .brand-text{position:absolute;top:50%;font-family:'Share Tech Mono','Courier New',monospace;font-weight:700;color:#d4a030;text-shadow:0 1px 2px rgba(0,0,0,0.85);pointer-events:none;line-height:1;z-index:3;white-space:nowrap}
+.film-thumb .frame-num{right:11%;transform:translate(50%,-50%) rotate(-90deg);transform-origin:center;font-size:5.5px;letter-spacing:0.3px}
+.film-thumb .frame-num::before{content:'\25B6 ';opacity:0.9}
+.film-thumb .brand-text{left:13%;transform:translate(-50%,-50%) rotate(-90deg);transform-origin:center;font-size:4px;letter-spacing:1.2px;text-transform:uppercase}
+/* Gold keep-mark star on starred frames — the favourites system
+   lives right on the film. */
+.film-star{position:absolute;top:4.5%;right:18.5%;width:11%;height:11%;display:none;align-items:center;justify-content:center;z-index:5;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.9))}
+.film-thumb.is-starred .film-star{display:flex}
+.film-star svg{width:100%;height:100%;fill:var(--accent);stroke:var(--accent);stroke-width:2}
+@media(max-width:600px){.lb-counter .lb-hint{display:none}}
+/* Unified premium action bar — the "resting place" for state + actions.
+   State segment on the left (tap toggles picks-only), a hairline
+   divider, then the action buttons on the right. All inside one pill
+   container with warm dark glass, gold hairline border, soft shadow. */
+.lb-bottom{padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));flex-shrink:0;display:flex;justify-content:center;pointer-events:none}
+.lb-actionbar{pointer-events:auto;display:inline-flex;align-items:stretch;gap:0;padding:6px;background:linear-gradient(180deg,rgba(30,24,17,.92) 0%,rgba(18,14,10,.94) 100%);border:1px solid rgba(212,160,48,.22);border-radius:999px;box-shadow:0 14px 40px rgba(0,0,0,.55),0 1px 0 rgba(255,255,255,.04) inset,0 -1px 0 rgba(0,0,0,.35) inset;backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%);max-width:100%;transition:opacity .25s ease,transform .25s ease}
+.lb-actionbar.is-hidden{opacity:0;transform:translateY(6px);pointer-events:none}
+.lb-actionbar.no-state .lb-state,.lb-actionbar.no-state .lb-actionbar-sep{display:none}
+.lb-actionbar.no-actions .lb-actions,.lb-actionbar.no-actions .lb-actionbar-sep{display:none}
+/* State segment — count + view-selection hint, tap toggles picks-only */
+.lb-state{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;gap:9px;padding:0 16px 0 13px;height:36px;background:transparent;border:none;border-radius:999px;color:var(--cream);font-family:'Outfit',sans-serif;font-size:12px;letter-spacing:.3px;white-space:nowrap;cursor:pointer;transition:background .2s ease,color .2s ease;min-width:0}
+.lb-state:hover{background:rgba(196,166,126,.1)}
+.lb-state.on{background:rgba(196,166,126,.22);color:#e3b64e}
+.lb-state-dot{width:6px;height:6px;border-radius:50%;background:#e3b64e;box-shadow:0 0 8px rgba(227,182,78,.55);flex-shrink:0;transition:box-shadow .25s ease,background .25s ease}
+.lb-state.on .lb-state-dot{background:#f0c766;box-shadow:0 0 12px rgba(240,199,102,.9)}
+.lb-state-body{display:inline-flex;align-items:baseline;gap:6px;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.lb-picks-txt{font-weight:500}
+.lb-picks-hint{color:rgba(227,182,78,.78);font-weight:500;display:inline-flex;align-items:center;gap:3px}
+.lb-picks-hint::after{content:'›';font-size:14px;line-height:1;color:#e3b64e;opacity:.85;transform:translateY(-1px)}
+.lb-state.on .lb-picks-hint{display:none}
+/* Hairline divider between state and actions */
+.lb-actionbar-sep{width:1px;background:linear-gradient(180deg,transparent 0%,rgba(212,160,48,.22) 25%,rgba(212,160,48,.22) 75%,transparent 100%);flex-shrink:0;margin:0 6px;align-self:stretch}
+/* Actions cluster */
+.lb-actions{display:inline-flex;align-items:center;gap:4px}
+.lb-action-btn{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 14px;font-family:'Outfit',sans-serif;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;font-weight:600;color:var(--cream);background:transparent;border:none;border-radius:999px;cursor:pointer;transition:background .2s ease,color .2s ease,box-shadow .2s ease;white-space:nowrap}
+.lb-action-btn:hover{background:rgba(246,241,231,.08)}
+.lb-action-btn svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;flex-shrink:0}
+.lb-action-btn.is-primary{color:#0f0c09;background:linear-gradient(180deg,#e9c069 0%,#d4a648 100%);padding:0 16px;box-shadow:0 1px 0 rgba(255,235,190,.5) inset,0 -1px 0 rgba(90,60,10,.28) inset,0 2px 8px rgba(212,160,48,.35)}
+.lb-action-btn.is-primary:hover{background:linear-gradient(180deg,#f0c766 0%,#e0b552 100%);box-shadow:0 1px 0 rgba(255,240,200,.6) inset,0 -1px 0 rgba(90,60,10,.28) inset,0 4px 12px rgba(212,160,48,.45)}
+@media(max-width:600px){
+  .lb-bottom{padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px))}
+  .lb-actionbar{padding:5px}
+  .lb-state{height:34px;padding:0 12px 0 11px;font-size:10.5px;gap:7px}
+  .lb-action-btn{height:34px;padding:0 12px;font-size:9.5px;letter-spacing:1px;gap:5px}
+  .lb-action-btn.is-primary{padding:0 14px}
+  .lb-actionbar-sep{margin:0 3px}
+}
+.btn-short{display:none}
+@media(max-width:600px){.lb-action-btn .btn-long{display:none}.lb-action-btn .btn-short{display:inline}}
 
 /* ── SELECTION BAR ── */
 .dl-all-bar{text-align:center;padding:20px 20px 0;}
@@ -196,6 +255,166 @@ textarea.review-field{resize:vertical;min-height:100px;line-height:1.6}
 .review-submit:hover{background:var(--accent-deep)}
 .review-submit:disabled{opacity:0.5;cursor:wait}
 .review-thanks{display:none;font-family:'Outfit',sans-serif;font-size:20px;letter-spacing:1px;color:var(--accent)}
+/* ===== Demo chrome (two-phase prototype only — never ships to production) ===== */
+html.lp-demo .gallery-header{top:44px}
+#demo-bar{position:fixed;top:0;left:0;right:0;z-index:400;display:flex;align-items:center;gap:6px;padding:7px 10px;padding-top:calc(7px + env(safe-area-inset-top,0px));background:rgba(12,9,6,0.96);border-bottom:1px solid rgba(196,166,126,0.28);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-family:'Outfit',sans-serif;color:var(--cream);overflow-x:auto;scrollbar-width:none;white-space:nowrap}
+#demo-bar::-webkit-scrollbar{display:none}
+#demo-bar .db-brand{font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent);font-weight:700;flex-shrink:0}
+#demo-bar .db-clock{font-size:10.5px;color:var(--cream-faint);font-family:'Share Tech Mono',monospace;flex-shrink:0;padding-left:4px}
+#demo-bar .db-grow{flex:1;min-width:6px}
+.db-btn{border:1px solid rgba(196,166,126,0.35);background:rgba(196,166,126,0.1);color:var(--cream);font-family:'Outfit',sans-serif;font-size:9.5px;letter-spacing:1.1px;text-transform:uppercase;font-weight:600;padding:6px 10px;border-radius:20px;cursor:pointer;flex-shrink:0;transition:all .2s}
+.db-btn:hover{background:rgba(196,166,126,0.22)}
+.db-btn.on{background:var(--accent);border-color:var(--accent);color:#0f0c09}
+.db-btn.tiny{font-size:9px;padding:5px 8px;opacity:0.85}
+.db-btn.dim{opacity:0.45}
+#toast{position:fixed;left:50%;bottom:98px;transform:translate(-50%,12px);z-index:460;background:rgba(20,17,13,0.98);border:1px solid rgba(196,166,126,0.45);color:var(--cream);font-family:'Outfit',sans-serif;font-size:12.5px;letter-spacing:0.4px;padding:11px 20px;border-radius:30px;box-shadow:0 14px 40px rgba(0,0,0,0.5);opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;max-width:86vw;text-align:center}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+.mo{position:fixed;inset:0;z-index:380;background:rgba(5,4,3,0.72);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);display:none;align-items:center;justify-content:center;padding:22px}
+.mo.show{display:flex}
+.mo-card{max-width:400px;width:100%;background:linear-gradient(165deg,#211b13,#15110c);border:1px solid rgba(196,166,126,0.3);border-radius:18px;padding:30px 26px;text-align:center;font-family:'Outfit',sans-serif;box-shadow:0 30px 90px rgba(0,0,0,0.6);max-height:88vh;overflow-y:auto}
+.mo-card h3{font-family:'Fraunces',serif;font-weight:400;font-size:21px;color:var(--cream);margin-bottom:10px}
+.mo-card p{font-size:13px;color:var(--cream-soft);line-height:1.7;margin:0 0 16px}
+.mo-cta{display:block;width:100%;padding:14px;border:none;border-radius:10px;background:var(--accent);color:#0f0c09;font-family:'Outfit',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:1.6px;text-transform:uppercase;cursor:pointer;margin-top:6px}
+.mo-cta:hover{background:var(--accent-deep)}
+.mo-ghost{display:block;width:100%;padding:12px;border:1px solid rgba(246,241,231,0.18);border-radius:10px;background:transparent;color:var(--cream-soft);font-family:'Outfit',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;margin-top:8px}
+.mo-note{font-size:10.5px;color:var(--cream-faint);letter-spacing:0.3px}
+.pay-fields{margin:14px 0 6px;text-align:left}
+.pay-field{background:rgba(246,241,231,0.05);border:1px solid rgba(246,241,231,0.14);border-radius:9px;padding:11px 12px;font-size:12.5px;color:var(--cream);margin-bottom:8px;font-family:'Share Tech Mono',monospace;letter-spacing:0.5px;display:flex;justify-content:space-between}
+.pay-field span:first-child{color:var(--cream-faint);font-family:'Outfit',sans-serif;font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase}
+.pay-ok{color:#7fc96f}
+.pay-spinner{width:18px;height:18px;border:2px solid rgba(196,166,126,0.25);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* Studio console */
+#studio-sheet{position:fixed;inset:0;z-index:250;background:var(--bg);overflow-y:auto;padding:58px 16px 80px;padding-top:calc(58px + env(safe-area-inset-top,0px));display:none}
+#studio-sheet.show{display:block}
+.st-wrap{max-width:560px;margin:0 auto}
+.st-head{text-align:center;margin-bottom:22px}
+.st-head h2{font-family:'Fraunces',serif;font-weight:400;font-size:27px;margin:0 0 6px;color:var(--cream)}
+.st-head p{font-size:12px;color:var(--cream-faint);line-height:1.7;margin:0 auto;max-width:440px}
+.st-card{border:1px solid var(--border);border-radius:15px;background:rgba(26,23,20,0.55);padding:18px;margin-bottom:14px}
+.st-card h4{margin:0 0 12px;font-family:'Fraunces',serif;font-weight:400;font-size:16px;color:var(--cream);letter-spacing:0.2px}
+.st-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid rgba(246,241,231,0.07);flex-wrap:wrap}
+.st-row:first-of-type{border-top:none}
+.st-row .st-name{font-size:12.5px;color:var(--cream-soft);letter-spacing:0.3px;flex:1;min-width:0}
+.st-row .st-name b{color:var(--cream);font-weight:500;display:block;margin-bottom:2px}
+.st-row .st-help{display:block;font-size:11px;color:var(--cream-faint);line-height:1.5;letter-spacing:0.2px;font-weight:400}
+.st-section-title{font-family:'Outfit',sans-serif;font-size:10px;letter-spacing:2.4px;text-transform:uppercase;color:var(--accent);opacity:.85;margin:0 0 10px;font-weight:600}
+.st-cta-note{font-size:10.5px;color:var(--cream-faint);line-height:1.55;margin:8px 4px 0;text-align:center}
+.st-chip{font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;font-weight:700;padding:5px 10px;border-radius:20px;white-space:nowrap}
+.st-chip.ok{color:#9fdf9a;background:rgba(127,201,111,0.12);border:1px solid rgba(127,201,111,0.35)}
+.st-chip.warn{color:var(--accent);background:rgba(196,166,126,0.12);border:1px solid rgba(196,166,126,0.35)}
+.st-chip.mut{color:var(--cream-faint);background:rgba(246,241,231,0.05);border:1px solid rgba(246,241,231,0.12)}
+.st-chip.bad{color:#e08a80;background:rgba(224,138,128,0.1);border:1px solid rgba(224,138,128,0.32)}
+.st-sub{font-size:10.5px;color:var(--cream-faint);letter-spacing:0.4px;margin-top:3px}
+.st-thumbs{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}
+.st-thumbs img{width:34px;height:34px;object-fit:cover;border-radius:4px;border:1px solid rgba(196,166,126,0.3)}
+.st-primary{display:block;width:100%;border:none;border-radius:11px;background:var(--accent);color:#0f0c09;font-family:'Outfit',sans-serif;font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:15px;cursor:pointer;margin-top:12px}
+.st-primary:disabled{opacity:0.4;cursor:not-allowed}
+.st-ghost{display:block;width:100%;border:1px solid rgba(246,241,231,0.16);border-radius:11px;background:transparent;color:var(--cream-soft);font-family:'Outfit',sans-serif;font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;padding:12px;cursor:pointer;margin-top:8px}
+.st-fee{display:flex;align-items:center;gap:8px;background:rgba(246,241,231,0.05);border:1px solid rgba(246,241,231,0.12);border-radius:9px;padding:10px 12px;font-family:'Share Tech Mono',monospace;color:var(--cream);font-size:14px}
+.st-fee input{background:transparent;border:none;outline:none;color:var(--accent);font-family:'Share Tech Mono',monospace;font-size:14px;width:90px}
+.st-log{font-size:11px;color:var(--cream-faint);line-height:2;border-top:1px dashed rgba(246,241,231,0.12);padding-top:10px;margin-top:8px}
+.st-log b{color:var(--cream-soft);font-weight:500}
+.st-log .t{color:var(--accent);font-family:'Share Tech Mono',monospace;font-size:10px;margin-right:6px}
+/* Editing simulation overlay */
+.sim-list{text-align:left;margin:14px 0 6px}
+.sim-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:9px;font-size:12.5px;color:var(--cream-soft);border-bottom:1px solid rgba(246,241,231,0.05)}
+.sim-item .si-ico{width:16px;height:16px;flex-shrink:0}
+.sim-item.done{color:var(--cream)}
+.sim-item.done .si-ico{color:#7fc96f}
+.sim-note{font-size:10.5px;color:var(--cream-faint);line-height:1.6;margin-top:10px}
+/* finalised pick confirmation thumbs */
+.conf-thumbs{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin:16px 0}
+.conf-thumbs img{width:52px;height:52px;object-fit:cover;border-radius:6px;border:1.5px solid rgba(196,166,126,0.45)}
+.state-action-btns{display:flex;flex-direction:column;gap:10px;align-items:stretch}
+.act-gold{border:none;border-radius:12px;background:var(--accent);color:#0f0c09;font-family:'Outfit',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:2px;text-transform:uppercase;padding:15px 26px;cursor:pointer}
+.act-line{background:none;border:none;color:var(--cream-faint);font-family:'Outfit',sans-serif;font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;padding:8px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.small-svg svg{width:15px;height:15px;vertical-align:-3px;margin-right:6px}
+button.lock-cta{display:block;width:100%;border:none;cursor:pointer;font:inherit;text-align:center}
+.state-screen .lock-card .lock-cta{margin-top:4px}
+
+/* ═══ VIEWER v2 upgrades — tap-to-star bursts, favourites-inside-the-
+      viewer chip, star pop/glow. Film-strip design lives in the base
+      .film-thumb rules above and matches the live homepage sprocket:
+      mask-based perforations against --strip-surface. ═══ */
+
+/* ── Starring delights ── */
+/* keep-mark on the frame pops in */
+.film-star svg{transform-origin:center;transition:transform .3s cubic-bezier(.2,.9,.3,1.6),filter .3s}
+.film-star.pop svg{animation:starPop .5s cubic-bezier(.2,.9,.3,1.8)}
+@keyframes starPop{0%{transform:scale(.2) rotate(-40deg)}60%{transform:scale(1.45) rotate(8deg)}100%{transform:scale(1) rotate(0)}}
+.film-star svg{filter:drop-shadow(0 1px 2px rgba(0,0,0,.9)) drop-shadow(0 0 6px rgba(212,160,48,.5))}
+/* top star button bump */
+.lb-star-btn.bump{animation:starBump .45s cubic-bezier(.2,.9,.3,1.8)}
+.lb-star-btn.bump svg{animation:starBumpSvg .45s cubic-bezier(.2,.9,.3,1.8)}
+@keyframes starBump{0%{transform:scale(1)}45%{transform:scale(1.18)}100%{transform:scale(1)}}
+@keyframes starBumpSvg{0%{transform:scale(1) rotate(0)}45%{transform:scale(1.35) rotate(-14deg)}70%{transform:scale(.92) rotate(5deg)}100%{transform:scale(1) rotate(0)}}
+/* tap burst stamped where the finger lands */
+.lb-burst{position:absolute;width:0;height:0;pointer-events:none;z-index:14}
+.lb-burst .ring{position:absolute;left:-52px;top:-52px;width:104px;height:104px;border-radius:50%;border:1.5px solid rgba(227,182,78,.9);opacity:0}
+.lb-burst .ring2{position:absolute;left:-52px;top:-52px;width:104px;height:104px;border-radius:50%;border:1px solid rgba(227,182,78,.35);opacity:0}
+.lb-burst.go .ring{animation:burstRing .62s cubic-bezier(.2,.7,.3,1) forwards}
+.lb-burst.go .ring2{animation:burstRing2 .62s cubic-bezier(.2,.7,.3,1) .05s forwards}
+@keyframes burstRing{0%{transform:scale(.25);opacity:1}100%{transform:scale(1.55);opacity:0}}
+@keyframes burstRing2{0%{transform:scale(.15);opacity:1}100%{transform:scale(2.05);opacity:0}}
+.lb-burst .st{position:absolute;left:-26px;top:-26px;width:52px;height:52px;opacity:0}
+.lb-burst.go .st{animation:burstStar .5s cubic-bezier(.2,.9,.3,1.7) forwards}
+@keyframes burstStar{0%{transform:scale(.15) rotate(-50deg);opacity:0}45%{transform:scale(1.3) rotate(12deg);opacity:1}100%{transform:scale(.95) rotate(0);opacity:0}}
+.lb-burst .spk{position:absolute;width:7px;height:7px;border-radius:50%;opacity:0}
+.lb-burst.go .spk{animation:spark .55s ease-out forwards}
+@keyframes spark{0%{opacity:1;transform:translate(0,0) scale(.4)}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(1.1)}}
+/* floating feedback pill under the stage */
+.lb-feedback{position:absolute;left:50%;bottom:34px;transform:translate(-50%,14px);z-index:15;pointer-events:none;background:rgba(18,14,9,.92);border:1px solid rgba(212,160,48,.55);color:#f3e3c0;font-family:'Outfit',sans-serif;font-size:12.5px;letter-spacing:.5px;padding:10px 18px;border-radius:30px;opacity:0;transition:opacity .22s ease,transform .22s cubic-bezier(.2,.9,.3,1.2);box-shadow:0 12px 30px rgba(0,0,0,.5);white-space:nowrap}
+.lb-feedback.show{opacity:1;transform:translate(-50%,0)}
+.lb-feedback b{color:#e3b64e;font-weight:600}
+/* ── 3. Favourites inside the viewer — the count chip is now a toggle ── */
+/* Chip pulse still used when a star is added */
+.lb-state.pulse{animation:chipPulse .5s ease}
+@keyframes chipPulse{0%{transform:scale(1)}40%{transform:scale(1.08)}100%{transform:scale(1)}}
+@media(max-width:340px){.lb-picks-hint{display:none}}
+
+/* ── 4. Grid tiles: star affordance visible on touch devices ── */
+@media (hover:none),(pointer:coarse){
+  .g-tile-star{opacity:.85;width:34px;height:34px;background:rgba(12,9,6,.55)}
+  .g-tile.is-starred .g-tile-star{background:rgba(196,166,126,.45)}
+}
+
+/* ── 5. In-viewer guide: comprehensive walk-through of the system ── */
+.lb-guide{position:absolute;inset:0;z-index:60;display:none;align-items:center;justify-content:center;padding:16px;background:radial-gradient(140% 120% at 50% 40%,rgba(8,6,4,.55) 0%,rgba(8,6,4,.86) 100%);backdrop-filter:blur(6px) saturate(140%);-webkit-backdrop-filter:blur(6px) saturate(140%);opacity:0;transition:opacity .28s ease}
+.lb-guide.open{display:flex;opacity:1}
+.lg-card{position:relative;width:100%;max-width:420px;max-height:calc(100vh - 32px);overflow-y:auto;background:linear-gradient(180deg,rgba(24,18,12,.98) 0%,rgba(16,12,8,.98) 100%);border:1px solid rgba(212,160,48,.32);box-shadow:0 24px 60px rgba(0,0,0,.65),0 0 0 1px rgba(227,182,78,.08);border-radius:16px;padding:20px 20px 16px;color:var(--cream);-webkit-overflow-scrolling:touch}
+.lg-card::-webkit-scrollbar{width:6px}
+.lg-card::-webkit-scrollbar-thumb{background:rgba(227,182,78,.28);border-radius:3px}
+.lg-close{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;background:rgba(246,241,231,.08);border:none;color:var(--cream-soft);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s ease}
+.lg-close:hover{background:rgba(246,241,231,.16);color:var(--cream)}
+.lg-close svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.lg-kicker{font-family:'Outfit',sans-serif;font-size:9px;letter-spacing:2.6px;text-transform:uppercase;color:#e3b64e;opacity:.85;margin-bottom:4px}
+.lg-title{font-family:'Fraunces','Playfair Display',serif;font-weight:500;font-size:19px;line-height:1.2;letter-spacing:.2px;color:var(--cream);margin:0 0 12px}
+.lg-steps-list{display:flex;flex-direction:column;gap:10px;margin:0 0 12px}
+.lg-step{display:flex;gap:10px;align-items:flex-start}
+.lg-step-ico{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:rgba(196,166,126,.14);border:1px solid rgba(212,160,48,.3);display:flex;align-items:center;justify-content:center;color:#e3b64e;margin-top:1px}
+.lg-step-ico svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lg-step-ico.filled svg{fill:currentColor;stroke:currentColor}
+.lg-step-body{flex:1;min-width:0}
+.lg-step-title{font-family:'Outfit',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.2px;color:var(--cream);margin:0 0 1px}
+.lg-step-txt{font-family:'Outfit',sans-serif;font-size:11.5px;line-height:1.45;color:var(--cream-soft);margin:0}
+.lg-step-txt b{color:#e3b64e;font-weight:600}
+.lg-note{display:flex;gap:8px;align-items:flex-start;padding:8px 10px;border-radius:8px;background:rgba(196,166,126,.06);border:1px solid rgba(212,160,48,.16);margin:0 0 12px}
+.lg-note svg{flex-shrink:0;width:12px;height:12px;margin-top:1px;fill:none;stroke:#e3b64e;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lg-note p{font-family:'Outfit',sans-serif;font-size:10.5px;line-height:1.45;color:var(--cream-faint);margin:0}
+.lg-note p b{color:var(--cream-soft);font-weight:600}
+.lg-cta{display:block;width:100%;padding:11px 18px;background:#e3b64e;color:#0f0c09;border:none;border-radius:26px;font-family:'Outfit',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:1.8px;text-transform:uppercase;cursor:pointer;transition:background .2s ease}
+.lg-cta:hover{background:#f0c766}
+/* Help button in the viewer top bar */
+.lb-help-btn{width:32px;height:32px;border-radius:50%;background:rgba(246,241,231,.06);border:1px solid rgba(246,241,231,.12);color:var(--cream-soft);display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;transition:all .2s ease;margin-left:8px}
+.lb-help-btn:hover{background:rgba(227,182,78,.16);color:#e3b64e;border-color:rgba(212,160,48,.4)}
+@media(max-width:600px){
+  .lg-card{padding:18px 16px 14px;max-height:calc(100vh - 20px);border-radius:14px}
+  .lg-title{font-size:17px;margin-bottom:10px}
+  .lg-steps-list{gap:9px;margin-bottom:10px}
+  .lg-note{padding:7px 9px;margin-bottom:10px}
+  .lb-help-btn{width:30px;height:30px;font-size:12px;margin-left:6px}
+}
 </style>
 </head>
 <body>
@@ -209,7 +428,7 @@ textarea.review-field{resize:vertical;min-height:100px;line-height:1.6}
         <h2 style="font-family:'Outfit',sans-serif;font-weight:600;font-size:16px;letter-spacing:3px;text-transform:uppercase;margin-bottom:28px;color:var(--cream);">Quick Guide</h2>
         <div class="intro-step">
             <div class="intro-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-            <p><strong>Scroll to browse</strong> your photos. Tap any photo to view it full screen, then swipe left or right to go through them.</p>
+            <p><strong>Scroll to browse</strong> your photos. Tap any photo to open the <strong>film viewer</strong> — swipe left or right, or tap a frame on the film strip to jump around.</p>
         </div>
         <div class="intro-step">
             <div class="intro-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
@@ -316,20 +535,56 @@ textarea.review-field{resize:vertical;min-height:100px;line-height:1.6}
     </div>
 </div>
 
-<!-- LIGHTBOX — star only, no 5-star rating -->
+<!-- CINEMATIC VIEWER — Featured Work film stage + favourites on the film -->
 <div class="lightbox" id="lightbox">
     <div class="lb-top">
         <button class="lb-close" id="lb-close-btn" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
         <span class="lb-counter" id="lb-counter"></span>
-        <button class="lb-star-btn" id="lb-star-btn" aria-label="Star this photo"><svg viewBox="0 0 24 24" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+        <span style="display:inline-flex;align-items:center">
+            <button class="lb-help-btn" id="lb-help-btn" aria-label="How this gallery works" title="How this gallery works">?</button>
+            <button class="lb-star-btn" id="lb-star-btn" aria-label="Star this photo"><svg viewBox="0 0 24 24" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+        </span>
     </div>
-    <div class="lb-stage" id="lb-stage">
-        <button class="lb-nav prev" id="lb-prev" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-        <div class="lb-img-wrap"><img src="" id="lb-img" alt=""></div>
-        <button class="lb-nav next" id="lb-next" aria-label="Next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+    <div class="lb-main">
+        <div class="lb-stage" id="lb-stage">
+            <div class="lb-img-wrap"><img src="" id="lb-img" alt=""></div>
+            <div class="lb-burst" id="lb-burst"></div>
+            <div class="lb-feedback" id="lb-feedback"></div>
+        </div>
+        <div class="lb-film" id="lb-film"><div class="film-track" id="film-track"></div></div>
     </div>
     <div class="lb-bottom">
-        <button class="lb-action-btn" id="lb-save-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Save Photo</button>
+        <div class="lb-actionbar" id="lb-actionbar">
+            <button type="button" class="lb-state" id="lb-picks" aria-label="Your picks">
+                <span class="lb-state-dot"></span>
+                <span class="lb-state-body">
+                    <span class="lb-picks-txt" id="lb-picks-txt">You’ve picked 0 photos</span>
+                    <span class="lb-picks-hint" id="lb-picks-hint"></span>
+                </span>
+            </button>
+            <span class="lb-actionbar-sep" aria-hidden="true"></span>
+            <div class="lb-actions">
+                <button class="lb-action-btn" id="lb-save-btn" style="display:none;" aria-label="Save this photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span class="btn-long">Save photo</span><span class="btn-short">Save</span></button>
+                <button class="lb-action-btn is-primary" id="lb-save-all-btn" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span class="btn-long">Download my picks</span><span class="btn-short">Download all</span></button>
+                <button class="lb-action-btn is-primary" id="lb-finalise-btn" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span class="btn-long">Finalise my selection</span><span class="btn-short">Finalise</span></button>
+            </div>
+        </div>
+    </div>
+    <!-- In-viewer guide: comprehensive walk-through, adapts to proof/delivery mode -->
+    <div class="lb-guide" id="lb-guide" role="dialog" aria-modal="true" aria-labelledby="lg-title">
+        <div class="lg-card" id="lg-card">
+            <button type="button" class="lg-close" id="lg-close" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+            <div class="lg-kicker" id="lg-kicker">Your gallery</div>
+            <h2 class="lg-title" id="lg-title">How this gallery works</h2>
+            <div class="lg-steps-list" id="lg-steps-list">
+                <!-- Populated by fillLbGuide() -->
+            </div>
+            <div class="lg-note" id="lg-note">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <p id="lg-note-txt">Your gallery is open for a set number of days. If you need more time after it closes, you can extend it with a small fee — nothing is deleted.</p>
+            </div>
+            <button type="button" class="lg-cta" id="lg-cta">Start</button>
+        </div>
     </div>
 </div>
 
@@ -344,349 +599,901 @@ textarea.review-field{resize:vertical;min-height:100px;line-height:1.6}
 </div>
 
 <script>
+/* ============================================================================
+   LIBERTYPICTURES — CLIENT GALLERY (production, two-phase)
+   Proof → Picks → Finals.
+   One URL per gallery (?t=<token>). The worker decides the phase and state:
+     - proof, active, not finalised  → browse + star picks, Finalise locks them
+     - proof, finalised              → “picks locked in” screen
+     - delivery, unpublished         → “finals being edited” screen
+     - delivery, published           → view finals, keep + download
+     - locked (409)                  → pay-to-reopen wall (secure pay page)
+     - expired (410)                 → window ended
+   All photo URLs returned by the API are /api/images/... paths on the worker,
+   so every fetch/display prepends API.
+   ============================================================================ */
+'use strict';
+
 var API = 'https://liberty-booking-api.visualsliberty.workers.dev';
 var params = new URLSearchParams(window.location.search);
 var token = params.get('t');
-var gallery = null;
-var photos = [];
-var currentLbIdx = 0;
-var starred = {}; // photoId -> true/false
 
+var gallery = null;      // server row (phase, status, expiresAt, photos…)
+var photos = [];         // photos shown on the grid / in the viewer
+var view = 'proof';      // 'proof' | 'delivery' — set from server phase
+var starred = {};        // photoId -> true/false (picks in proof, keeps in delivery)
+var currentLbIdx = 0;
+var showingFavs = false;
+var gate = '';           // current rendered screen ('open'|'finalised'|'notready'|'lock')
+var lockedInfo = null;   // 409 payload when locked
+
+var LS_GUIDE_PROOF = 'lp-guide-proof';
+var LS_GUIDE_DELIV = 'lp-guide-deliv';
+var BRAND_PATTERN = [null, 'LIBERTY PORTRA', null, 'LIBERTYPICTURES', null, null, 'LIBERTY PORTRA', null, 'LIBERTYPICTURES', null, 'LIBERTY PORTRA', null];
+
+/* Settings used by banners + lock wall (fee in naira) */
+var G = { fee: 9000, extDays: 14, graceDays: 1, studio: 'Libertypictures', waNum: '', logoUrl: '' };
+
+/* ---------- tiny helpers ---------- */
 function $(id) { return document.getElementById(id); }
-function escHtml(s) { var d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
-function safeFilename(name, mimeType) {
-    if (/\.(jpe?g|png|webp)$/i.test(name)) return name;
-    return name + (mimeType && mimeType.includes('png') ? '.png' : '.jpg');
-}
+function escHtml(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; }
 function starSvg(filled) {
     return '<svg viewBox="0 0 24 24" fill="' + (filled ? 'var(--accent)' : 'none') + '" stroke="' + (filled ? 'var(--accent)' : 'var(--cream)') + '" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>';
 }
+function safeFilename(name, mimeType) {
+    if (/\.(jpe?g|png|webp)$/i.test(name)) return name;
+    return name + (mimeType && mimeType.indexOf('png') !== -1 ? '.png' : '.jpg');
+}
+function pUrl(p) { return API + (p.url || ''); }
+function pThumb(p) { return API + (p.thumbUrl || p.url || ''); }
+function toast(msg) {
+    var t = $('toast');
+    if (!t) return;
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(t._h); t._h = setTimeout(function () { t.classList.remove('show'); }, 3200);
+}
+function pickCount() { return Object.keys(starred).filter(function (k) { return starred[k]; }).length; }
+function pickedPhotos() { return photos.filter(function (p) { return starred[p.id]; }); }
+function isDeliv() { return view === 'delivery'; }
+function verb() { return isDeliv() ? 'kept' : 'picked'; }
+function noun() { return isDeliv() ? 'keeps' : 'picks'; }
 
-/* ── LOAD ── */
+function daysUntil(ts) {
+    var end = new Date(String(ts).replace(' ', 'T'));
+    if (isNaN(end.getTime())) return null;
+    return Math.max(0, Math.ceil((end.getTime() - Date.now()) / 86400000));
+}
+
+/* ---------- toast element ---------- */
+(function () {
+    if ($('toast')) return;
+    var t = document.createElement('div'); t.id = 'toast'; document.body.appendChild(t);
+})();
+
+/* ===================== LOAD ===================== */
 if (!token) {
     showState('Invalid Link', 'This gallery link is missing information. Please check the link your photographer sent you.');
 } else {
+    loadGallery();
+}
+
+function loadGallery() {
     fetch(API + '/api/gallery/' + encodeURIComponent(token))
         .then(function (r) {
-            if (r.status === 410) return r.json().then(function (d) { throw { expired: true, clientName: d.clientName }; });
             if (r.status === 409) return r.json().then(function (d) { throw { locked: true, info: d }; });
+            if (r.status === 410) return r.json().then(function (d) { throw { expired: true, clientName: d.clientName }; });
             if (!r.ok) throw new Error('not found');
             return r.json();
         })
         .then(function (data) {
             gallery = data;
+            view = (data.phase === 'delivery') ? 'delivery' : 'proof';
             photos = data.photos || [];
-            photos.forEach(function (p) { starred[p.id] = p.isStarred || false; });
-            initPage();
-            $('loader').classList.add('hidden');
-            showGuide();
+            starred = {};
+            photos.forEach(function (p) { starred[p.id] = !!p.isStarred; });
+            // Surface the extension fee for banners (proof/delivery settings may lag behind
+            // the locked payload; the locked wall always uses the authoritative 409 values).
+            fetchSettings();
+            hideLoader();
+            renderNow();
         })
         .catch(function (err) {
-            $('loader').classList.add('hidden');
+            hideLoader();
             if (err && err.expired) {
-                showState('Gallery Expired', (err.clientName ? err.clientName + ', your' : 'Your') + ' gallery\u2019s viewing window has ended. Please reach out to your photographer if you need anything.');
+                showState('Gallery Expired', (err.clientName ? escHtml(err.clientName) + ', your' : 'Your') + ' gallery\u2019s viewing window has ended. Please reach out to your photographer if you need anything.');
             } else if (err && err.locked) {
-                showLockedWall(err.info || {});
+                lockedInfo = err.info || {};
+                gate = 'lock';
+                renderLockWall(lockedInfo);
             } else {
                 showState('Gallery Not Found', 'This link may be incorrect or no longer active. Please check with your photographer.');
             }
         });
 }
 
-function showState(title, msg, actionHtml) {
-    $('state-title').textContent = title;
-    $('state-message').textContent = msg;
-    var act = $('state-action');
-    if (act) act.innerHTML = actionHtml || '';
-    $('state-screen').style.display = 'flex';
-}
-
-/* ── LOCKED WALL — the conversion moment, kept soft and warm ── */
-function showLockedWall(d) {
-    var fee = d.fee || 9000;
-    var days = d.extensionDays || 14;
-    var graceDays = d.graceDays || 1;
-    var graceMs = graceDays * 86400000;
-    // The date the window actually closed is the gallery's real expiry (expires_at),
-    // not when the sweep happened to run (locked_at). The grace countdown for final
-    // deletion, however, starts from locked_at — that is when the sweep will delete it.
-    var closeAt = d.closedAt || d.lockedAt || null;
-    var closeTs = closeAt ? new Date(String(closeAt).replace(' ', 'T')) : null;
-    var closedText = closeTs && !isNaN(closeTs.getTime())
-        ? closeTs.toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })
-        : 'recently';
-    var lockAt = d.lockedAt || d.closedAt || null;
-    var lockTs = lockAt ? new Date(String(lockAt).replace(' ', 'T')) : null;
-    var deleted = lockTs && !isNaN(lockTs.getTime())
-        ? new Date(lockTs.getTime() + graceMs).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })
-        : 'soon';
-    var payUrl = 'pay/index.html?type=gallery&amount=' + fee + '&gallery=' + encodeURIComponent(token) + '&name=' + encodeURIComponent(d.clientName || '') + '&days=' + days + '&return=' + encodeURIComponent(window.location.href);
-    var scr = $('state-screen');
-    scr.classList.add('lock-mode');
-    scr.style.display = 'flex';
-    scr.innerHTML = '' +
-        '<div class="lock-wrap">' +
-            '<div class="lock-bg" id="lock-bg"></div>' +
-            '<div class="lock-scrim"></div>' +
-            '<div class="lock-card">' +
-                '<div class="lock-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>' +
-                '<h1>' + (d.clientName ? escHtml(d.clientName) + ', your' : 'Your') + ' gallery\u2019s viewing window has ended.</h1>' +
-                '<p class="lock-lead">The window ended on <strong>' + closedText + '</strong>. Your photos and every pick you made are safe \u2014 nothing has been removed.</p>' +
-                '<div class="lock-perks">' +
-                    '<div class="lock-perk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Instant access \u2014 reopens the moment payment clears</span></div>' +
-                    '<div class="lock-perk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Your selections are preserved</span></div>' +
-                    '<div class="lock-perk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>' + days + ' more days to view, download and share</span></div>' +
-                '</div>' +
-                '<div class="lock-price"><span>once \u00b7 reopens for ' + days + ' more day' + (days === 1 ? '' : 's') + '</span></div>' +
-                '<a class="lock-cta" href="' + payUrl + '">Pay &#8358;' + fee.toLocaleString() + ' to extend</a>' +
-                '<p class="lock-urgency">If not extended, this gallery will be permanently removed on <strong>' + deleted + '</strong>.</p>' +
-                '<p class="lock-help">Questions? <a href="#" id="lock-wa">Message us on WhatsApp</a></p>' +
-                '<p class="lock-secure">Secure payment \u00b7 Card or transfer</p>' +
-            '</div>' +
-        '</div>';
-
-    if (d.coverUrl) {
-        var bg = $('lock-bg');
-        var img = new Image();
-        img.onload = function () { bg.style.backgroundImage = 'url(' + API + d.coverUrl + ')'; };
-        img.src = API + d.coverUrl;
-    }
-
-    // Studio name + WhatsApp link from backend settings
-    fetch(API + '/api/settings').then(function (r) { return r.json(); }).then(function (res) {
-        var s = res.settings || {};
-        var num = (s.whatsapp_number || '').replace(/[^0-9]/g, '');
-        var studio = s.studio_name || 'Libertypictures';
-        var wa = $('lock-wa');
-        if (wa) wa.textContent = 'Message ' + studio + ' on WhatsApp';
-        if (wa && num) wa.href = 'https://wa.me/' + num + '?text=' + encodeURIComponent('Hi ' + studio + '! My gallery is locked and I have a question.');
-    }).catch(function () {});
-}
-
-/* ── SOFT PRE-EXPIRY BANNER — last 3 days, dismissible per session ── */
-function showExpiryBanner(daysLeft, fee, extDays) {
-    var banner = $('expiry-banner');
-    if (!banner) return;
-    if (daysLeft > 3) return;
-    if (sessionStorage.getItem('lp-ban-dismiss-' + token)) return;
-    var when = daysLeft <= 0 ? 'today only' : (daysLeft === 1 ? '1 more day' : daysLeft + ' more days');
-    var end = new Date(String(gallery.expiresAt).replace(' ', 'T'));
-    var endText = !isNaN(end.getTime()) ? end.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' }) : '';
-    $('expiry-banner-text').innerHTML = '<strong>Available for ' + when + (endText ? ' \u00b7 ends ' + endText : '') + '.</strong> Keep your gallery open for ' + extDays + ' more day' + (extDays === 1 ? '' : 's') + ' with one small payment.';
-    var payUrl = 'pay/index.html?type=gallery&amount=' + fee + '&gallery=' + encodeURIComponent(token) + '&name=' + encodeURIComponent(gallery.clientName || '') + '&days=' + extDays + '&return=' + encodeURIComponent(window.location.href);
-    $('expiry-banner-btn').onclick = function () { window.location.href = payUrl; };
-    $('expiry-banner-close').onclick = function () { banner.style.display = 'none'; sessionStorage.setItem('lp-ban-dismiss-' + token, '1'); };
-    banner.style.display = 'block';
-}
-
-/* ── GUIDE — first visit only ── */
-function showGuide() {
-    var sheet = $('welcome-sheet');
-    if (!sheet) return;
-    sheet.style.display = 'flex';
-    $('welcome-dismiss-btn').addEventListener('click', function () {
-        sheet.style.display = 'none';
-    });
-}
-
-/* ── INIT PAGE — cover + gallery as continuous scroll ── */
-function initPage() {
-    $('page-wrap').style.display = 'block';
-    document.title = (gallery.eventTitle || gallery.clientName) + ' | Libertypictures';
-
-    // Cover
-    $('cover-eyebrow').textContent = gallery.clientName;
-    $('cover-name').textContent = gallery.eventTitle || gallery.clientName;
-
-    if (gallery.eventDate) {
-        var d = new Date(gallery.eventDate + 'T00:00:00');
-        $('cover-date').textContent = d.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
-    }
-
-    if (gallery.coverUrl) {
-        var bg = $('cover-bg');
-        var img = new Image();
-        img.onload = function () {
-            bg.style.backgroundImage = 'url(' + API + gallery.coverUrl + ')';
-            bg.classList.add('loaded');
-        };
-        img.src = API + gallery.coverUrl;
-    }
-
-    var daysLeft = Math.max(0, Math.ceil((new Date(gallery.expiresAt) - new Date()) / 86400000));
-    $('cover-expiry').textContent = daysLeft <= 0 ? 'Expires today' : 'Available for ' + daysLeft + ' more day' + (daysLeft === 1 ? '' : 's');
-    var guideExpiry = $('guide-expiry-text');
-    if (guideExpiry) guideExpiry.innerHTML = '<strong>This gallery expires in ' + daysLeft + ' day' + (daysLeft === 1 ? '' : 's') + '.</strong> Make sure to save your favourites before then.';
-
-    // Logo + extension fee (for the soft expiry banner)
+function fetchSettings() {
     fetch(API + '/api/settings').then(function (r) { return r.json(); }).then(function (d) {
-        var s = d.settings || {};
-        if (s.logo_url) { var logo = $('cover-logo'); logo.src = API + s.logo_url; logo.style.display = 'block'; }
-        var fee = parseInt(s.gallery_extension_fee, 10) || 9000;
-        var extDays = parseInt(s.gallery_extension_days, 10) || 14;
-        showExpiryBanner(daysLeft, fee, extDays);
+        var s = (d && d.settings) || {};
+        G.studio = s.studio_name || 'Libertypictures';
+        G.waNum = String(s.whatsapp_number || '').replace(/[^0-9]/g, '');
+        G.logoUrl = s.logo_url || '';
+        var f = parseInt(s.gallery_extension_fee, 10);
+        if (f >= 0) G.fee = f;
+        var e = parseInt(s.gallery_extension_days, 10);
+        if (e > 0) G.extDays = e;
+        if (gallery && $('page-wrap').style.display === 'block') {
+            paintExpiry();
+            var logo = $('cover-logo');
+            if (G.logoUrl && logo) { logo.src = API + G.logoUrl; logo.style.display = 'block'; }
+        }
     }).catch(function () {});
-
-    // Header
-    $('header-name').textContent = gallery.eventTitle || gallery.clientName;
-    $('header-expiry').textContent = daysLeft <= 0 ? 'Expires today' : daysLeft + ' day' + (daysLeft === 1 ? '' : 's') + ' remaining';
-
-    // Grid
-    renderGrid();
 }
 
-/* ── GRID ── */
+/* ---------- shared state screens ---------- */
+function hideLoader() {
+    var ldr = $('loader');
+    if (ldr) { ldr.classList.add('hidden'); ldr.style.display = 'none'; }
+}
+function showState(title, msg, actionHtml) {
+    hideLoader();
+    var sc = $('state-screen');
+    sc.classList.remove('lock-mode');
+    sc.style.display = 'flex';
+    sc.innerHTML = '<div style="max-width:440px;text-align:center;padding:10px">' +
+        '<h1 class="serif" style="font-size:25px;line-height:1.4;margin-bottom:10px">' + escHtml(title) + '</h1>' +
+        '<p style="font-size:13px;color:var(--cream-soft);line-height:1.8">' + msg + '</p>' +
+        (actionHtml ? '<div style="margin-top:26px">' + actionHtml + '</div>' : '') +
+    '</div>';
+}
+
+function renderNow() {
+    hideLoader();
+    var page = $('page-wrap'), state = $('state-screen');
+    $('welcome-sheet').style.display = 'none';
+    $('expiry-banner').style.display = 'none';
+    $('selection-bar').classList.remove('visible');
+    $('finished-prompt').style.display = 'none';
+    state.classList.remove('lock-mode');
+
+    if (gate === 'lock') { renderLockWall(lockedInfo); return; }
+    if (view === 'delivery') {
+        if (!gallery.deliveredAt || !photos.length) { gate = 'notready'; renderNotReady(); return; }
+        gate = 'open'; renderOpenGallery();
+        return;
+    }
+    if (gallery.finalisedAt) { gate = 'finalised'; renderFinalised(); return; }
+    gate = 'open'; renderOpenGallery();
+}
+
+/* ===================== OPEN GALLERY (proof browse or delivery finals) ===================== */
+function renderOpenGallery() {
+    var isDeliv = isDeliv();
+    document.title = (gallery.eventTitle || gallery.clientName) + (isDeliv ? ' \u2014 Your Finals' : '') + ' | Libertypictures';
+    var pw = $('page-wrap'); pw.style.display = 'block';
+    window.scrollTo(0, 0);
+
+    $('cover-eyebrow').textContent = gallery.clientName || 'Your gallery';
+    $('cover-name').textContent = (gallery.eventTitle || gallery.clientName) + (isDeliv ? ' \u2014 Your Finals' : '');
+    if (gallery.eventDate) {
+        var d = new Date(String(gallery.eventDate).slice(0, 10) + 'T00:00:00');
+        if (!isNaN(d.getTime())) {
+            $('cover-date').textContent = d.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }) + (isDeliv ? ' \u00b7 delivered by ' + G.studio : '');
+        }
+    }
+    var bg = $('cover-bg');
+    bg.classList.remove('loaded');
+    if (gallery.coverUrl) {
+        var img = new Image();
+        img.onload = function () { bg.style.backgroundImage = 'url(' + API + gallery.coverUrl + ')'; bg.classList.add('loaded'); };
+        img.src = API + gallery.coverUrl;
+    } else { bg.classList.add('no-photo'); }
+    if (G.logoUrl) { var lg = $('cover-logo'); lg.src = API + G.logoUrl; lg.style.display = 'block'; }
+
+    $('header-name').textContent = (gallery.eventTitle || gallery.clientName) + (isDeliv ? ' \u2014 Finals' : '');
+
+    // first-open per-mode guide copy (welcome sheet) — proof: how to pick, delivery: how to download
+    var guide = $('welcome-sheet');
+    var steps = guide.querySelectorAll('.intro-step');
+    if (steps.length) {
+        if (isDeliv) {
+            steps[0].querySelector('p').innerHTML = '<strong>These are your edited finals</strong> \u2014 every photo you picked, delivered. Tap any photo for the film viewer, or download straight from the grid.';
+            steps[1].querySelector('p').innerHTML = '<strong>Tap the \u2605 star to keep</strong> a photo for downloading later \u2014 your keeps fill the bottom bar.';
+            steps[2].querySelector('p').innerHTML = '<strong>Download your kept finals at once</strong> \u2014 share them to your Photos or save as a zip.';
+        } else {
+            steps[0].querySelector('p').innerHTML = '<strong>Scroll to browse</strong> your proofs. Tap any photo to open the <strong>film viewer</strong> \u2014 swipe, or tap a frame on the film strip.';
+            steps[1].querySelector('p').innerHTML = '<strong>Tap the \u2605 star to pick</strong> the photos you want Liberty to edit. A \u201cMy Picks\u201d button appears at the top to review them.';
+            steps[2].querySelector('p').innerHTML = '<strong>When you\u2019re happy, finalise your selection</strong> \u2014 it locks your pick list and sends it to Liberty. Your edited finals arrive in a separate delivery link.';
+        }
+        var gi = guide.querySelector('#guide-expiry-text');
+        var left = daysUntil(gallery.expiresAt);
+        if (gi) gi.innerHTML = isDeliv
+            ? '<strong>Your finals stay available for a limited time.</strong> Download before the window ends \u2014 you can always reopen it with one small payment.'
+            : (left === null
+                ? '<strong>Your gallery is available for a limited time.</strong> Make your picks before the window ends.'
+                : '<strong>You have ' + left + ' day' + (left === 1 ? '' : 's') + ' to pick.</strong> If time runs out, your current stars are locked in automatically.');
+    }
+    var firstKey = isDeliv ? LS_GUIDE_DELIV : LS_GUIDE_PROOF;
+    var isFirst = false;
+    try { isFirst = !sessionStorage.getItem(firstKey); sessionStorage.setItem(firstKey, '1'); } catch (e) {}
+    if (isFirst) { guide.style.display = 'flex'; }
+    $('welcome-dismiss-btn').onclick = function () { guide.style.display = 'none'; };
+
+    // favourites toggle
+    var favs = $('favs-toggle-btn');
+    favs.style.display = 'none';
+    showingFavs = false;
+    favs.textContent = isDeliv ? '\u2605 My Keeps' : '\u2605 My Picks';
+    favs.style.background = 'rgba(196,166,126,0.12)';
+    favs.onclick = function () {
+        showingFavs = !showingFavs;
+        favs.textContent = showingFavs ? 'Show All' : (isDeliv ? '\u2605 My Keeps' : '\u2605 My Picks');
+        favs.style.background = showingFavs ? 'rgba(196,166,126,0.3)' : 'rgba(196,166,126,0.12)';
+        document.querySelectorAll('.g-tile').forEach(function (tile) {
+            var id = Number(tile.dataset.id);
+            tile.style.display = (showingFavs && !starred[id]) ? 'none' : '';
+        });
+        if (showingFavs) window.scrollTo({ top: $('gallery-header').offsetTop, behavior: 'smooth' });
+    };
+
+    // finished prompt — proof only, once they have picks (tap = finalise)
+    var fp = $('finished-prompt');
+    fp.style.display = (!isDeliv && pickCount() > 0) ? 'block' : 'none';
+    fp.querySelector('p').textContent = 'Happy with your picks?';
+    var fb = $('finished-btn');
+    fb.textContent = 'Finalise my selection';
+    fb.style.display = '';
+    fb.disabled = false;
+    fb.onclick = function () { startFinalise(); };
+    $('finished-done').style.display = 'none';
+
+    // review only on delivery
+    $('review-section').style.display = isDeliv ? '' : 'none';
+
+    // download-all bar only on delivery
+    var dlBar = $('dl-all-bar');
+    dlBar.style.display = (isDeliv && photos.length >= 3) ? 'block' : 'none';
+    dlBar.querySelector('.dl-all-btn').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download All Finals';
+
+    renderGrid();
+    updateBarAndPrompt();
+    paintExpiry();
+    prewarmLb();
+}
+
+/* ===================== GRID ===================== */
 function renderGrid() {
     var grid = $('gallery-grid');
-    if (!photos.length) { grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--cream-faint);padding:60px 20px;font-size:13px;">No photos in this gallery yet.</p>'; return; }
+    if (!photos.length) {
+        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--cream-faint);padding:60px 20px;font-size:13px;">No photos in this gallery yet.</p>';
+        return;
+    }
     grid.innerHTML = photos.map(function (p, i) {
         var cls = 'g-tile ' + (p.orientation || 'portrait') + (starred[p.id] ? ' is-starred' : '');
         return '<div class="' + cls + '" data-index="' + i + '" data-id="' + p.id + '">' +
-            '<img src="' + API + (p.thumbUrl || p.url) + '" alt="" loading="lazy">' +
-            '<button class="g-tile-star" data-star-id="' + p.id + '" aria-label="Star">' + starSvg(starred[p.id]) + '</button>' +
+            '<img src="' + pThumb(p) + '" alt="" loading="lazy">' +
+            '<button class="g-tile-star" data-star-id="' + p.id + '" aria-label="Star">' + starSvg(!!starred[p.id]) + '</button>' +
         '</div>';
     }).join('');
-
-    updateSelectionBar();
-    updateDownloadAllButton();
+    updateBarAndPrompt();
 }
-
-// Grid click handlers — outside renderGrid so they never stack
 (function () {
     var grid = $('gallery-grid');
     grid.addEventListener('click', function (e) {
         var starBtn = e.target.closest('.g-tile-star');
-        if (starBtn) {
-            e.stopPropagation();
-            toggleStar(parseInt(starBtn.dataset.starId, 10));
-            return;
-        }
+        if (starBtn) { e.stopPropagation(); toggleStar(Number(starBtn.dataset.starId)); return; }
         var tile = e.target.closest('.g-tile');
-        if (tile) openLightbox(parseInt(tile.dataset.index, 10));
+        if (tile) openLightbox(Number(tile.dataset.index));
     });
 })();
-
+function updateBarAndPrompt() {
+    var count = pickCount();
+    var bar = $('selection-bar');
+    if (count > 0) bar.classList.add('visible'); else bar.classList.remove('visible');
+    $('selection-count').innerHTML = '<strong>' + count + '</strong> ' + verb();
+    var saveBtn = $('save-selected-btn');
+    saveBtn.textContent = isDeliv() ? 'Download my picks' : 'Finalise my selection';
+    saveBtn.style.display = '';
+    saveBtn.disabled = false;
+    saveBtn.onclick = isDeliv() ? saveSelectedClick : startFinalise;
+    var clearBtn = $('clear-selection-btn');
+    clearBtn.style.display = 'inline-block';
+    clearBtn.disabled = false;
+    clearBtn.onclick = function () { clearSelection(); };
+    var favs = $('favs-toggle-btn');
+    favs.style.display = count > 0 ? 'block' : 'none';
+    var fp = $('finished-prompt');
+    fp.style.display = (!isDeliv() && count > 0) ? 'block' : 'none';
+}
+function clearSelection() {
+    var ids = Object.keys(starred).filter(function (k) { return starred[k]; });
+    if (!ids.length) return;
+    if (!confirm('Clear your ' + ids.length + (isDeliv() ? ' kept' : ' picked') + ' photo' + (ids.length === 1 ? '' : 's') + '? You can star them again anytime.')) return;
+    var btn = $('clear-selection-btn');
+    btn.disabled = true;
+    fetch(API + '/api/gallery/' + encodeURIComponent(token) + '/clear-selection', { method: 'POST' })
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+            btn.disabled = false;
+            if (!d || d.status !== 'ok') { window.alert('Could not clear your selection \u2014 please try again.'); return; }
+            ids.forEach(function (k) { starred[k] = false; });
+            photos.forEach(function (p) { refreshTile(p.id); });
+            showingFavs = false;
+            var favs = $('favs-toggle-btn');
+            if (favs) { favs.textContent = isDeliv() ? '\u2605 My Keeps' : '\u2605 My Picks'; favs.style.background = 'rgba(196,166,126,0.12)'; }
+            updateBarAndPrompt();
+            if ($('lightbox').classList.contains('active')) closeLightbox();
+            toast('Selection cleared');
+        })
+        .catch(function () { btn.disabled = false; window.alert('Could not clear your selection \u2014 check your connection and try again.'); });
+}
 function refreshTile(photoId) {
     var tile = document.querySelector('.g-tile[data-id="' + photoId + '"]');
-    if (!tile) return;
-    tile.classList.toggle('is-starred', !!starred[photoId]);
-    tile.querySelector('.g-tile-star').innerHTML = starSvg(!!starred[photoId]);
+    if (tile) {
+        tile.classList.toggle('is-starred', !!starred[photoId]);
+        var st = tile.querySelector('.g-tile-star');
+        if (st) st.innerHTML = starSvg(!!starred[photoId]);
+    }
+    refreshFilmThumb(photoId);
+    updateLbUi();
 }
-
 function toggleStar(photoId) {
-    starred[photoId] = !starred[photoId];
+    var on = !starred[photoId];
+    starred[photoId] = on;
+    // optimistically update the UI, then tell the server; revert on failure
+    refreshTile(photoId);
+    updateBarAndPrompt();
+    var lb = $('lightbox');
+    if (lb.classList.contains('active')) {
+        var p = lbCur();
+        if (p && p.id === photoId) {
+            $('lb-star-btn').classList.toggle('is-active', on);
+            $('lb-star-btn').setAttribute('aria-pressed', on ? 'true' : 'false');
+        }
+        lbAfterStarChange(photoId);
+    }
     fetch(API + '/api/gallery/' + encodeURIComponent(token) + '/photos/' + photoId + '/select', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ isStarred: starred[photoId] })
-    }).catch(function () {});
-    refreshTile(photoId);
-    updateSelectionBar();
-    if (document.getElementById('lightbox').classList.contains('active')) {
-        var p = photos[currentLbIdx];
-        if (p && p.id === photoId) $('lb-star-btn').classList.toggle('is-active', starred[photoId]);
+        body: JSON.stringify({ isStarred: on })
+    }).then(function (r) {
+        if (r.status === 423 || r.status === 409 || r.status === 410) {
+            starred[photoId] = !on;
+            refreshTile(photoId);
+            window.location.reload();
+        }
+    }).catch(function () {
+        starred[photoId] = !on;
+        refreshTile(photoId);
+        toast('Could not reach the server \u2014 check your connection');
+    });
+}
+function starSemanticsTitle() { return isDeliv() ? 'Keep this final for downloading' : 'Pick this photo for editing'; }
+
+/* ==========================================================================
+   CINEMATIC VIEWER ENGINE — resident film rail, instant swaps,
+   tap-to-star bursts, favourites-inside-the-viewer.
+   ========================================================================== */
+var savedScrollY = 0, filmThumbs = [], filmListKey = '', lastTapAt = 0;
+var lbPicksOnly = false;
+var lbOrder = [];
+
+function lbNoun() { return isDeliv() ? 'kept' : 'picked'; }
+function lbOnlyNoun() { return isDeliv() ? 'keeps' : 'picks'; }
+function lbPickVerb() { return isDeliv() ? 'keep' : 'pick'; }
+function lbFilmNeg() { return isDeliv(); }
+function lbGuideKey() { return 'lp-viewer-guide-' + (isDeliv() ? 'deliv' : 'proof'); }
+function lbCur() { return lbOrder.length ? lbOrder[currentLbIdx].p : null; }
+function orderIndexById(id) {
+    for (var i = 0; i < lbOrder.length; i++) if (lbOrder[i].p.id === id) return i;
+    return -1;
+}
+function photosIndexById(id) {
+    for (var i = 0; i < photos.length; i++) if (photos[i].id === id) return i;
+    return -1;
+}
+function lbPickedCount() { return pickCount(); }
+function lbStarTitle() {
+    return isDeliv() ? 'Keep this final for downloading' : 'Pick this photo for editing';
+}
+
+/* ---------- order + film DOM ---------- */
+function rebuildLbOrder() {
+    lbOrder = [];
+    for (var i = 0; i < photos.length; i++) {
+        if (lbPicksOnly && !starred[photos[i].id]) continue;
+        lbOrder.push({ p: photos[i], pos: i });
     }
 }
-
-/* ── SELECTION BAR ── */
-function updateSelectionBar() {
-    var count = Object.keys(starred).filter(function (id) { return starred[id]; }).length;
-    $('selection-count').innerHTML = '<strong>' + count + '</strong> selected';
-    $('selection-bar').classList.toggle('visible', count > 0);
-    updateFavsButton();
-    updateFinishedPrompt();
+function filmNeedsRebuild() {
+    var cnt = 0, k;
+    for (k in starred) if (starred[k]) cnt++;
+    var key = photos.length + ':' + (lbPicksOnly ? 'p' + cnt : 'a') + ':' + lbFilmNeg() + ':' + view;
+    if (key === filmListKey) return false;
+    filmListKey = key;
+    return true;
 }
+function buildFilmDOM() {
+    var film = $('lb-film'), track = $('film-track');
+    if (!film || !track) return;
+    film.style.display = (lbOrder.length < 2) ? 'none' : '';
+    if (lbOrder.length < 2) { track.innerHTML = ''; filmThumbs = []; return; }
+    var EAGER = 5, html = [], i, x, p, orig, thumbUrl, brand;
+    for (i = 0; i < lbOrder.length; i++) {
+        x = lbOrder[i]; p = x.p; orig = x.pos;
+        thumbUrl = pThumb(p);
+        brand = BRAND_PATTERN[orig % BRAND_PATTERN.length];
+        html.push('<button type="button" class="film-thumb' + (starred[p.id] ? ' is-starred' : '') + (p.orientation === 'landscape' ? ' is-landscape' : '') + (lbFilmNeg() ? ' is-neg' : '') + '" data-id="' + p.id + '" data-pos="' + orig + '" aria-label="View photo ' + (orig + 1) + ' of ' + photos.length + '">' +
+            '<img ' + (i < EAGER ? 'src="' + thumbUrl + '"' : 'data-src="' + thumbUrl + '"') + ' alt="" decoding="async" loading="lazy">' +
+            '<span class="film-star">' + starSvg(true) + '</span>' +
+            '<span class="frame-num">' + (orig + 1) + '</span>' +
+            (brand ? '<span class="brand-text">' + brand + '</span>' : '') +
+        '</button>');
+    }
+    track.innerHTML = html.join('');
+    filmThumbs = track.querySelectorAll('.film-thumb');
 
-
-/* ── FAVOURITES FILTER ── */
-var showingFavs = false;
-var favsBtn = $('favs-toggle-btn');
-
-function updateFavsButton() {
-    var count = Object.keys(starred).filter(function (id) { return starred[id]; }).length;
-    if (favsBtn) favsBtn.style.display = count > 0 ? 'block' : 'none';
-}
-
-if (favsBtn) {
-    favsBtn.addEventListener('click', function () {
-        showingFavs = !showingFavs;
-        favsBtn.textContent = showingFavs ? 'Show All' : '\u2605 My Favourites';
-        favsBtn.style.background = showingFavs ? 'rgba(196,166,126,0.3)' : 'rgba(196,166,126,0.12)';
-        document.querySelectorAll('.g-tile').forEach(function (tile) {
-            var id = parseInt(tile.dataset.id, 10);
-            tile.style.display = (showingFavs && !starred[id]) ? 'none' : '';
+    var pending = track.querySelectorAll('.film-thumb img[data-src]');
+    if (pending.length && 'IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) {
+                if (!en.isIntersecting) return;
+                var im = en.target;
+                if (im.dataset.src) { im.src = im.dataset.src; delete im.dataset.src; }
+                io.unobserve(im);
+            });
+        }, { root: film, rootMargin: '300px 0px 300px 0px' });
+        pending.forEach(function (im) { io.observe(im); });
+    } else if (pending.length) {
+        pending.forEach(function (im) { im.src = im.dataset.src; delete im.dataset.src; });
+    }
+    filmThumbs.forEach(function (btn, bi) {
+        btn.addEventListener('click', function () {
+            if (bi === currentLbIdx) return;
+            currentLbIdx = bi; applyLb(); preloadLbNeighbors();
         });
-        if (showingFavs) window.scrollTo({ top: $('gallery-header').offsetTop, behavior: 'smooth' });
+    });
+}
+function syncFilmActive() {
+    if (!filmThumbs.length || currentLbIdx < 0 || !lbOrder[currentLbIdx]) return;
+    var curPos = lbOrder[currentLbIdx].pos;
+    filmThumbs.forEach(function (t) {
+        t.classList.toggle('is-active', Number(t.dataset.pos) === curPos);
+    });
+    var film = $('lb-film'), active = filmThumbs[currentLbIdx];
+    if (film && active) {
+        var target = active.offsetTop - (film.clientHeight / 2) + (active.offsetHeight / 2);
+        film.scrollTo({ top: Math.max(0, target), behavior: 'auto' });
+    }
+}
+function refreshFilmThumb(photoId) {
+    if (!filmThumbs.length) return;
+    filmThumbs.forEach(function (t) {
+        if (Number(t.dataset.id) !== photoId) return;
+        t.classList.toggle('is-starred', !!starred[photoId]);
+        var st = t.querySelector('.film-star');
+        if (st) st.innerHTML = starSvg(!!starred[photoId]);
     });
 }
 
-/* ── LIGHTBOX ── */
-var savedScrollY = 0;
+/* ---------- open / step / chrome ---------- */
 function openLightbox(idx) {
     if ($('lightbox').classList.contains('active')) return;
-    currentLbIdx = idx;
-    renderLb();
+    if (!photos.length) return;
+    lbPicksOnly = showingFavs;
+    rebuildLbOrder();
+    if (filmNeedsRebuild()) buildFilmDOM();
+    currentLbIdx = orderIndexById(photos[idx].id);
+    if (currentLbIdx < 0) currentLbIdx = 0;
     savedScrollY = window.scrollY;
     document.body.style.position = 'fixed';
     document.body.style.top = '-' + savedScrollY + 'px';
     document.body.style.width = '100%';
     $('lightbox').classList.add('active');
+    applyLb();
+    syncLbChrome();
+    preloadLbNeighbors();
+    maybeShowLbGuide();
 }
 function closeLightbox() {
     $('lightbox').classList.remove('active');
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.width = '';
-    window.scrollTo(0, savedScrollY);
+    hideLbGuide();
+    document.body.style.position = ''; document.body.style.top = ''; document.body.style.width = '';
+    if (savedScrollY) window.scrollTo(0, savedScrollY);
 }
-function renderLb() {
-    var p = photos[currentLbIdx];
-    $('lb-img').src = API + p.url;
-    $('lb-img').alt = p.filename || 'Photo';
-    $('lb-counter').textContent = (currentLbIdx + 1) + ' / ' + photos.length;
-    $('lb-star-btn').classList.toggle('is-active', !!starred[p.id]);
-    $('lb-prev').style.visibility = currentLbIdx === 0 ? 'hidden' : 'visible';
-    $('lb-next').style.visibility = currentLbIdx === photos.length - 1 ? 'hidden' : 'visible';
+function applyLb() {
+    if (!lbOrder.length) { currentLbIdx = 0; return; }
+    var x = lbOrder[currentLbIdx];
+    if (!x) { currentLbIdx = 0; x = lbOrder[0]; }
+    var p = x.p, img = $('lb-img'), url = pUrl(p);
+    if (img.getAttribute('src') !== url) {
+        img.classList.remove('lb-ready');
+        img.onload = function () { img.classList.add('lb-ready'); };
+        img.src = url;
+        img.alt = p.filename || 'Photo';
+    }
+    var totalStr = String(lbOrder.length);
+    $('lb-counter').textContent = String(currentLbIdx + 1).padStart(totalStr.length, '0') + ' / ' + totalStr;
+    if (lbPicksOnly) $('lb-counter').textContent += ' \u00b7 ' + lbOnlyNoun();
+    var starBtn = $('lb-star-btn');
+    starBtn.classList.toggle('is-active', !!starred[p.id]);
+    starBtn.setAttribute('aria-pressed', starred[p.id] ? 'true' : 'false');
+    starBtn.title = lbStarTitle();
+    syncFilmActive();
+    syncLbChrome();
 }
+function stepLb(dir) {
+    var n = currentLbIdx + dir;
+    if (n < 0 || n >= lbOrder.length) return;
+    currentLbIdx = n; applyLb(); preloadLbNeighbors();
+}
+function preloadLbNeighbors() {
+    if (currentLbIdx > 0) { var a = new Image(); a.src = pUrl(lbOrder[currentLbIdx - 1].p); }
+    if (currentLbIdx < lbOrder.length - 1) { var b = new Image(); b.src = pUrl(lbOrder[currentLbIdx + 1].p); }
+}
+function syncLbChrome() {
+    var c = lbPickedCount();
+    var d = isDeliv();
+    var sb = $('lb-save-btn'), sa = $('lb-save-all-btn'), fin = $('lb-finalise-btn');
+    var showSb = d;
+    var showSa = d && c > 0;
+    var showFin = !d && c > 0;
+    if (sb) sb.style.display = showSb ? 'inline-flex' : 'none';
+    if (sa) sa.style.display = showSa ? 'inline-flex' : 'none';
+    if (fin) fin.style.display = showFin ? 'inline-flex' : 'none';
+    var hasActions = showSb || showSa || showFin;
+    var hasState = c > 0;
+    var bar = $('lb-actionbar');
+    if (bar) {
+        bar.classList.toggle('no-state', !hasState);
+        bar.classList.toggle('no-actions', !hasActions);
+        bar.classList.toggle('is-hidden', !hasState && !hasActions);
+    }
+    updateLbPicks();
+}
+function updateLbPicks() {
+    var chip = $('lb-picks');
+    if (!chip) return;
+    var c = lbPickedCount();
+    var txt = chip.querySelector('.lb-picks-txt') || chip;
+    chip.classList.toggle('on', lbPicksOnly);
+    chip.setAttribute('aria-pressed', lbPicksOnly ? 'true' : 'false');
+    var n1 = lbNoun();
+    var hint = $('lb-picks-hint');
+    if (lbPicksOnly) {
+        txt.textContent = '\u2605 ' + c + ' \u00b7 ' + lbOnlyNoun() + ' only \u2715';
+        if (hint) hint.textContent = '';
+    } else {
+        txt.textContent = 'You\u2019ve ' + n1 + ' ' + c + ' photo' + (c === 1 ? '' : 's');
+        if (hint) hint.textContent = ' \u00b7 View selection';
+    }
+    chip.title = c ? (lbPicksOnly ? 'Show all photos again' : 'View only the photos you ' + n1) : '';
+}
+function updateLbUi() { syncLbChrome(); }
+
+/* ---------- favourites mode inside the viewer ---------- */
+function setLbPicksOnly(flag) {
+    var want = flag && lbPickedCount() > 0;
+    if (want === lbPicksOnly) return;
+    lbPicksOnly = want;
+    filmListKey = '';
+    var curId = lbCur() ? lbCur().id : null;
+    rebuildLbOrder();
+    var pos = (curId !== null) ? orderIndexById(curId) : -1;
+    if (pos < 0) {
+        if (want && curId !== null) {
+            var remIdx = photosIndexById(curId), best = -1;
+            for (var i = 0; i < lbOrder.length; i++) {
+                if (lbOrder[i].pos >= remIdx) { best = i; break; }
+            }
+            pos = best >= 0 ? best : Math.max(0, lbOrder.length - 1);
+        } else { pos = 0; }
+    }
+    currentLbIdx = Math.max(0, Math.min(pos, Math.max(0, lbOrder.length - 1)));
+    buildFilmDOM();
+    applyLb();
+    syncLbChrome();
+    lbFeedback(lbPicksOnly
+        ? 'Only your ' + lbOnlyNoun() + ' are shown \u2014 tap \u2715 to see all'
+        : 'Showing all photos again');
+}
+function lbAfterStarChange(photoId) {
+    if (!$('lightbox').classList.contains('active')) return;
+    var p = lbCur();
+    if (p && p.id === photoId) {
+        $('lb-star-btn').classList.toggle('is-active', !!starred[photoId]);
+        $('lb-star-btn').setAttribute('aria-pressed', starred[photoId] ? 'true' : 'false');
+    }
+    if (!lbPicksOnly) { syncLbChrome(); return; }
+    var curId = lbCur() ? lbCur().id : null;
+    var changedPos = photosIndexById(photoId);
+    rebuildLbOrder();
+    if (!lbOrder.length) { setLbPicksOnly(false); return; }
+    var pos = -1, i;
+    if (curId !== null) pos = orderIndexById(curId);
+    if (pos < 0) {
+        for (i = 0; i < lbOrder.length; i++) { if (lbOrder[i].pos > changedPos) { pos = i; break; } }
+        if (pos < 0) pos = lbOrder.length - 1;
+    }
+    filmListKey = '';
+    buildFilmDOM();
+    currentLbIdx = pos;
+    applyLb();
+}
+
+/* ---------- bursts, haptics, feedback ---------- */
+function burstAt(x, y, on) {
+    var b = $('lb-burst');
+    if (!b) return;
+    b.style.left = x + 'px'; b.style.top = y + 'px';
+    var st = b.querySelector('.st');
+    if (st) {
+        st.style.fill = on ? '#e3b64e' : 'rgba(150,130,100,0.9)';
+        st.style.stroke = on ? '#fff7e6' : 'rgba(60,50,38,0.9)';
+    }
+    b.classList.remove('go'); void b.offsetWidth; b.classList.add('go');
+}
+var lbFbTimer = null;
+function lbFeedback(msg) {
+    var f = $('lb-feedback');
+    if (!f) return;
+    f.innerHTML = msg;
+    f.classList.add('show');
+    clearTimeout(lbFbTimer);
+    lbFbTimer = setTimeout(function () { f.classList.remove('show'); }, 1400);
+}
+function lbAddMsg() {
+    if (isDeliv()) return '<b>Kept</b> \u2014 ready to download later';
+    return '<b>Picked</b> \u2014 tap the photo again to undo';
+}
+function lbUnstarMsg() {
+    if (isDeliv()) return 'Removed from your keeps';
+    return 'Removed from your picks';
+}
+function starFx(x, y, on, id) {
+    burstAt(x, y, on);
+    lbFeedback(on ? lbAddMsg() : lbUnstarMsg());
+    lbAfterStarChange(id);
+    if (navigator.vibrate) { try { navigator.vibrate(on ? 12 : 8); } catch (e) {} }
+    var chip = $('lb-picks');
+    if (chip && lbPickedCount() > 0) {
+        chip.classList.remove('pulse'); void chip.offsetWidth; chip.classList.add('pulse');
+    }
+    var topBtn = $('lb-star-btn');
+    topBtn.classList.remove('bump'); void topBtn.offsetWidth; topBtn.classList.add('bump');
+    filmThumbs.forEach(function (t) {
+        if (Number(t.dataset.id) !== id) return;
+        var st = t.querySelector('.film-star');
+        if (st) { st.classList.remove('pop'); void st.offsetWidth; st.classList.add('pop'); }
+    });
+}
+function tapStar(x, y) {
+    var p = lbCur();
+    if (!p) return;
+    var on = !starred[p.id];
+    toggleStar(p.id);
+    starFx(x, y, on, p.id);
+}
+
+/* ---------- pre-warm ---------- */
+function prewarmLb() {
+    if (!photos.length) return;
+    lbPicksOnly = false;
+    rebuildLbOrder();
+    if (filmNeedsRebuild()) buildFilmDOM();
+    var n = Math.min(2, lbOrder.length);
+    for (var i = 0; i < n; i++) { var im = new Image(); im.src = pUrl(lbOrder[i].p); }
+}
+
+/* ---------- in-viewer guide ---------- */
+function lbGuideIcons() {
+    return {
+        browse: '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>',
+        star:   '<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+        chip:   '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/></svg>',
+        deliver:'<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>',
+        download:'<svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
+    };
+}
+
+function lbGuideContent() {
+    var d = isDeliv();
+    var pickedNoun = d ? 'kept' : 'picked';
+    var picksLabel = d ? 'keeps' : 'picks';
+    var steps = [
+        {
+            ico: 'browse',
+            title: 'Browse & move around',
+            body: 'Scroll the grid, tap a photo to open. <b>Swipe</b> the photo \u2014 or tap a frame on the <b>film strip</b> \u2014 to move through the shoot.'
+        },
+        {
+            ico: 'star',
+            title: d ? 'Keep what you want' : 'Pick what you love',
+            body: d
+                ? 'Tap the photo or the <b>\u2605</b> to keep it. A gold star lands on its film frame.'
+                : 'Tap the photo or the <b>\u2605</b> to pick it. A gold star lands on its film frame.'
+        },
+        {
+            ico: 'chip',
+            title: 'See only your ' + picksLabel,
+            body: 'The counter at the lower-left shows what you\u2019ve ' + pickedNoun + '. Tap it to filter the film to those photos \u2014 tap again for the full roll.'
+        },
+        {
+            ico: d ? 'download' : 'deliver',
+            title: d ? 'Download' : 'Finalise',
+            body: d
+                ? 'Tap <b>Download my picks</b> to save all your keeps at once, or <b>Save Photo</b> for the one you\u2019re viewing.'
+                : 'When you\u2019re done, tap <b>Finalise my selection</b>. Liberty gets your list and starts editing. You can change picks anytime until then.'
+        }
+    ];
+    var note = d
+        ? '<b>Limited time.</b> Download before the window ends \u2014 you can reopen it later with one small payment, and finals are never deleted.'
+        : '<b>Time-limited.</b> If the window ends before you finalise, your current picks lock in automatically. Extend with a small fee if you need more time.';
+    return {
+        kicker: d ? 'Your finals' : 'Your gallery',
+        title: d ? 'How to download your finals' : 'How this gallery works',
+        steps: steps,
+        note: note,
+        cta: d ? 'Start browsing' : 'Start picking'
+    };
+}
+
+function fillLbGuide() {
+    var c = lbGuideContent();
+    var icons = lbGuideIcons();
+    var set = function (id, html) { var n = document.getElementById(id); if (n) n.innerHTML = html; };
+    set('lg-kicker', c.kicker);
+    set('lg-title', c.title);
+    set('lg-note-txt', c.note);
+    var cta = document.getElementById('lg-cta');
+    if (cta) cta.textContent = c.cta;
+    var list = document.getElementById('lg-steps-list');
+    if (!list) return;
+    list.innerHTML = c.steps.map(function (s) {
+        var iconClass = (s.ico === 'star') ? 'lg-step-ico filled' : 'lg-step-ico';
+        return '<div class="lg-step">' +
+            '<div class="' + iconClass + '">' + (icons[s.ico] || '') + '</div>' +
+            '<div class="lg-step-body">' +
+                '<div class="lg-step-title">' + s.title + '</div>' +
+                '<p class="lg-step-txt">' + s.body + '</p>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function showLbGuide() {
+    var g = document.getElementById('lb-guide');
+    if (!g) return;
+    fillLbGuide();
+    g.classList.add('open');
+    var card = document.getElementById('lg-card');
+    if (card) card.scrollTop = 0;
+}
+function hideLbGuide() {
+    var g = document.getElementById('lb-guide');
+    if (!g) return;
+    g.classList.remove('open');
+}
+function maybeShowLbGuide() {
+    var key = lbGuideKey(), seen = '';
+    try { seen = sessionStorage.getItem(key) || ''; } catch (e) {}
+    if (seen) return;
+    try { sessionStorage.setItem(key, '1'); } catch (e) {}
+    showLbGuide();
+}
+
+/* ---------- viewer wiring (boot) ---------- */
 $('lb-close-btn').addEventListener('click', closeLightbox);
-$('lb-prev').addEventListener('click', function () { if (currentLbIdx > 0) { currentLbIdx--; renderLb(); } });
-$('lb-next').addEventListener('click', function () { if (currentLbIdx < photos.length - 1) { currentLbIdx++; renderLb(); } });
+$('lb-star-btn').addEventListener('click', function () {
+    var p = lbCur();
+    if (!p) return;
+    var on = !starred[p.id];
+    toggleStar(p.id);
+    var stage = $('lb-stage'), r = stage.getBoundingClientRect();
+    var rr = $('lb-star-btn').getBoundingClientRect();
+    starFx(Math.max(8, Math.min(r.width - 8, rr.left - r.left + rr.width / 2)),
+           Math.max(8, Math.min(r.height - 8, rr.top - r.top + rr.height / 2)), on, p.id);
+});
+$('lb-picks').addEventListener('click', function () {
+    if (lbPickedCount() === 0) return;
+    setLbPicksOnly(!lbPicksOnly);
+});
+(function () {
+    var sa = $('lb-save-all-btn');
+    if (sa) sa.addEventListener('click', function () {
+        if (!lbPickedCount()) return;
+        var target = $('save-selected-btn');
+        if (target && typeof target.click === 'function') target.click();
+    });
+    var sb = $('lb-save-btn');
+    if (sb) sb.addEventListener('click', function () {
+        var p = lbCur();
+        if (p && typeof downloadSingle === 'function') downloadSingle(p);
+    });
+    var fin = $('lb-finalise-btn');
+    if (fin) fin.addEventListener('click', function () {
+        closeLightbox();
+        if (typeof startFinalise === 'function') startFinalise();
+    });
+})();
 document.addEventListener('keydown', function (e) {
     if (!$('lightbox').classList.contains('active')) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft') $('lb-prev').click();
-    if (e.key === 'ArrowRight') $('lb-next').click();
+    if (e.key === 'Escape') { closeLightbox(); return; }
+    if (e.key === 'ArrowLeft') { stepLb(-1); return; }
+    if (e.key === 'ArrowRight') { stepLb(1); }
 });
-// Swipe
 (function () {
-    var stage = $('lb-stage'), sx = 0, sy = 0;
-    stage.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
-    stage.addEventListener('touchend', function (e) {
-        var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
-        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) { if (dx > 0) $('lb-prev').click(); else $('lb-next').click(); }
+    var stage = $('lb-stage');
+    if (!stage) return;
+    var x0 = 0, y0 = 0, t0 = 0, dragged = false;
+    stage.addEventListener('touchstart', function (e) {
+        x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; t0 = Date.now(); dragged = false;
     }, { passive: true });
-})();
-
-$('lb-star-btn').addEventListener('click', function () {
-    var p = photos[currentLbIdx];
-    toggleStar(p.id);
-});
-
-/* ── DOWNLOAD: single photo ── */
-$('lb-save-btn').addEventListener('click', function () { downloadSingle(photos[currentLbIdx]); });
-async function downloadSingle(p) {
-    try {
-        var res = await fetch(API + p.url);
-        var blob = await res.blob();
-        var fname = safeFilename(p.filename || 'photo', blob.type);
-        if (navigator.canShare && navigator.canShare({ files: [new File([blob], fname, { type: blob.type })] })) {
-            await navigator.share({ files: [new File([blob], fname, { type: blob.type })] });
+    stage.addEventListener('touchmove', function (e) {
+        var t = e.touches[0];
+        if (Math.abs(t.clientX - x0) > 8 || Math.abs(t.clientY - y0) > 8) dragged = true;
+    }, { passive: true });
+    stage.addEventListener('touchend', function (e) {
+        var t = e.changedTouches[0];
+        var dx = t.clientX - x0, dy = t.clientY - y0;
+        if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy)) {
+            lastTapAt = Date.now();
+            stepLb(dx < 0 ? 1 : -1);
             return;
         }
-        dlBlob(blob, fname);
-    } catch (e) { console.error('Save failed:', e); }
-}
+        if (dragged || Date.now() - t0 > 650) return;
+        lastTapAt = Date.now();
+        e.preventDefault();
+        var r = stage.getBoundingClientRect();
+        tapStar(t.clientX - r.left, t.clientY - r.top);
+    }, { passive: false });
+    stage.addEventListener('click', function (e) {
+        if (e.target && e.target.closest && e.target.closest('button,.lb-burst,.lb-feedback')) return;
+        if (Date.now() - lastTapAt < 700) return;
+        var r = stage.getBoundingClientRect();
+        tapStar(e.clientX - r.left, e.clientY - r.top);
+    });
+})();
+(function () {
+    var stage = $('lb-stage');
+    if (!stage) return;
+    var last = 0;
+    stage.addEventListener('wheel', function (e) {
+        if (!$('lightbox').classList.contains('active')) return;
+        if (Math.abs(e.deltaY) < 8) return;
+        e.preventDefault();
+        var now = Date.now();
+        if (now - last < 280) return;
+        last = now;
+        stepLb(e.deltaY > 0 ? 1 : -1);
+    }, { passive: false });
+})();
+(function () {
+    var g = $('lb-guide');
+    if (!g) return;
+    var close = $('lg-close'), cta = $('lg-cta'), help = $('lb-help-btn');
+    if (close) close.addEventListener('click', hideLbGuide);
+    if (cta) cta.addEventListener('click', hideLbGuide);
+    if (help) help.addEventListener('click', function (e) { e.stopPropagation(); showLbGuide(); });
+    g.addEventListener('pointerdown', function (e) {
+        if (e.target === g) hideLbGuide();
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && g.classList.contains('open')) hideLbGuide();
+    });
+})();
+(function () {
+    var burst = $('lb-burst');
+    if (!burst) return;
+    burst.innerHTML =
+        '<span class="ring"></span><span class="ring2"></span>' +
+        '<svg class="st" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' +
+        '<span class="spk" style="left:-4px;top:-18px;--tx:-16px;--ty:-6px;background:#fff2d0"></span>' +
+        '<span class="spk" style="left:20px;top:-8px;--tx:14px;--ty:-14px;background:#e3b64e"></span>' +
+        '<span class="spk" style="left:-6px;top:14px;--tx:-14px;--ty:12px;background:#e3b64e"></span>' +
+        '<span class="spk" style="left:18px;top:18px;--tx:12px;--ty:14px;background:#fff2d0"></span>';
+})();
 
+/* ===================== DOWNLOADS (delivery) ===================== */
 function dlBlob(blob, name) {
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
@@ -694,73 +1501,48 @@ function dlBlob(blob, name) {
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
     setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
 }
-
-/* ── CLEAR SELECTION ── */
-var clearSelBtn = $('clear-selection-btn');
-if (clearSelBtn) {
-    clearSelBtn.addEventListener('click', function () {
-        var sel = Object.keys(starred).filter(function (id) { return starred[id]; });
-        if (!sel.length) return;
-        if (!window.confirm('Clear all ' + sel.length + ' selected photo' + (sel.length === 1 ? '' : 's') + '? You can star them again anytime.')) return;
-        clearSelBtn.disabled = true;
-        fetch(API + '/api/gallery/' + encodeURIComponent(token) + '/clear-selection', { method: 'POST' })
-            .then(function (r) { return r.json(); })
-            .then(function (d) {
-                clearSelBtn.disabled = false;
-                if (!d || d.status !== 'ok') {
-                    window.alert('Could not clear your selection \u2014 please try again.');
-                    return;
-                }
-                sel.forEach(function (id) { starred[id] = false; });
-                photos.forEach(function (p) { refreshTile(p.id); });
-                if ($('lightbox').classList.contains('active')) $('lb-star-btn').classList.remove('is-active');
-                if (showingFavs) {
-                    showingFavs = false;
-                    favsBtn.textContent = '\u2605 My Favourites';
-                    favsBtn.style.background = 'rgba(196,166,126,0.12)';
-                }
-                updateSelectionBar();
-            })
-            .catch(function () {
-                clearSelBtn.disabled = false;
-                window.alert('Could not clear your selection \u2014 check your connection and try again.');
-            });
-    });
+async function downloadSingle(p) {
+    try {
+        var res = await fetch(pUrl(p));
+        var blob = await res.blob();
+        var fname = safeFilename(p.filename || 'photo', blob.type);
+        if (navigator.canShare && navigator.canShare({ files: [new File([blob], fname, { type: blob.type })] })) {
+            await navigator.share({ files: [new File([blob], fname, { type: blob.type })] });
+            return;
+        }
+        dlBlob(blob, fname);
+    } catch (e) { console.error('Save failed:', e); toast('Could not download that photo'); }
 }
-
-/* ── DOWNLOAD: selected photos ── */
-$('save-selected-btn').addEventListener('click', async function () {
+var saveSelectedClick = async function () {
     var sel = photos.filter(function (p) { return starred[p.id]; });
     if (!sel.length) return;
-    var btn = this; btn.disabled = true; var orig = btn.textContent;
-
-    if (sel.length <= 10 && navigator.canShare) {
-        try {
-            btn.textContent = 'Preparing\u2026';
+    var btn = $('save-selected-btn'); btn.disabled = true; var orig = btn.textContent;
+    btn.textContent = 'Preparing\u2026';
+    try {
+        if (sel.length <= 10 && navigator.canShare) {
             var files = [];
             for (var i = 0; i < sel.length; i++) {
-                var r = await fetch(API + sel[i].url);
+                var r = await fetch(pUrl(sel[i]));
                 var b = await r.blob();
                 files.push(new File([b], safeFilename(sel[i].filename || ('photo-' + (i + 1)), b.type), { type: b.type }));
             }
             if (navigator.canShare({ files: files })) { await navigator.share({ files: files }); btn.disabled = false; btn.textContent = orig; return; }
             await zipDl(sel);
-        } catch (e) { if (e.name !== 'AbortError') await zipDl(sel); }
-    } else { await zipDl(sel); }
+        } else { await zipDl(sel); }
+    } catch (e) { if (e && e.name !== 'AbortError') { try { await zipDl(sel); } catch (e2) {} } }
     btn.disabled = false; btn.textContent = orig;
-});
-
+};
 async function zipDl(list) {
-    if (typeof JSZip === 'undefined') { alert('Could not load the download tool. Please refresh and try again.'); return; }
-    $('dl-overlay').classList.add('active');
-    $('dl-title').textContent = 'Preparing your photos';
+    if (typeof JSZip === 'undefined') { toast('Download tool not loaded \u2014 please refresh'); return; }
+    var ov = $('dl-overlay'); ov.classList.add('active');
+    $('dl-title').textContent = 'Preparing your finals';
     $('dl-message').textContent = 'Zipping ' + list.length + ' photo' + (list.length === 1 ? '' : 's') + '\u2026';
     $('dl-progress-bar').style.width = '0%';
     $('dl-close-btn').style.display = 'none';
     try {
         var zip = new JSZip();
         for (var i = 0; i < list.length; i++) {
-            var r = await fetch(API + list[i].url);
+            var r = await fetch(pUrl(list[i]));
             var b = await r.blob();
             zip.file(safeFilename(list[i].filename || ('photo-' + (i + 1)), b.type), b);
             $('dl-progress-bar').style.width = Math.round(((i + 1) / list.length) * 90) + '%';
@@ -768,7 +1550,8 @@ async function zipDl(list) {
         $('dl-message').textContent = 'Finishing up\u2026';
         var content = await zip.generateAsync({ type: 'blob' });
         $('dl-progress-bar').style.width = '100%';
-        var zn = (gallery.eventTitle || gallery.clientName || 'gallery').replace(/[^a-z0-9]+/gi, '-').toLowerCase() + '-photos.zip';
+        var base = (gallery.eventTitle || gallery.clientName || 'gallery').replace(/[^a-z0-9]+/gi, '-').toLowerCase();
+        var zn = base + (isDeliv() ? '-finals' : '-photos') + '.zip';
         dlBlob(content, zn);
         $('dl-title').textContent = 'Download ready';
         $('dl-message').textContent = 'Your photos have been saved.';
@@ -779,52 +1562,231 @@ async function zipDl(list) {
         $('dl-close-btn').style.display = 'inline-block';
     }
 }
-
-/* ── DOWNLOAD ALL — for galleries with 20+ photos ── */
-function updateDownloadAllButton() {
-    var bar = $('dl-all-bar');
-    if (!bar) return;
-    bar.style.display = photos.length >= 20 ? 'block' : 'none';
-}
-
-$('dl-all-btn').addEventListener('click', async function () {
-    if (!photos.length) return;
-    var btn = this;
-    btn.disabled = true;
-    btn.textContent = 'Preparing...';
-    await zipDl(photos);
-    btn.disabled = false;
-    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download All Photos';
-});
-
 $('dl-close-btn').addEventListener('click', function () { $('dl-overlay').classList.remove('active'); });
+(function () {
+    var dlAll = $('dl-all-btn');
+    if (!dlAll) return;
+    dlAll.addEventListener('click', async function () {
+        if (!photos.length) return;
+        var b = this; b.disabled = true;
+        b.textContent = 'Preparing...';
+        await zipDl(photos);
+        b.disabled = false;
+        b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download All Finals';
+    });
+})();
 
-/* ── FINISHED PROMPT — gentle, appears after starring ── */
-function updateFinishedPrompt() {
-    var count = Object.keys(starred).filter(function (id) { return starred[id]; }).length;
-    var prompt = $('finished-prompt');
-    if (prompt) prompt.style.display = count > 0 ? 'block' : 'none';
+/* ===================== FINALISE (proof) ===================== */
+var moCb = null;
+function ensureMo() {
+    var m = $('mo');
+    if (m) return m;
+    m = document.createElement('div');
+    m.className = 'mo'; m.id = 'mo';
+    m.innerHTML = '<div class="mo-card"><h3 id="mo-title"></h3><div id="mo-body"></div>' +
+        '<button class="mo-cta" id="mo-ok">Continue</button>' +
+        '<button class="mo-ghost" id="mo-cancel">Cancel</button></div>';
+    document.body.appendChild(m);
+    $('mo-cancel').addEventListener('click', hideMo);
+    $('mo').addEventListener('click', function (e) { if (e.target === $('mo')) hideMo(); });
+    return m;
 }
-document.addEventListener('click', function (e) {
-    if (e.target.id === 'finished-btn' || e.target.closest('#finished-btn')) {
-        var btn = $('finished-btn');
-        btn.disabled = true;
-        btn.textContent = 'Sending\u2026';
-        fetch(API + '/api/gallery/' + encodeURIComponent(token) + '/done', { method: 'POST' })
-            .then(function () {
-                btn.style.display = 'none';
-                $('finished-done').style.display = 'block';
-            })
-            .catch(function () { btn.disabled = false; btn.textContent = 'Let your photographer know'; });
-    }
-});
+function openMo(kind, title, bodyHtml, onOk) {
+    var m = ensureMo();
+    moCb = onOk;
+    $('mo-title').textContent = title;
+    $('mo-body').innerHTML = bodyHtml;
+    var ok = $('mo-ok');
+    ok.style.display = 'block';
+    ok.innerHTML = (kind === 'finalise') ? 'Yes, lock in my selection' : 'Continue';
+    ok.disabled = false;
+    ok.onclick = function () { if (moCb) moCb(ok); };
+    m.classList.add('show');
+}
+function hideMo() { var m = $('mo'); if (m) m.classList.remove('show'); }
 
-/* ── REVIEW ── */
+function startFinalise() {
+    if (view !== 'proof' || (gallery && gallery.finalisedAt)) return;
+    if (pickCount() === 0) { toast('Star at least one photo to finalise your selection'); return; }
+    var n = pickCount();
+    var thumbs = pickedPhotos().slice(0, 12).map(function (p) {
+        return '<img src="' + pThumb(p) + '" alt="">';
+    }).join('');
+    openMo('finalise', 'Lock in your selection?',
+        '<p>You\u2019re sending <strong>' + n + ' photo' + (n === 1 ? '' : 's') + '</strong> to Liberty for editing. You won\u2019t be able to change the list after this.</p>' +
+        (thumbs ? '<div class="conf-thumbs">' + thumbs + '</div>' : ''),
+        function (btn) { doFinalise(btn); });
+}
+function doFinalise(btn) {
+    btn.disabled = true;
+    var orig = btn.innerHTML;
+    btn.innerHTML = '<span class="pay-spinner"></span>Sending\u2026';
+    fetch(API + '/api/gallery/' + encodeURIComponent(token) + '/finalise', { method: 'POST' })
+        .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (res) {
+            if (!res.ok && res.d && res.d.message && String(res.d.message).indexOf('already') !== -1) {
+                hideMo();
+                window.location.reload();
+                return;
+            }
+            if (!res.ok) throw new Error(res.d && res.d.message || 'Could not finalise');
+            hideMo();
+            toast('\u2713 Picks locked in \u2014 Liberty is on it');
+            gate = '';
+            window.location.reload();
+        })
+        .catch(function (e) {
+            btn.disabled = false;
+            btn.innerHTML = orig;
+            hideMo();
+            window.alert('Could not lock in your selection \u2014 please try again.');
+        });
+}
+
+/* ---------- finalised screen (proof, picks committed) ---------- */
+function renderFinalised() {
+    var n = pickCount();
+    var thumbs = pickedPhotos().slice(0, 12).map(function (p) { return '<img src="' + pThumb(p) + '" alt="">'; }).join('');
+    var state = $('state-screen');
+    state.style.display = 'flex';
+    state.innerHTML = '<div style="max-width:440px;text-align:center;padding:10px">' +
+        '<div class="lock-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>' +
+        '<h1 class="serif" style="font-size:25px;line-height:1.4;margin-bottom:10px">Your picks are locked in</h1>' +
+        '<p style="font-size:13px;color:var(--cream-soft);line-height:1.8">You\u2019ve sent <strong>' + n + ' photo' + (n === 1 ? '' : 's') + '</strong> to Liberty for editing. ' +
+        'Your edited finals will arrive in a separate delivery link \u2014 watch out for it. Changed your mind about anything? ' +
+        '<a href="#" id="fin-wa" style="color:var(--accent)">Message us on WhatsApp</a> \u2014 picks can be adjusted before editing starts.</p>' +
+        (thumbs ? '<div class="conf-thumbs">' + thumbs + '</div>' : '') +
+        '<div class="state-action-btns" style="margin-top:14px">' +
+            '<button class="act-gold" disabled style="opacity:.55">Liberty is editing your ' + n + ' photo' + (n === 1 ? '' : 's') + '\u2026</button>' +
+        '</div></div>';
+    wireWa('fin-wa', 'Hi ' + G.studio + '! I just finalised my gallery picks and have a question.');
+}
+
+/* ---------- not-ready screen (delivery published later) ---------- */
+function renderNotReady() {
+    var state = $('state-screen');
+    state.style.display = 'flex';
+    state.innerHTML = '<div style="max-width:420px;text-align:center;padding:10px">' +
+        '<div class="pay-spinner"></div>' +
+        '<h1 class="serif" style="font-size:24px;line-height:1.4;margin:14px 0 10px">Your finals are being edited</h1>' +
+        '<p style="font-size:13px;color:var(--cream-soft);line-height:1.8">Liberty is retouching your picks right now. This link will open automatically once they\u2019re delivered \u2014 usually within a day or two. Questions? ' +
+        '<a href="#" id="nr-wa" style="color:var(--accent)">Message us on WhatsApp</a>.</p>' +
+        '</div>';
+    wireWa('nr-wa', 'Hi ' + G.studio + '! How are my edited finals coming along?');
+}
+
+function wireWa(id, text) {
+    var a = $(id);
+    if (!a) return;
+    a.addEventListener('click', function (e) { e.preventDefault(); window.open('https://wa.me/' + G.waNum + '?text=' + encodeURIComponent(text), '_blank'); });
+}
+
+/* ===================== LOCK WALL (pay to reopen) ===================== */
+function renderLockWall(info) {
+    var fee = (typeof info.fee === 'number' && info.fee >= 0) ? info.fee : G.fee;
+    var days = (typeof info.extensionDays === 'number' && info.extensionDays > 0) ? info.extensionDays : G.extDays;
+    var graceDays = (typeof info.graceDays === 'number' && info.graceDays > 0) ? info.graceDays : G.graceDays;
+    var isProof = info.phase !== 'delivery';
+
+    var closeAt = info.closedAt || info.lockedAt || null;
+    var closeTs = closeAt ? new Date(String(closeAt).replace(' ', 'T')) : null;
+    var closedText = closeTs && !isNaN(closeTs.getTime())
+        ? closeTs.toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })
+        : 'recently';
+    var lockAt = info.lockedAt || info.closedAt || null;
+    var lockTs = lockAt ? new Date(String(lockAt).replace(' ', 'T')) : null;
+    var deleted = lockTs && !isNaN(lockTs.getTime())
+        ? new Date(lockTs.getTime() + graceDays * 86400000).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })
+        : 'soon';
+
+    var nameBit = info.clientName ? escHtml(info.clientName) + ', your' : 'Your';
+    var payUrl = 'pay/index.html?type=gallery&amount=' + fee + '&gallery=' + encodeURIComponent(token) +
+        '&name=' + encodeURIComponent(info.clientName || '') +
+        '&days=' + days + '&return=' + encodeURIComponent(window.location.href);
+
+    var lead = isProof
+        ? '<p class="lock-lead">The viewing window ended on <strong>' + closedText + '</strong>. Your photos and every pick you made are safe \u2014 nothing has been removed.</p>'
+        : '<p class="lock-lead">The download window ended on <strong>' + closedText + '</strong>. Your finals are safe \u2014 nothing has been removed.</p>';
+    var perks =
+        '<div class="lock-perk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Instant access \u2014 reopens the moment payment clears</span></div>' +
+        '<div class="lock-perk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Your ' + (isProof ? 'selections' : 'finals') + ' are preserved</span></div>' +
+        '<div class="lock-perk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>' + days + ' more day' + (days === 1 ? '' : 's') + ' to ' + (isProof ? 'view and pick' : 'view and download') + '</span></div>';
+
+    var scr = $('state-screen');
+    scr.classList.add('lock-mode');
+    scr.style.display = 'flex';
+    scr.innerHTML =
+        '<div class="lock-wrap">' +
+            '<div class="lock-bg" id="lock-bg"></div><div class="lock-scrim"></div>' +
+            '<div class="lock-card">' +
+                '<div class="lock-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>' +
+                '<h1>' + nameBit + ' ' + (isProof ? 'gallery\u2019s viewing window' : 'gallery\u2019s download window') + ' has ended.</h1>' +
+                lead +
+                '<div class="lock-perks">' + perks + '</div>' +
+                '<div class="lock-price"><span>once \u00b7 reopens for ' + days + ' more day' + (days === 1 ? '' : 's') + '</span></div>' +
+                '<a class="lock-cta" href="' + payUrl + '">Pay &#8358;' + fee.toLocaleString() + ' to ' + (isProof ? 'extend' : 'reopen') + '</a>' +
+                '<p class="lock-urgency">If not extended, this gallery will be permanently removed on <strong>' + deleted + '</strong>.</p>' +
+                '<p class="lock-help">Questions? <a href="#" id="lock-wa">Message ' + escHtml(G.studio) + ' on WhatsApp</a></p>' +
+                '<p class="lock-secure">Secure payment \u00b7 Card or transfer</p>' +
+            '</div>' +
+        '</div>';
+    if (info.coverUrl) {
+        var bg = $('lock-bg');
+        var img = new Image();
+        img.onload = function () { bg.style.backgroundImage = 'url(' + API + info.coverUrl + ')'; };
+        img.src = API + info.coverUrl;
+    }
+    var wa = $('lock-wa');
+    if (wa) wa.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (G.waNum) window.open('https://wa.me/' + G.waNum + '?text=' + encodeURIComponent('Hi ' + G.studio + '! My gallery is locked and I have a question.'), '_blank');
+    });
+    // keep settings fresh in case this page was reached before fetchSettings finished
+    if (!G.waNum || G.fee === 9000) {
+        fetch(API + '/api/settings').then(function (r) { return r.json(); }).then(function (d) {
+            var s = (d && d.settings) || {};
+            G.studio = s.studio_name || G.studio;
+            G.waNum = String(s.whatsapp_number || '').replace(/[^0-9]/g, '');
+        }).catch(function () {});
+    }
+}
+
+/* ===================== EXPIRY TEXT + SOFT BANNER ===================== */
+function paintExpiry() {
+    if (!gallery || !$('page-wrap') || $('page-wrap').style.display !== 'block') return;
+    var left = daysUntil(gallery.expiresAt);
+    var ce = $('cover-expiry'), he = $('header-expiry');
+    if (left === null) { ce.textContent = ''; he.textContent = ''; return; }
+    var actionWord = isDeliv() ? 'Download window' : 'Pick deadline';
+    if (left <= 0) { ce.textContent = actionWord + ' ended'; he.textContent = 'Locked'; }
+    else {
+        ce.textContent = actionWord + ' \u00b7 ' + left + ' day' + (left === 1 ? '' : 's') + ' left';
+        he.textContent = left + ' day' + (left === 1 ? '' : 's') + ' remaining';
+    }
+    var banner = $('expiry-banner');
+    var dismissed = false;
+    try { dismissed = sessionStorage.getItem('lp-ban-' + view) === '1'; } catch (e) {}
+    if (left > 0 && left <= 3 && !dismissed) {
+        var end = new Date(String(gallery.expiresAt).replace(' ', 'T'));
+        var endText = !isNaN(end.getTime()) ? end.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' }) : '';
+        $('expiry-banner-text').innerHTML = '<strong>Available for ' + (left === 1 ? '1 more day' : left + ' more days') + (endText ? ' \u00b7 ends ' + endText : '') + '.</strong> ' + (isDeliv() ? 'Keep downloading' : 'Keep your picks open') + ' for ' + G.extDays + ' more day' + (G.extDays === 1 ? '' : 's') + ' with one small payment.';
+        var payUrl = 'pay/index.html?type=gallery&amount=' + G.fee + '&gallery=' + encodeURIComponent(token) +
+            '&name=' + encodeURIComponent(gallery.clientName || '') +
+            '&days=' + G.extDays + '&return=' + encodeURIComponent(window.location.href);
+        $('expiry-banner-btn').onclick = function () { window.location.href = payUrl; };
+        $('expiry-banner-close').onclick = function () { banner.style.display = 'none'; try { sessionStorage.setItem('lp-ban-' + view, '1'); } catch (e) {} };
+        banner.style.display = 'block';
+    } else banner.style.display = 'none';
+}
+setInterval(function () {
+    if (gate === 'open') paintExpiry();
+}, 60000);
+
+/* ===================== REVIEW (delivery only) ===================== */
 (function () {
     var reviewRating = 0;
     var starsEl = $('review-stars');
     if (!starsEl) return;
-
     starsEl.addEventListener('click', function (e) {
         var btn = e.target.closest('button[data-star]');
         if (!btn) return;
@@ -833,13 +1795,10 @@ document.addEventListener('click', function (e) {
             svg.classList.toggle('is-filled', i < reviewRating);
         });
     });
-
     $('review-submit-btn').addEventListener('click', async function () {
-        var name = gallery.clientName || 'Client';
         var quote = $('review-quote').value.trim();
         if (!quote) { alert('Please write your review.'); return; }
         if (!reviewRating) { alert('Please select a star rating.'); return; }
-
         var btn = this;
         btn.disabled = true;
         btn.textContent = 'Sending...';
@@ -847,7 +1806,7 @@ document.addEventListener('click', function (e) {
             var res = await fetch(API + '/api/testimonials/submit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ clientName: name, quote: quote, rating: reviewRating })
+                body: JSON.stringify({ clientName: (gallery && gallery.clientName) || 'Client', quote: quote, rating: reviewRating })
             });
             if (!res.ok) throw new Error();
             $('review-form').style.display = 'none';
@@ -861,4 +1820,5 @@ document.addEventListener('click', function (e) {
 })();
 
 </script>
-</body></html>
+</body>
+</html>
