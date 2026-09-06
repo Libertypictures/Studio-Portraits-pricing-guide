@@ -74,8 +74,7 @@
         .tier-photo-full { position: absolute; inset: 0; z-index: 0; }
         .tier-photo-full img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .tier-card.no-photo .tier-photo-full { background: #1f1a14; }
-        .tier-scrim { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; background: linear-gradient(to top, rgba(15,12,9,0.95) 0%, rgba(15,12,9,0.8) 60%, rgba(15,12,9,0) 100%); padding: 76px 26px 26px 26px; opacity: 0; transform: translateY(14px); will-change: opacity, transform; transition: opacity 1.4s cubic-bezier(0.25,0.46,0.45,0.94) 0.4s, transform 1.4s cubic-bezier(0.25,0.46,0.45,0.94) 0.4s; }
-        .tier-card.is-in .tier-scrim { opacity: 1; transform: translateY(0); }
+        .tier-scrim { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; background: linear-gradient(to top, rgba(15,12,9,0.95) 0%, rgba(15,12,9,0.8) 60%, rgba(15,12,9,0) 100%); padding: 76px 26px 26px 26px; opacity: 1; transform: none; }
         .tier-scrim h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 20px; margin-bottom: 14px; color: #f6f1e7; }
         .tier-badge { display: inline-block; font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); background: rgba(138,115,85,0.2); padding: 4px 10px; margin-bottom: 10px; }
         .tier-details { list-style: none; font-size: 13px; color: #d9cdb8; margin-bottom: 22px; line-height: 1.8; }

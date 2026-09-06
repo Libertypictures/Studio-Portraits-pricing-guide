@@ -179,15 +179,11 @@
             position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
             background: linear-gradient(to top, rgba(15,12,9,0.95) 0%, rgba(15,12,9,0.8) 60%, rgba(15,12,9,0) 100%);
             padding: 76px 26px 26px 26px;
-            opacity: 0; transform: translateY(14px); will-change: opacity, transform;
-            transition: opacity 1.4s cubic-bezier(0.25,0.46,0.45,0.94) 0.4s, transform 1.4s cubic-bezier(0.25,0.46,0.45,0.94) 0.4s;
+            /* Always visible: package name, price and the Select button
+               must never depend on a scroll-reveal firing. The entrance
+               flourish is the card itself, not its content. */
+            opacity: 1; transform: none;
         }
-        /* Follows the card's own reveal by 0.3s (set above), rather than
-           appearing at the same instant — card first, description
-           shortly after. Tied to the same is-in class the card already
-           gets, so it stays reversible in step with it and needs no
-           separate observer. */
-        .tier-card.is-in .tier-scrim { opacity: 1; transform: translateY(0); }
         .tier-scrim h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 20px; letter-spacing: 0; text-transform: none; margin-bottom: 14px; color: #f6f1e7; }
 
         .tier-details { list-style: none; font-size: 13px; color: #d9cdb8; margin-bottom: 22px; line-height: 1.8; }
@@ -1136,6 +1132,24 @@
                 }, { threshold: 0.1, rootMargin: window.innerWidth <= 700 ? '-5% 0px -5% 0px' : '-15% 0px -15% 0px' });
 
                 els.forEach(function (el) { observer.observe(el); });
+
+                // Safety nets: if the observer is late, throttled or fails
+                // on an odd device, content must still become visible.
+                // 1) Anything already inside the viewport gets revealed
+                //    after a short grace period.
+                // 2) After 8s everything left hidden is revealed outright
+                //    — a booking page's packages must never be invisible.
+                setTimeout(function () {
+                    var vh = window.innerHeight || document.documentElement.clientHeight;
+                    els.forEach(function (el) {
+                        if (el.classList.contains('is-in')) return;
+                        var r = el.getBoundingClientRect();
+                        if (r.top < vh && r.bottom > 0) el.classList.add('is-in');
+                    });
+                }, 2500);
+                setTimeout(function () {
+                    els.forEach(function (el) { el.classList.add('is-in'); });
+                }, 8000);
             }
             window.lpInitScrollReveal = lpInitScrollReveal;
 

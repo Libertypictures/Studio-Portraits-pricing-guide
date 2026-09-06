@@ -162,8 +162,7 @@
         .lp-hero-content { position: relative; padding: 0 6vw; color: #fff; max-width: 700px; text-align: center; }
         .lp-hero-title { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-size: clamp(30px, 5.5vw, 58px); line-height: 1.2; margin-bottom: 20px; color: #fff; text-shadow: 0 4px 24px rgba(0,0,0,0.4); }
         .lp-hero-sub { font-size: 14px; color: rgba(255,255,255,0.82); max-width: 380px; margin: 0 auto; line-height: 1.7; }
-        .lp-hero-cta { display: inline-block; margin-top: 32px; padding: 18px 44px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px; color: #fff; background: rgba(255,255,255,0.12); backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); border: 1px solid rgba(255,255,255,0.2); text-decoration: none; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); box-shadow: 0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.15); }
-        .lp-hero-cta:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); box-shadow: 0 14px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2); }
+
 
         /* SCROLL INDICATOR — a full-width frosted glass strip embedded
            into the hero's own bottom edge, as if that edge of the page
@@ -195,33 +194,43 @@
             50% { opacity: 1; }
         }
 
+        /* FLOATING BOOK CTA — appears from the lower-left after the
+           visitor scrolls past Featured Work, so the hero stays clean;
+           links straight to the packages on the booking page. */
+        .lp-float-book {
+            position: fixed; left: 22px; bottom: 24px; z-index: 90;
+            display: inline-flex; align-items: center; gap: 9px;
+            padding: 14px 28px; font-size: 11px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 2.2px; text-decoration: none;
+            color: var(--text-primary);
+            background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.04) 100%);
+            backdrop-filter: blur(18px) saturate(160%);
+            -webkit-backdrop-filter: blur(18px) saturate(160%);
+            border: 1px solid rgba(196,166,126,0.45); border-radius: 999px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12);
+            opacity: 0; transform: translateX(-26px) translateY(10px); pointer-events: none;
+            transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1), transform 0.55s cubic-bezier(0.16,1,0.3,1);
+        }
+        .lp-float-book.is-visible { opacity: 1; transform: translateX(0) translateY(0); pointer-events: auto; }
+        .lp-float-book:hover { background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.08) 100%); }
+        .lp-float-book::before {
+            content: ""; width: 6px; height: 6px; border-radius: 50%;
+            background: var(--accent); box-shadow: 0 0 10px rgba(196,166,126,0.6);
+        }
+        @media (max-width: 600px) { .lp-float-book { left: 14px; bottom: 14px; padding: 12px 22px; font-size: 10px; letter-spacing: 1.8px; } }
+
         /* FEATURED WORK */
         .work-empty { text-align: center; color: var(--text-secondary); font-size: 13.5px; padding: 40px 0; }
 
-        /* SOCIAL PROOF COUNTER */
+        /* SOCIAL PROOF COUNTER — static, no scroll-driven scaling */
         .social-proof { padding: 50px 0 20px; text-align: center; }
-        .social-proof-items {
-            display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
-            /* Progress 0 → 1 set by JS on scroll. 1 = section settled in the
-               viewport center (numbers at full/max size). 0 = section
-               scrolled far away (numbers scaled down). Color is fixed brand
-               bronze — no interpolation. */
-            --proof-progress: 0;
-        }
+        .social-proof-items { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; }
         .social-proof-item { text-align: center; }
         .social-proof-number {
             font-family: 'Fraunces', serif; font-size: clamp(16px, 2.2vw, 24px); font-weight: 500; line-height: 1.1;
             color: var(--text-primary);
-            transform: scale(calc(0.62 + 0.28 * var(--proof-progress)));
-            transform-origin: 50% 100%;
-            transition: transform 0.22s cubic-bezier(0.33, 1, 0.68, 1);
-            will-change: transform;
         }
         .social-proof-label { font-size: 8px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--text-secondary); margin-top: 8px; font-weight: 500; }
-        @media (prefers-reduced-motion: reduce) {
-            .social-proof-number { transform: none; transition: none; }
-        }
-        /* Digital camera font for photo counter */
         @media (max-width: 600px) { .social-proof-items { gap: 32px; } .social-proof { padding: 40px 0 14px; } }
 
         /* FEATURED IN */
@@ -615,7 +624,6 @@
         <div class="lp-hero-content">
             <h1 class="lp-hero-title">Intimate visual stories</h1>
             <p class="lp-hero-sub">Portraits that feel personal and beautifully authentic.</p>
-            <a href="book.html" class="lp-hero-cta">Book a Session &rarr;</a>
         </div>
         <div class="lp-scroll-indicator" aria-hidden="true">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -703,6 +711,8 @@
             <a href="mailto:visualsliberty@gmail.com">Email</a>
         </div>
     </footer>
+
+    <a class="lp-float-book" id="lp-float-book" href="book.html#packages">Book a Session</a>
 
 <script>
     var API_BASE = 'https://liberty-booking-api.visualsliberty.workers.dev';
@@ -874,52 +884,7 @@
                 document.getElementById('social-proof-section').style.display = '';
             }
 
-            // Scroll-driven premium interaction — as the section moves
-            // through the viewport, the numbers scale + fade between the
-            // brand bronze (edges) and the primary ink color (center). rAF
-            // throttled + IntersectionObserver gated so it's cheap.
-            (function () {
-                var section = document.getElementById('social-proof-section');
-                var container = document.getElementById('social-proof-items');
-                if (!section || !container) return;
-                if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-                var ticking = false;
-                var inView = false;
-                function update() {
-                    ticking = false;
-                    var rect = section.getBoundingClientRect();
-                    var vh = window.innerHeight || document.documentElement.clientHeight;
-                    var sectionCenter = rect.top + rect.height / 2;
-                    var viewportCenter = vh / 2;
-                    // 60vh half-window — beyond that, progress is 0.
-                    var distance = Math.abs(sectionCenter - viewportCenter);
-                    var window60 = vh * 0.6;
-                    var raw = 1 - Math.min(distance / window60, 1);
-                    // Ease with a quick cubic so most of the range holds "big"
-                    // and only the far edges shrink — feels more intentional.
-                    var eased = raw * raw * (3 - 2 * raw);
-                    container.style.setProperty('--proof-progress', eased.toFixed(3));
-                }
-                function onScroll() {
-                    if (ticking || !inView) return;
-                    ticking = true;
-                    requestAnimationFrame(update);
-                }
-                if ('IntersectionObserver' in window) {
-                    new IntersectionObserver(function (entries) {
-                        entries.forEach(function (e) { inView = e.isIntersecting; });
-                        // Run once when leaving as well, so the value settles
-                        // at 0 instead of freezing on whatever the last scroll
-                        // frame set it to.
-                        requestAnimationFrame(update);
-                    }, { rootMargin: '80% 0px 80% 0px' }).observe(section);
-                } else {
-                    inView = true;
-                }
-                window.addEventListener('scroll', onScroll, { passive: true });
-                window.addEventListener('resize', function () { requestAnimationFrame(update); }, { passive: true });
-                requestAnimationFrame(update);
-            })();
+
 
             // Featured in logos
             if (s.featured_in_enabled === 'true' && s.featured_in_logos) {
@@ -1461,6 +1426,29 @@
         document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') resume(); });
         window.addEventListener('pageshow', resume);
         ['touchstart', 'click'].forEach(function (evt) { document.addEventListener(evt, resume, { passive: true }); });
+    })();
+
+    // FLOATING BOOK CTA — the hero stays clean; a "Book a Session" pill
+    // slides in from the lower-left once the visitor has scrolled past
+    // Featured Work, and leads straight to the packages on book.html.
+    (function () {
+        var btn = document.getElementById('lp-float-book');
+        var work = document.querySelector('.work-section');
+        if (!btn || !work) return;
+        var ticking = false;
+        function update() {
+            ticking = false;
+            var r = work.getBoundingClientRect();
+            var vh = window.innerHeight || document.documentElement.clientHeight;
+            btn.classList.toggle('is-visible', r.bottom < vh * 0.25);
+        }
+        window.addEventListener('scroll', function () {
+            if (!ticking) { ticking = true; requestAnimationFrame(update); }
+        }, { passive: true });
+        window.addEventListener('resize', function () {
+            if (!ticking) { ticking = true; requestAnimationFrame(update); }
+        }, { passive: true });
+        update();
     })();
 </script>
 
