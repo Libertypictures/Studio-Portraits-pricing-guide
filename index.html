@@ -23,7 +23,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
     <link rel="preconnect" href="https://liberty-booking-api.visualsliberty.workers.dev" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&family=Share+Tech+Mono&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&family=Share+Tech+Mono&display=swap" rel="stylesheet"></noscript>
 
     <style>
         :root {
@@ -137,8 +138,9 @@
 
         /* PAGE ENTRANCE — a graceful fade-in rather than an abrupt pop,
            on first load and whenever arriving from another page. */
-        body { opacity: 0; animation: lp-page-in 0.7s ease 0.05s forwards; }
+        body { opacity: 0; animation: lp-page-in 0.3s ease 0.05s forwards; }
         @keyframes lp-page-in { to { opacity: 1; } }
+        @media (prefers-reduced-motion: reduce) { body { animation: none; opacity: 1; } }
 
         /* SITE HEADER — sits over the hero and scrolls away naturally
            with it, like ordinary page content, rather than staying
@@ -613,7 +615,7 @@
         <div class="lp-hero-content">
             <h1 class="lp-hero-title">Intimate visual stories</h1>
             <p class="lp-hero-sub">Portraits that feel personal and beautifully authentic.</p>
-
+            <a href="book.html" class="lp-hero-cta">Book a Session &rarr;</a>
         </div>
         <div class="lp-scroll-indicator" aria-hidden="true">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -956,20 +958,55 @@
                     var images = data.images || [];
                     if (!images.length) return;
                     container.style.display = 'block';
+                    // Only the first slide's image is requested at load.
+                    // The rest download one-ahead as the show advances, so
+                    // a full hero never pulls every full-res photo down at
+                    // once (13 images = several MB of transfers the
+                    // visitor may never see).
                     container.innerHTML = images.map(function (img, i) {
-                        return '<div class="lp-hero-slide' + (i === 0 ? ' is-active' : '') + '" style="background-image:url(' + API_BASE + img.imageUrl + ')"></div>';
+                        var bg = i === 0 ? ' background-image:url(' + API_BASE + img.imageUrl + ')' : '';
+                        return '<div class="lp-hero-slide' + (i === 0 ? ' is-active' : '') + '" data-bg="' + API_BASE + img.imageUrl + '" style="' + bg + '"></div>';
                     }).join('');
                     if (images.length < 2) return;
                     var slides = container.querySelectorAll('.lp-hero-slide');
                     var current = 0;
-                    setInterval(function () {
-                        var next = (current + 1) % slides.length;
+                    function activate(next) {
+                        // This slide's image was preloaded during the
+                        // previous cycle — reveal it now.
+                        if (slides[next].dataset.bg) {
+                            slides[next].style.backgroundImage = 'url(' + slides[next].dataset.bg + ')';
+                            delete slides[next].dataset.bg;
+                        }
+                        // Start downloading the slide after next so the
+                        // following crossfade is never a blank frame.
+                        var following = slides[(next + 1) % slides.length];
+                        if (following && following.dataset.bg) {
+                            var warm = new Image();
+                            warm.src = following.dataset.bg;
+                        }
                         flash.classList.add('is-flashing');
                         setTimeout(function () { flash.classList.remove('is-flashing'); }, 90);
                         slides[current].classList.remove('is-active');
                         slides[next].classList.add('is-active');
                         current = next;
-                    }, 2000);
+                    }
+                    // Preload slide 2 up front, and only start rotating
+                    // once it has actually arrived — the first crossfade
+                    // must never fade in an empty frame.
+                    var second = slides[1];
+                    var secondWarm = new Image();
+                    var started = false;
+                    function startRotating() {
+                        if (started) return;
+                        started = true;
+                        setInterval(function () { activate((current + 1) % slides.length); }, 2000);
+                    }
+                    if (second && second.dataset.bg) secondWarm.src = second.dataset.bg;
+                    if (secondWarm.complete) startRotating();
+                    else {
+                        secondWarm.onload = startRotating;
+                        secondWarm.onerror = startRotating;
+                    }
                 })
                 .catch(function (err) { console.error('Could not load hero slideshow:', err); });
         }
@@ -1058,7 +1095,7 @@
             // across page loads (same photo → same tag).
             var BRAND_PATTERN = [null, 'LIBERTY PORTRA', null, 'LIBERTYPICTURES', null, null, 'LIBERTY PORTRA', null, 'LIBERTYPICTURES', null, 'LIBERTY PORTRA', null];
             var thumbsHtml = sample.map(function (item, i) {
-                var url = API_BASE + item.imageUrl;
+                var url = API_BASE + (item.thumbUrl || item.imageUrl);
                 var srcAttr = i < EAGER_THUMBS
                     ? 'src="' + url + '" loading="lazy"'
                     : 'data-src="' + url + '"';
@@ -1073,10 +1110,15 @@
             // feels instant. This is the difference between downloading 1
             // full-res image on page load vs. all N — the reason the strip
             // was slow to become interactive.
+            // No full-res photo starts downloading at page load — even the
+            // first one. The featured section sits below the hero, and
+            // these originals are several MB each; loading them early
+            // steals bandwidth from the hero (the LCP). The observer
+            // below kicks off the first photo + neighbors only as the
+            // section approaches the viewport.
             var mainHtml = sample.map(function (item, i) {
                 var isFirst = i === 0;
-                var srcAttr = isFirst ? 'src="' + API_BASE + item.imageUrl + '" fetchpriority="high"' : 'data-src="' + API_BASE + item.imageUrl + '"';
-                return '<img ' + srcAttr + ' alt="Featured work" class="' + (isFirst ? 'is-active' : '') + '" data-index="' + i + '" decoding="async">';
+                return '<img data-src="' + API_BASE + item.imageUrl + '" alt="Featured work" class="' + (isFirst ? 'is-active' : '') + '" data-index="' + i + '" decoding="async">';
             }).join('');
 
             mobileFeature.innerHTML =
@@ -1115,10 +1157,27 @@
             } else if (pendingThumbs.length) {
                 pendingThumbs.forEach(function (img) { img.src = img.dataset.src; delete img.dataset.src; });
             }
-            // Warm the two neighbors of the first frame so the first click
-            // in either direction is instant.
-            if (sample.length > 1) ensureLoaded(1);
-            if (sample.length > 2) ensureLoaded(sample.length - 1);
+            // Full-res photos download only as the section comes into
+            // view: the first frame plus both neighbors, so the first
+            // click in either direction is still instant. Until then the
+            // thumbnails above are the only images this section pulls.
+            function primeViewer() {
+                ensureLoaded(0);
+                if (sample.length > 1) ensureLoaded(1);
+                if (sample.length > 2) ensureLoaded(sample.length - 1);
+            }
+            if ('IntersectionObserver' in window) {
+                var primeObserver = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (e) {
+                        if (!e.isIntersecting) return;
+                        primeViewer();
+                        primeObserver.disconnect();
+                    });
+                }, { rootMargin: '600px 0px' });
+                primeObserver.observe(mobileFeature);
+            } else {
+                primeViewer();
+            }
 
             // Landscape frames — same behaviour as the gallery film rail:
             // check each thumbnail's real dimensions once it has loaded and
