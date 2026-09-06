@@ -7,8 +7,12 @@
 <meta name="theme-color" content="#0f0c09">
 <link rel="preconnect" href="https://fonts.googleapis.com/">
 <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&family=Outfit:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://liberty-booking-api.visualsliberty.workers.dev" crossorigin>
+<link rel="dns-prefetch" href="https://liberty-booking-api.visualsliberty.workers.dev">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&family=Outfit:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+
 <style>
 :root{--bg:#0f0c09;--surface:#1a1714;--surface2:#232019;--cream:#f6f1e7;--cream-soft:rgba(246,241,231,0.7);--cream-faint:rgba(246,241,231,0.4);--accent:#c4a67e;--accent-deep:#a3835c;--border:rgba(246,241,231,0.12);--gold-glow:rgba(196,166,126,0.25);--strip-surface:#38322b}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -1104,12 +1108,19 @@ function applyLb() {
     if (!lbOrder.length) { currentLbIdx = 0; return; }
     var x = lbOrder[currentLbIdx];
     if (!x) { currentLbIdx = 0; x = lbOrder[0]; }
-    var p = x.p, img = $('lb-img'), url = pUrl(p);
+    var p = x.p, img = $('lb-img'), url = pUrl(p), thumb = pThumb(p);
+    img.alt = p.filename || 'Photo';
+    // Show the (usually cached) thumbnail instantly, then upgrade to the
+    // full-resolution original in the background so stepping never blanks.
     if (img.getAttribute('src') !== url) {
-        img.classList.remove('lb-ready');
-        img.onload = function () { img.classList.add('lb-ready'); };
-        img.src = url;
-        img.alt = p.filename || 'Photo';
+        if (img.getAttribute('src') !== thumb) { img.src = thumb; }
+        if (url !== thumb) {
+            var full = new Image();
+            full.onload = function () {
+                if (lbCur() && lbCur().id === p.id && img.getAttribute('src') !== url) img.src = url;
+            };
+            full.src = url;
+        }
     }
     var totalStr = String(lbOrder.length);
     $('lb-counter').textContent = String(currentLbIdx + 1).padStart(totalStr.length, '0') + ' / ' + totalStr;
@@ -1127,8 +1138,10 @@ function stepLb(dir) {
     currentLbIdx = n; applyLb(); preloadLbNeighbors();
 }
 function preloadLbNeighbors() {
-    if (currentLbIdx > 0) { var a = new Image(); a.src = pUrl(lbOrder[currentLbIdx - 1].p); }
-    if (currentLbIdx < lbOrder.length - 1) { var b = new Image(); b.src = pUrl(lbOrder[currentLbIdx + 1].p); }
+    // Preload neighbours' thumbnails only (fast, usually already cached);
+    // the full-resolution original loads when the viewer shows that photo.
+    if (currentLbIdx > 0) { var a = new Image(); a.src = pThumb(lbOrder[currentLbIdx - 1].p); }
+    if (currentLbIdx < lbOrder.length - 1) { var b = new Image(); b.src = pThumb(lbOrder[currentLbIdx + 1].p); }
 }
 function syncLbChrome() {
     var c = lbPickedCount();
@@ -1276,12 +1289,10 @@ function tapStar(x, y) {
 
 /* ---------- pre-warm ---------- */
 function prewarmLb() {
+    // Only warm the first thumbnail — never download full-resolution
+    // originals until the client actually opens the viewer.
     if (!photos.length) return;
-    lbPicksOnly = false;
-    rebuildLbOrder();
-    if (filmNeedsRebuild()) buildFilmDOM();
-    var n = Math.min(2, lbOrder.length);
-    for (var i = 0; i < n; i++) { var im = new Image(); im.src = pUrl(lbOrder[i].p); }
+    var im = new Image(); im.src = pThumb(photos[0]);
 }
 
 /* ---------- in-viewer guide ---------- */
@@ -1532,8 +1543,19 @@ var saveSelectedClick = async function () {
     } catch (e) { if (e && e.name !== 'AbortError') { try { await zipDl(sel); } catch (e2) {} } }
     btn.disabled = false; btn.textContent = orig;
 };
+function ensureJszip() {
+    if (typeof JSZip !== 'undefined') return Promise.resolve(true);
+    return new Promise(function (res) {
+        var s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+        s.onload = function () { res(true); };
+        s.onerror = function () { res(false); };
+        document.head.appendChild(s);
+    });
+}
 async function zipDl(list) {
-    if (typeof JSZip === 'undefined') { toast('Download tool not loaded \u2014 please refresh'); return; }
+    var loaded = await ensureJszip();
+    if (!loaded) { toast('Could not load the download tool \u2014 please retry'); return; }
     var ov = $('dl-overlay'); ov.classList.add('active');
     $('dl-title').textContent = 'Preparing your finals';
     $('dl-message').textContent = 'Zipping ' + list.length + ' photo' + (list.length === 1 ? '' : 's') + '\u2026';
