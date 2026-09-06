@@ -1023,7 +1023,7 @@ function buildFilmDOM() {
         thumbUrl = pThumb(p);
         brand = BRAND_PATTERN[orig % BRAND_PATTERN.length];
         html.push('<button type="button" class="film-thumb' + (starred[p.id] ? ' is-starred' : '') + (p.orientation === 'landscape' ? ' is-landscape' : '') + (lbFilmNeg() ? ' is-neg' : '') + '" data-id="' + p.id + '" data-pos="' + orig + '" aria-label="View photo ' + (orig + 1) + ' of ' + photos.length + '">' +
-            '<img ' + (i < EAGER ? 'src="' + thumbUrl + '"' : 'data-src="' + thumbUrl + '"') + ' alt="" decoding="async" loading="lazy">' +
+            '<img ' + (i < EAGER ? 'src="' + thumbUrl + '"' : 'data-src="' + thumbUrl + '"') + ' alt="" decoding="async">' +
             '<span class="film-star">' + starSvg(true) + '</span>' +
             '<span class="frame-num">' + (orig + 1) + '</span>' +
             (brand ? '<span class="brand-text">' + brand + '</span>' : '') +
